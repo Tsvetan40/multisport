@@ -1,0 +1,74 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation {
+    background-color: rgba(20, 25, 25, 0.877);
+    padding: 8px;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* common style for navigation buttons*/
+.item {
+    color: #fff;
+    padding: 5px;
+}
+
+.item > span {
+    font-size: 1em;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.item > span:hover {
+    text-decoration: underline;
+}
+
+.item.name {
+    flex: 1;
+}
+
+.fullMenu {
+    display: inline-block;
+}
+
+@media screen and (max-width: 400px) {
+    .item.dissapear {
+        display: none;
+    }
+
+    .menu > span {
+        width: 18px;
+        height: 2px;
+        background-color: #999;
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+    }
+
+    .menu > span::before, .menu > span::after{
+        width: 18px;
+        height: 2px;
+        background-color: #999;
+        content: "";
+        display: inline-block;
+        position: absolute;
+    }
+    
+    .menu > span::before {
+        top: 4px;
+    }
+
+    .menu > span::after {
+        top: -4px;
+    }
+}
