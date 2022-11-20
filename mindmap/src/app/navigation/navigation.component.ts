@@ -15,11 +15,11 @@ export class NavigationComponent implements OnInit{
     this.screenWidth = window.innerWidth;
    
     if (this.screenWidth > 400) {
-      this.isClicked = this.isClicked = true;
+      this.show = this.isClicked = true;
       return;
     }
     
-    this.isClicked = this.isClicked = false;
+    this.show = this.isClicked = false;
   }
 
   chacgeClicked(): void {
