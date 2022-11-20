@@ -10,11 +10,12 @@ export class NavigationComponent implements OnInit{
   public screenWidth!: number;
   public isClicked!: boolean;
   public show!: boolean;
+  private readonly phoneWidth: number = 400; 
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
    
-    if (this.screenWidth > 400) {
+    if (this.screenWidth > this.phoneWidth) {
       this.show = this.isClicked = true;
       return;
     }
@@ -30,7 +31,7 @@ export class NavigationComponent implements OnInit{
     @HostListener('window:resize')
     onResize(): void {
     this.screenWidth = window.innerWidth;
-    if (this.screenWidth > 400) {
+    if (this.screenWidth > this.phoneWidth) {
       this.isClicked = false;
       this.show = true;
       return;
