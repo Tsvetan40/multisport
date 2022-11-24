@@ -11,7 +11,7 @@
     border: none;
     border-radius: 1%;
     background-color: rgb(245, 249, 252);
-    z-index: 1;
+    z-index: 2;
 }
 
 .dialog-open {
@@ -113,4 +113,65 @@ footer > button {
 
 button:hover {
     opacity: 0.6;
+}
+
+/*Mobile view*/
+
+@media screen and (max-width: 400px) {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .popup {
+position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: auto;
+    margin: 0;
+    border-radius: 0;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid teal;
+        width: 92%;
+        margin-top: 20%;
+        padding: 14px;
+        font-size: 35px;
+    }
+
+    #close {
+        font-size: 40px;
+    }
+
+    #content {
+        display: flex;
+        width: auto;
+        gap: 10px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    #content > div {
+        width: 100%;
+    }
+
+    .input {
+        font-size: 30px;
+        width: 95%;
+    }
+
+    footer > button {
+        font-size: 30px;
+        border: 1px solid teal;
+        border-radius: 12px;
+        padding: 8px;
+    }
 }
