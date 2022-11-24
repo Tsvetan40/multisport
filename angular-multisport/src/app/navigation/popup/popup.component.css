@@ -102,6 +102,10 @@ button {
 
 } */
 
+footer {
+    margin-top: 30px;
+}
+
 footer > button {
     font-size: 16px;
     font-weight: 300;
