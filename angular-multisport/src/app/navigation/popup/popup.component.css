@@ -1,4 +1,4 @@
-.pop-up {
+.popup {
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -10,14 +10,22 @@
     z-index: 1;
 }
 
-.pop-up > header {
+.dialog-open {
+    display: inline-block;
+}
+
+.dialog-closed {
+    display: none;   
+}
+
+.popup > header {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid teal;
     padding-bottom: 10px;
 }
 
-.pop-up > header > h2{
+.popup > header > h2{
     margin: 0;
     font-weight: 500;
     color:teal;

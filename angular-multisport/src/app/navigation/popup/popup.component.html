@@ -1,4 +1,4 @@
-<dialog open="true" class="pop-up">
+<dialog class="popup" [ngClass]="{'dialog-open': btnPopup == 'open', 'dialog-closed': btnPopup == 'closed'}">
     <header>
         <h2 id="title">Popup title</h2>
         <button id="close">&times;</button>

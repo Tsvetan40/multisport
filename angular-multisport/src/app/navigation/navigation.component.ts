@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Component, HostListener, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-navigation',
@@ -10,6 +10,7 @@ export class NavigationComponent implements OnInit{
   public screenWidth!: number;
   public isClicked!: boolean;
   public show!: boolean;
+  public popupBtn!: string;
   private readonly phoneWidth: number = 400; 
 
   ngOnInit(): void {
