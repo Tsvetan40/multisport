@@ -1,7 +1,7 @@
 <dialog class="popup" [ngClass]="{'dialog-open': (btnPopup == 'login' || btnPopup == 'singin'), 'dialog-closed': btnPopup == ''}">
     <header>
         <h2 id="title">Popup title</h2>
-        <button id="close">&times;</button>
+        <button id="close" (click)="close()">&times;</button>
     </header>
 
     <section id="content">

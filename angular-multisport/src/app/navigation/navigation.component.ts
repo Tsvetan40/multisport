@@ -53,4 +53,8 @@ export class NavigationComponent implements OnInit{
   setSingIn(): void {
     this.popupBtn = "singin"
   }
+
+  normalise(event: string): void {
+    this.popupBtn = ''
+  }
 }

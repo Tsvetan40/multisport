@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-popup',
@@ -7,5 +7,10 @@ import { Component, Input } from '@angular/core';
 })
 export class PopupComponent {
   @Input() btnPopup:string = '';
+  @Output() eventEmitter = new EventEmitter<string>();
 
+  close(): void {
+    this.btnPopup = ''
+    this.eventEmitter.emit(this.btnPopup);
+  }
 }

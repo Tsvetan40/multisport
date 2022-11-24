@@ -8,5 +8,5 @@
         <li class="item btn"><span (click)="setSingIn()">Sing up</span></li>
         <li class="item menu" (click)="chacgeClicked()"><span></span></li>
     </ul>
-    <app-popup [btnPopup]="popupBtn"></app-popup>
+    <app-popup [btnPopup]="popupBtn" (eventEmitter)="normalise($event)"></app-popup>
 </nav>
