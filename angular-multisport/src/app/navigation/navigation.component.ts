@@ -10,7 +10,7 @@ export class NavigationComponent implements OnInit{
   public screenWidth!: number;
   public isClicked!: boolean;
   public show!: boolean;
-  public popupBtn!: string;
+  public popupBtn: string = '';
   private readonly phoneWidth: number = 400; 
 
   ngOnInit(): void {
@@ -44,5 +44,13 @@ export class NavigationComponent implements OnInit{
     }
 
     this.show = false;
+  }
+
+  setLogin(): void {
+    this.popupBtn = "login"
+  }
+  
+  setSingIn(): void {
+    this.popupBtn = "singin"
   }
 }

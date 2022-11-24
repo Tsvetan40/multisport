@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./popup.component.css']
 })
 export class PopupComponent {
-  btnPopup:string = 'open';
+  @Input() btnPopup:string = '';
 
 }
