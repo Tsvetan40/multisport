@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -22,11 +24,17 @@ public abstract class Center {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NonNull
+    @NotBlank
+    @Size(min = 4, max = 20)
+    @Column(columnDefinition = "VARCHAR(20) NOT NULL")
     private String name;
-    @NonNull
+    @NotBlank
+    @Size(min = 10, max = 40)
+    @Column(columnDefinition = "VARCHAR(40) NOT NULL")
     private String address;
-    @NonNull
+    @NotBlank
+    @Size(min = 4, max = 255)
+    @Column(columnDefinition = "NOT NULL")
     private String description;
 
     @ManyToMany(mappedBy = "centers")
@@ -36,6 +44,7 @@ public abstract class Center {
     private Set<Comment> comments;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rating_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_CENTER_RATING"))
+    @JoinColumn(name = "rating_id", referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "FK_CENTER_RATING"), columnDefinition = "NOT NULL")
     private Rating rating;
 }

@@ -19,10 +19,13 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NonNull
+    @Column(length = 50, nullable = false)
     private String title;
     @NonNull
+    @Column(columnDefinition = "TEXT NOT NULL")
     private String content;
     @NonNull
+    @Column(name = "published_at", columnDefinition = "DATETIME DEFAULT NOW() NOT NULL")
     private LocalDateTime publishedAt;
 
     @OneToMany(mappedBy = "article")

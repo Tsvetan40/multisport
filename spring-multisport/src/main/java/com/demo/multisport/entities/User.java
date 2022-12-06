@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,14 +21,29 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NonNull
+
+    @NotBlank
+    @Size(min = 4, max = 20)
+    @Column(name = "first_name", length = 20, nullable = false)
     private String firstName;
-    @NonNull
+
+    @NotBlank
+    @Size(min = 4, max = 20)
+    @Column(name = "second_name", length = 20, nullable = false)
     private String secondName;
-    @NonNull
+
+    //change later length after hashing
+    @NotBlank
+    @Size(min = 10, max = 40)
+    @Column(length = 40, nullable = false, unique = true)
     private String email;
-    @NonNull
+
+    //change later when hashing same min and max
+    @NotBlank
+    @Size(min = 10, max = 40)
+    @Column(nullable = false, length = 40)
     private String password;
+
     private int age;
 
     @ManyToOne(cascade = CascadeType.ALL)

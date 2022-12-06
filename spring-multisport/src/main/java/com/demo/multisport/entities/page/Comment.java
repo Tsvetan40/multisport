@@ -19,20 +19,25 @@ public class Comment {
     private Long id;
 
     @NonNull
+    @Column(columnDefinition = "VARCHAR(255) NOT NULL")
     private String content;
     @NonNull
+    @Column(columnDefinition = "DATETIME DEFAULT NOW() NOT NULL")
     private LocalDateTime publishedAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_COMMENT_USE"))
     private User user;
 
+    //can be null because a comment can be either for article or center
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "article_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_COMMENT_ARTICLE"))
+    @JoinColumn(name = "article_id", referencedColumnName = "id",
+                foreignKey = @ForeignKey(name = "FK_COMMENT_ARTICLE"))
     private Article article;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "center_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_COMMENT_CENTER"))
+    @JoinColumn(name = "center_id", referencedColumnName = "id",
+                foreignKey = @ForeignKey(name = "FK_COMMENT_CENTER"))
     private Center center;
 
     public Comment(String content, LocalDateTime publishedAt, User user, Article article, Center center) {

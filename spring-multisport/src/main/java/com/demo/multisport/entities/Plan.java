@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -18,8 +21,11 @@ public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NonNull
+    @NotBlank
+    @Size(min = 4)
+    @Column(columnDefinition = "VARCHAR(20) NOT NULL")
     private String name;
+    @Min(10)
     private double price;
 
     @OneToMany(mappedBy = "plan")
@@ -28,8 +34,8 @@ public class Plan {
     @ManyToMany
     @JoinTable(
         name = "plans_centers",
-            joinColumns = @JoinColumn(name = "plan_id"),
-            inverseJoinColumns = @JoinColumn(name = "center_id")
+            joinColumns = @JoinColumn(name = "plan_id", columnDefinition = "NOT NULL"),
+            inverseJoinColumns = @JoinColumn(name = "center_id", columnDefinition = "NOT NULL")
     )
     private Set<Center> centers;
 }
