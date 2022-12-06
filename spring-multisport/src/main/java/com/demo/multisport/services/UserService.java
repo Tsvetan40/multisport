@@ -36,4 +36,8 @@ public class UserService {
     public void deleteAll() {
         userRepository.deleteAll();
     }
+
+    public boolean hasUser(String email) {
+        return this.userRepository.countUserByEmail(email) > 0;
+    }
 }
