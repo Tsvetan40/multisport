@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,4 +35,16 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Comment> comments;
+
+    public User(@NonNull String firstName, @NonNull String secondName,@NonNull String email,@NonNull String password, int age) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.email = email;
+        this.password = password;
+        this.age = age;
+        this.plan = null;
+        this.comments = new HashSet<>();
+    }
+
+
 }
