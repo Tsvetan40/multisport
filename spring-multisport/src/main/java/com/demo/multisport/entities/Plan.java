@@ -34,8 +34,8 @@ public class Plan {
     @ManyToMany
     @JoinTable(
         name = "plans_centers",
-            joinColumns = @JoinColumn(name = "plan_id", columnDefinition = "NOT NULL"),
-            inverseJoinColumns = @JoinColumn(name = "center_id", columnDefinition = "NOT NULL")
+            joinColumns = @JoinColumn(name = "plan_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "center_id", nullable = false)
     )
     private Set<Center> centers;
 }

@@ -25,16 +25,16 @@ public abstract class Center {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank
-    @Size(min = 4, max = 20)
-    @Column(columnDefinition = "VARCHAR(20) NOT NULL")
+//    @Size(min = 4, max = 20)
+    @Column(nullable = false, length = 20)
     private String name;
     @NotBlank
-    @Size(min = 10, max = 40)
-    @Column(columnDefinition = "VARCHAR(40) NOT NULL")
+//    @Size(min = 10, max = 40)
+    @Column(nullable = false, length = 40)
     private String address;
     @NotBlank
-    @Size(min = 4, max = 255)
-    @Column(columnDefinition = "NOT NULL")
+//    @Size(min = 4, max = 255)
+    @Column(nullable = false)
     private String description;
 
     @ManyToMany(mappedBy = "centers")
@@ -45,6 +45,6 @@ public abstract class Center {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "rating_id", referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "FK_CENTER_RATING"), columnDefinition = "NOT NULL")
+            foreignKey = @ForeignKey(name = "FK_CENTER_RATING"))
     private Rating rating;
 }
