@@ -29,23 +29,25 @@ public class UserServiceTest {
 
     @Test
     void saveUserTest() {
-        User user1 = new User("Tsvetan", "Gabrovski", "tsvetan.email@test.com", "password12345", 22);
-        User user2 = new User("Stoyan", "Gabrovski", "stoyan.email@test.com", "123456password", 23);
-        userService.saveUser(user1);
-        userService.saveUser(user2);
-
-        Optional<User> extractUser1 = userService.findUserByEmail("tsvetan.email@test.com");
-        Optional<User> extractUser2 = userService.findUserByEmail("stoyan.email@test.com");
-
-        Assertions.assertTrue(extractUser1.isPresent());
-        Assertions.assertTrue(extractUser2.isPresent());
-
-        var actual = userService.count();
-        Assertions.assertEquals(2, actual, "count of insertions in not 2 " + actual);
-
-        userService.deleteAll();
-        actual = userService.count();
-        Assertions.assertEquals(0, actual, "count of insertions in not " + actual);
+//        User user1 = new User("Tsvetan", "Gabrovski", "tsvetan.email@test.com", "password12345", 22);
+//        User user2 = new User("Stoyan", "Gabrovski", "stoyan.email@test.com", "123456password", 23);
+//
+//        //replace below two methods with registration method
+//        userService.saveUser(user1);
+//        userService.saveUser(user2);
+//
+//        Optional<User> extractUser1 = userService.findUserByEmail("tsvetan.email@test.com");
+//        Optional<User> extractUser2 = userService.findUserByEmail("stoyan.email@test.com");
+//
+//        Assertions.assertTrue(extractUser1.isPresent());
+//        Assertions.assertTrue(extractUser2.isPresent());
+//
+//        var actual = userService.count();
+//        Assertions.assertEquals(2, actual, "count of insertions in not 2 " + actual);
+//
+//        userService.deleteAll();
+//        actual = userService.count();
+//        Assertions.assertEquals(0, actual, "count of insertions in not " + actual);
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.demo.multisport.controllers;
 import com.demo.multisport.dao.UserRepository;
 import com.demo.multisport.entities.User;
 import com.demo.multisport.exceptions.UserDuplicateException;
+import com.demo.multisport.exceptions.UserNotFoundException;
 import com.demo.multisport.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +28,8 @@ public class RegistrationController {
 
         Optional<User> newUser = Optional.empty();
         try {
-            newUser = userService.saveUser(user);
-        } catch (UserDuplicateException e) {
+            newUser = userService.loginUser(user);
+        } catch (UserNotFoundException e) {
             System.out.println("User is null, already exists");
         }
 

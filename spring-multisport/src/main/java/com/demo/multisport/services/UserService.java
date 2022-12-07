@@ -3,6 +3,7 @@ package com.demo.multisport.services;
 import com.demo.multisport.dao.UserRepository;
 import com.demo.multisport.entities.User;
 import com.demo.multisport.exceptions.UserDuplicateException;
+import com.demo.multisport.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +27,15 @@ public class UserService {
         return userRepository.findUserByEmail(email);
     }
 
-    public Optional<User> saveUser(User user) {
-        if (hasUser(user.getEmail())) {
-            throw new UserDuplicateException("user already exists");
+    public Optional<User> loginUser(User user) {
+        if (!hasUser(user.getEmail())) {
+            throw new UserNotFoundException("no such a user");
         }
 
+        return userRepository.findUserByEmail(user.getEmail());
+    }
+
+    private Optional<User> saveUser(User user) {
         return Optional.of(userRepository.save(user));
     }
 
