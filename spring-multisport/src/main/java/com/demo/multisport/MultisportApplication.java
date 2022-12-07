@@ -15,6 +15,7 @@ public class MultisportApplication {
     public static void main(String[] args) {
         SpringApplication.run(MultisportApplication.class, args);
     }
+
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();

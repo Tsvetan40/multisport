@@ -2,6 +2,7 @@ package com.demo.multisport.services;
 
 import com.demo.multisport.dao.UserRepository;
 import com.demo.multisport.entities.User;
+import com.demo.multisport.exceptions.UserDuplicateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,12 @@ public class UserService {
         return userRepository.findUserByEmail(email);
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public Optional<User> saveUser(User user) {
+        if (hasUser(user.getEmail())) {
+            throw new UserDuplicateException("user already exists");
+        }
+
+        return Optional.of(userRepository.save(user));
     }
 
     public long count() {
@@ -37,7 +42,7 @@ public class UserService {
         userRepository.deleteAll();
     }
 
-    public boolean hasUser(String email) {
+    private boolean hasUser(String email) {
         return this.userRepository.countUserByEmail(email) > 0;
     }
 }

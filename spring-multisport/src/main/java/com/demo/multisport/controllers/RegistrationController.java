@@ -2,12 +2,17 @@ package com.demo.multisport.controllers;
 
 import com.demo.multisport.dao.UserRepository;
 import com.demo.multisport.entities.User;
+import com.demo.multisport.exceptions.UserDuplicateException;
 import com.demo.multisport.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
+@RequestMapping("multisport")
 public class RegistrationController {
 
     private UserService userService;
@@ -17,10 +22,16 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    @GetMapping("")
-    public void justTest() {
-        User user = new User("Tsvetan", "Gabrovski", "test@test.com", "password", 23 );
-        System.out.println("hit");
-        userService.saveUser(user);
+    @PostMapping("/login")
+    public ResponseEntity<Optional<User>> login(@RequestBody User user) {
+
+        Optional<User> newUser = Optional.empty();
+        try {
+            newUser = userService.saveUser(user);
+        } catch (UserDuplicateException e) {
+            System.out.println("User is null, already exists");
+        }
+
+        return new ResponseEntity<Optional<User>>(newUser, HttpStatus.OK);
     }
 }
