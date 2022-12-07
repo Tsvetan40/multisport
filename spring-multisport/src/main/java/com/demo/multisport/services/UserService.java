@@ -35,13 +35,18 @@ public class UserService {
         return userRepository.findUserByEmail(user.getEmail());
     }
 
+    public Optional<User> registerUser(User user) {
+        if (hasUser(user.getEmail())) {
+            throw new UserDuplicateException("user with email " + user.getEmail() + " already exist");
+        }
+
+        return Optional.of(userRepository.save(user));
+    }
+
     private Optional<User> saveUser(User user) {
         return Optional.of(userRepository.save(user));
     }
 
-    public long count() {
-        return userRepository.count();
-    }
 
     public void deleteAll() {
         userRepository.deleteAll();

@@ -41,4 +41,20 @@ public class RegistrationController {
 
         return new ResponseEntity<Optional<User>>(newUser, HttpStatus.OK);
     }
+
+    @PostMapping("/newuser")
+    public ResponseEntity<Optional<User>> newUserRegistration(@RequestBody @Valid User user, BindingResult error) {
+        if (error.hasErrors()) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+        }
+
+        Optional<User> newUser = Optional.empty();
+        try {
+            newUser = userService.registerUser(user);
+        } catch (UserDuplicateException ignored) {
+
+        }
+
+        return new ResponseEntity<Optional<User>>(newUser, HttpStatus.OK);
+    }
 }
