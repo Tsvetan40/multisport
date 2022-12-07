@@ -8,8 +8,10 @@ import com.demo.multisport.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -24,7 +26,11 @@ public class RegistrationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Optional<User>> login(@RequestBody User user) {
+    public ResponseEntity<Optional<User>> login(@RequestBody @Valid User user, BindingResult error) {
+
+        if (error.hasErrors()) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+        }
 
         Optional<User> newUser = Optional.empty();
         try {
