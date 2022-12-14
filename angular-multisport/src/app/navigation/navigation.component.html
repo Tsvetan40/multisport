@@ -8,6 +8,6 @@
         <li class="item btn"><span (click)="setSingIn()">Sing up</span></li>
         <li class="item menu" (click)="chacgeClicked()"><span></span></li>
     </ul>
-    <app-registration *ngIf="popupBtn == 'Sing in'" [btnPopup]="popupBtn"  (eventEmitter)="normalise($event)"></app-registration>
+    <app-registration *ngIf="popupBtn == 'Sing in'" [btnRegistrationPopup]="popupBtn"  (registrationEventEmitter)="normalise($event)"></app-registration>
     <app-login *ngIf="popupBtn == 'Login'" [btnLoginPopup]="popupBtn" (loginEventEmitter)="normaliseLogin($event)"></app-login>
 </nav>

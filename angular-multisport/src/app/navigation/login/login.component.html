@@ -3,12 +3,22 @@
         <h2 id="title">Login</h2>
         <button id="close" (click)="close()">&times;</button>
     </header>
+
     <section id="content">
         <form>
             <div>
                 <input type="text" name="email" id="email" class="input" placeholder="email" required email
                 ngModel #myemail="ngModel">
-                <span class="error">Invalid email</span>
+                <span *ngIf="myemail.invalid && myemail.touched" class="error">Invalid email</span>
+            </div>
+            
+            <div>
+                <input type="password" name="password" id="password" placeholder="Password" class="input"
+                required ngModel #mypassword="ngModel">
+                <span *ngIf="mypassword.dirty == true && hasErrorPassword()" class="error">Wrong password</span>
+            </div>
+            <div id="last">
+                <input type="submit" [value]="btnLoginPopup" id="submit">
             </div>
         </form>
     </section>

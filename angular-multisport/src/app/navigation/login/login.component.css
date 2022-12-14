@@ -1,11 +1,105 @@
 .popup {
     width: 50%;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     gap: 20px;
-    margin-top: 3%;
+    margin-top: 5%;
     border: none;
     border-radius: 1%;
     background-color: rgb(245, 249, 252);
     z-index: 2;
+}
+
+.dialog-open {
+    display: inline-block;
+}
+
+.dialog-closed {
+    display: none;   
+}
+
+.popup > header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid teal;
+    padding-bottom: 10px;
+}
+
+.popup > header > h2{
+    margin: 0;
+    font-weight: 500;
+    color:teal;
+}
+
+button {
+    border: none;
+    background: none;
+    font-weight: 600;
+    cursor: pointer;
+    color: teal;
+}
+
+#close {
+    font-size: 20px;
+}
+
+#close:hover {
+    opacity: 0.8;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+#content > form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.input {
+    padding: 5px;
+    border:1px solid skyblue;
+    border-radius: 5px;
+    color: rgb(3, 64, 87);
+    font-weight: 400;
+    font-size: 16px;
+}
+
+
+.input:focus {
+    outline: 2px solid skyblue;
+}
+
+
+.error {
+    color: red;
+}
+
+input.ng-invalid.ng-touched {
+    border: 2px solid red;
+}
+
+#last {
+    display: block ;
+    margin-top: 30px;
+}
+
+div > #submit {
+    width: auto;
+    border: none;
+    background: none;
+    font-weight: 600 !important;
+    cursor: pointer;
+    color: teal;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+#submit:hover {
+    opacity: 0.6;
 }

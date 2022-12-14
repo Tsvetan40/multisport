@@ -48,12 +48,10 @@ export class NavigationComponent implements OnInit{
 
   setLogin(): void {
     this.popupBtn = "Login"
-    console.log('navigation.ts SETLOGIN ' + this.popupBtn)
   }
   
   setSingIn(): void {
     this.popupBtn = "Sing in"
-    console.log('navigation.ts SETSINGIN ' + this.popupBtn)
   }
 
   normalise(event: string): void {

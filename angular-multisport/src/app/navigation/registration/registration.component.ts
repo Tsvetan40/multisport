@@ -9,8 +9,8 @@ import { NgForm  } from '@angular/forms';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent {
-  @Input() btnPopup: string = '';
-  @Output() eventEmitter = new EventEmitter<string>();
+  @Input() btnRegistrationPopup: string = '';
+  @Output() registrationEventEmitter = new EventEmitter<string>();
   @ViewChild('myForm') form!: NgForm
 
   firstName: string = '';
@@ -25,9 +25,8 @@ export class RegistrationComponent {
   constructor(private loginService: LoginService,private patternService: PatternService) {}
 
   close(): void {
-    console.log('registration.ts CLOSE ' + this.btnPopup)
-    this.btnPopup = ''
-    this.eventEmitter.emit(this.btnPopup);
+    this.btnRegistrationPopup = ''
+    this.registrationEventEmitter.emit(this.btnRegistrationPopup);
   }
 
   hasErrorName():boolean {

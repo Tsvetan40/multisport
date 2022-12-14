@@ -114,7 +114,7 @@ div > #submit {
     width: auto;
     border: none;
     background: none;
-    font-weight: 600;
+    font-weight: 600 !important;
     cursor: pointer;
     color: teal;
     font-size: 16px;

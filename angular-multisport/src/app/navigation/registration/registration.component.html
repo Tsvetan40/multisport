@@ -1,4 +1,4 @@
-<dialog class="popup" [ngClass]="{'dialog-open': (btnPopup == 'singin'), 'dialog-closed': btnPopup == ''}">
+<dialog class="popup" [ngClass]="{'dialog-open': (btnRegistrationPopup == 'singin'), 'dialog-closed': btnRegistrationPopup == ''}">
     <header>
         <h2 id="title">Registration</h2>
         <button id="close" (click)="close()">&times;</button>
@@ -49,7 +49,7 @@
             </div>
             
             <div id="last">
-                <input type="submit" [value]="btnPopup" id="submit">
+                <input type="submit" [value]="btnRegistrationPopup" id="submit">
             </div>
         </form>
 
