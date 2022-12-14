@@ -1,14 +1,14 @@
-import { Component, Input, EventEmitter, Output, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { PatternService } from 'src/app/services/pattern.service';
-import { NgForm } from '@angular/forms'
+import { NgForm  } from '@angular/forms';
 
 @Component({
-  selector: 'app-popup',
-  templateUrl: './popup.component.html',
-  styleUrls: ['./popup.component.css']
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
 })
-export class PopupComponent implements OnInit{
+export class RegistrationComponent {
   @Input() btnPopup: string = '';
   @Output() eventEmitter = new EventEmitter<string>();
   @ViewChild('myForm') form!: NgForm

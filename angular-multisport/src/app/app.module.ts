@@ -5,17 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
-import { PopupComponent } from './navigation/popup/popup.component';
 import { LoginService } from './services/login.service';
 import { PatternService } from './services/pattern.service';
 import { FormsModule } from '@angular/forms';
+import { RegistrationComponent } from './navigation/registration/registration.component';
+import { LoginComponent } from './navigation/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     HomeComponent,
-    PopupComponent
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
