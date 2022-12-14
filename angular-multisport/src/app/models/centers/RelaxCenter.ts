@@ -1,4 +1,4 @@
-import { Center } from "./center";
+import { Center } from "./Center";
 
 export class RelaxCenter extends Center {
     private services: string[];

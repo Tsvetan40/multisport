@@ -5,34 +5,39 @@
     </header>
 
     <section id="content">
-        <div [ngStyle]="{display: btnPopup == 'login' ? 'none': 'flex'}">
+        <div [ngStyle]="{display: btnPopup == 'Login' ? 'none': 'flex'}">
             <span class="error">Wrong text</span>    
-            <input type="text" name="first-name" id="first-name" placeholder="First name" class="input">
+            <input type="text" name="first-name" id="first-name" 
+            placeholder="First name" class="input" (change)="firstNameInput($event)">
         </div>
 
-        <div [ngStyle]="{display: btnPopup == 'login' ? 'none': 'flex'}">
+        <div [ngStyle]="{display: btnPopup == 'Login' ? 'none': 'flex'}">
             <span class="error">Wrong text</span>    
-            <input type="text" name="second-name" id="second-name" placeholder="Second name" class="input">
+            <input type="text" name="secondName" id="second-name"
+             placeholder="Second name" class="input" (change)="secondNameInput($event)">
         </div>
 
         <div>
             <span class="error">Wrong text</span>
-            <input type="email" name="email" id="email" placeholder="Email" class="input">
+            <input type="email" name="email" id="email"
+             placeholder="Email" class="input" (change)="emailInput($event)">
         </div>
 
         <div>
             <span class="error">Wrong text</span>
-            <input type="password" name="password" id="password" placeholder="Password" class="input">
+            <input type="password" name="password" id="password"
+             placeholder="Password" class="input" (change)="passwordInput($event)">
         </div>
 
-        <div [ngStyle]="{display: btnPopup == 'login' ? 'none': 'flex'}">
+        <div [ngStyle]="{display: btnPopup == 'Login' ? 'none': 'flex'}">
             <span class="error">Wrong text</span>
-            <input type="number" name="age" id="age" class="input" placeholder="Age">
+            <input type="number" name="age" id="age"
+             class="input" placeholder="Age" (change)="ageInput($event)">
         </div>
 
     </section>
 
     <footer>
-        <button>Submit</button>
+        <button (click)="submit()">{{btnPopup}}</button>
     </footer>
 </dialog>

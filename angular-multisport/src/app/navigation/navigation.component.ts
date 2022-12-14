@@ -47,11 +47,11 @@ export class NavigationComponent implements OnInit{
   }
 
   setLogin(): void {
-    this.popupBtn = "login"
+    this.popupBtn = "Login"
   }
   
   setSingIn(): void {
-    this.popupBtn = "singin"
+    this.popupBtn = "Sing in"
   }
 
   normalise(event: string): void {
