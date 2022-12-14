@@ -1,6 +1,6 @@
 package com.demo.multisport.controllers;
 
-import com.demo.multisport.dao.UserRepository;
+
 import com.demo.multisport.entities.User;
 import com.demo.multisport.exceptions.UserDuplicateException;
 import com.demo.multisport.exceptions.UserNotFoundException;

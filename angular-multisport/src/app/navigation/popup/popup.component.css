@@ -52,14 +52,14 @@ button {
     opacity: 0.8;
 }
 
-#content {
+form {
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 10px;
 }
 
-#content > div {
+#content > form > div {
     display: flex;
     flex-direction: column;
     gap: 3px;
@@ -78,8 +78,9 @@ button {
     outline: 2px solid skyblue;
 }
 
+
 .error {
-    visibility: hidden;
+    color: red;
 }
 
 /* #first-name {
@@ -104,17 +105,28 @@ input::-webkit-inner-spin-button {
     margin: 0;
 } 
 
-footer {
+#last {
+    display: block ;
     margin-top: 30px;
 }
 
-footer > button {
+div > #submit {
+    width: auto;
+    border: none;
+    background: none;
+    font-weight: 600;
+    cursor: pointer;
+    color: teal;
     font-size: 16px;
     font-weight: 300;
 }
 
-button:hover {
+#submit:hover {
     opacity: 0.6;
+}
+
+input.ng-invalid.ng-touched {
+    border: 2px solid red;
 }
 
 /*Mobile view*/

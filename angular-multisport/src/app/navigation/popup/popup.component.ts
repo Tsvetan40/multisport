@@ -1,53 +1,47 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { PatternService } from 'src/app/services/pattern.service';
+import { NgForm } from '@angular/forms'
 
 @Component({
   selector: 'app-popup',
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.css']
 })
-export class PopupComponent {
+export class PopupComponent implements OnInit{
   @Input() btnPopup: string = '';
   @Output() eventEmitter = new EventEmitter<string>();
+  @ViewChild('myForm') form!: NgForm
 
-  private firstName: string = ''
-  private secondName: string = '';
-  private email: string = '';
-  private password: string = '';
-  private age: number = 0;
+  firstName: string = '';
+  secondName: string = ''
+  password: string = '';
+  email: string = '';
+  age!: number;
 
-  constructor(loginService: LoginService) {}
+  ngOnInit(): void {
+  }
+
+  constructor(private loginService: LoginService,private patternService: PatternService) {}
 
   close(): void {
     this.btnPopup = ''
     this.eventEmitter.emit(this.btnPopup);
   }
 
-  firstNameInput(event: any) {
-    this.firstName = event.target.value;
+  hasErrorName():boolean {
+    return this.patternService.hasErrorName(this.firstName)
   }
 
-  secondNameInput(event: any) {
-    this.secondName = event.target.value
+  hasErrorSecondName(): boolean {
+    return this.patternService.hasErrorName(this.secondName)
   }
 
-  emailInput(event: any) {
-    this.email = event.target.value
+  hasErrorPassword(): boolean {
+    return this.patternService.hasErrorPassword(this.password)
   }
 
-  passwordInput(event: any) {
-    this.password = event.target.value
-  }
+  onSubmit() {
 
-  ageInput(event: any) {
-    this.age = event.age.value
-  }
-
-  submit():void {
-    console.log(this.firstName)
-    console.log(this.secondName)
-    console.log(this.email)
-    console.log(this.password)
-    console.log(this.age)
   }
 }
