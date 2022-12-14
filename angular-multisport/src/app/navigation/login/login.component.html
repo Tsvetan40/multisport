@@ -1,1 +1,15 @@
-<p>login works!</p>
+<dialog class="popup" [ngClass]="{'dialog-open': (btnLoginPopup == 'Login'), 'dialog-closed': (btnLoginPopup == '')}">
+    <header>
+        <h2 id="title">Login</h2>
+        <button id="close" (click)="close()">&times;</button>
+    </header>
+    <section id="content">
+        <form>
+            <div>
+                <input type="text" name="email" id="email" class="input" placeholder="email" required email
+                ngModel #myemail="ngModel">
+                <span class="error">Invalid email</span>
+            </div>
+        </form>
+    </section>
+</dialog>

@@ -1,0 +1,11 @@
+.popup {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 3%;
+    border: none;
+    border-radius: 1%;
+    background-color: rgb(245, 249, 252);
+    z-index: 2;
+}

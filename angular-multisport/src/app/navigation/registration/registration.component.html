@@ -1,12 +1,12 @@
-<dialog class="popup" [ngClass]="{'dialog-open': (btnPopup == 'login' || btnPopup == 'singin'), 'dialog-closed': btnPopup == ''}">
+<dialog class="popup" [ngClass]="{'dialog-open': (btnPopup == 'singin'), 'dialog-closed': btnPopup == ''}">
     <header>
-        <h2 id="title">Popup title</h2>
+        <h2 id="title">Registration</h2>
         <button id="close" (click)="close()">&times;</button>
     </header>
 
     <section id="content">
         <form (ngSubmit)="onSubmit()" #myForm="ngForm">
-            <div [ngStyle]="{'display': btnPopup == 'Login'? 'none': 'flex'}">
+            <div>
            
                 <input type="text" name="first-name" id="first-name" placeholder="First name" class="input" 
                 ngModel required #fname="ngModel" [(ngModel)]="firstName">
@@ -18,7 +18,7 @@
                 </span>
             </div>
     
-            <div [ngStyle]="{'display': btnPopup == 'Login'? 'none': 'flex'}">
+            <div>
            
                 <input type="text" name="second-name" id="second-name" placeholder="Second name" class="input"
                   ngModel required #sname="ngModel" [(ngModel)]="secondName">

@@ -25,6 +25,7 @@ export class RegistrationComponent {
   constructor(private loginService: LoginService,private patternService: PatternService) {}
 
   close(): void {
+    console.log('registration.ts CLOSE ' + this.btnPopup)
     this.btnPopup = ''
     this.eventEmitter.emit(this.btnPopup);
   }
