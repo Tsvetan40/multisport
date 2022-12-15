@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.Optional;
 
 @RestController
@@ -26,20 +28,10 @@ public class RegistrationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Optional<User>> login(@RequestBody @Valid User user, BindingResult error) {
+    public ResponseEntity<Optional<User>> login(HttpServletRequest request) {
 
-        if (error.hasErrors()) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
-        }
-
-        Optional<User> newUser = Optional.empty();
-        try {
-            newUser = userService.loginUser(user);
-        } catch (UserNotFoundException e) {
-            System.out.println("User is null, already exists");
-        }
-
-        return new ResponseEntity<Optional<User>>(newUser, HttpStatus.OK);
+        System.out.println("Hit!");
+        return new ResponseEntity<Optional<User>>(Optional.of(new User()), HttpStatus.OK);
     }
 
     @PostMapping("/newuser")
