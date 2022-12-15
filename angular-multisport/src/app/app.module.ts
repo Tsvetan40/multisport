@@ -10,6 +10,7 @@ import { PatternService } from './services/pattern.service';
 import { FormsModule } from '@angular/forms';
 import { RegistrationComponent } from './navigation/registration/registration.component';
 import { LoginComponent } from './navigation/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { LoginComponent } from './navigation/login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [LoginService, PatternService],
   bootstrap: [AppComponent]
