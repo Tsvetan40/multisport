@@ -3,6 +3,9 @@ package com.demo.multisport.entities.page;
 
 import com.demo.multisport.entities.User;
 import com.demo.multisport.entities.center.Center;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -13,9 +16,11 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Table(name = "comments")
 @NoArgsConstructor
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class Comment {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Long id;
 
     @NonNull
@@ -23,6 +28,7 @@ public class Comment {
     private String content;
     @NonNull
     @Column(columnDefinition = "DATETIME DEFAULT NOW() NOT NULL")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY) // maybe not that see if is part of the response
     private LocalDateTime publishedAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
