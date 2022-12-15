@@ -3,7 +3,6 @@ package com.demo.multisport.entities;
 import com.demo.multisport.entities.page.Comment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,9 +44,12 @@ public class User {
 
     //change later when hashing same min and max
     @NotBlank
-    @Size(min = 10, max = 40)
-    @Column(nullable = false, length = 40)
+    @Size(min = 10, max = 26)
+    @Column(nullable = false, length = 26)
     private String password;
+
+
+    private String salt;
 
     private int age;
 
