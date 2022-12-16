@@ -37,17 +37,23 @@ public class User {
     @Column(name = "second_name", length = 20, nullable = false)
     private String secondName;
 
-    //change later length after hashing
+
     @NotBlank
     @Size(min = 10, max = 40)
     @Column(length = 40, nullable = false, unique = true)
     private String email;
 
-    //change later when hashing same min and max
+
     @NotBlank
-    @Size(min = 10, max = 40)
-    @Column(nullable = false, length = 40)
+    @Size(min = 10, max = 26)
+    @Column(columnDefinition = "CHAR(26) NOT NULL")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    @JsonIgnore
+    @Size(min = 10, max = 10)
+    @Column(columnDefinition = "CHAR(10) NOT NULL")
+    private String salt;
 
     private int age;
 
@@ -68,5 +74,14 @@ public class User {
         this.comments = new HashSet<>();
     }
 
+    public User withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public User withPassword(String password) {
+        this.password = password;
+        return  this;
+    }
 
 }
