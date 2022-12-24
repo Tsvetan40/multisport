@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs';
+import { Observable,  } from 'rxjs';
+import { LoggedUser } from '../models/LoggedUser';
 import { User } from '../models/User';
 
 @Injectable({
@@ -12,9 +12,11 @@ export class LoginService {
   
   constructor(private http: HttpClient) { }
 
-  public login(email: string, password: string): Observable<User> {
-    const body = JSON.stringify({ email, password })
-    console.log('body= ' + body)
-    return this.http.post<User>(`${this.url}/login`, body);
+  public login(user: LoggedUser): Observable<LoggedUser> {
+    return this.http.post<LoggedUser>(`${this.url}/login`, user);
+  }
+
+  public registartion(user: User): Observable<User> {
+    return this.http.post<User>(`${this.url}/newuser`, user)
   }
 }

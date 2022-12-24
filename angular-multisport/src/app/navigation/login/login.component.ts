@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { PatternService } from 'src/app/services/pattern.service';
+import { LoggedUser } from 'src/app/models/LoggedUser';
+import { catchError, EMPTY, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,7 @@ export class LoginComponent {
   
   password!: string;
   email!: string;
-
+  errMessage: string  = '';
   constructor(private patternService: PatternService, private LoginService: LoginService) {}
 
   close(): void {
@@ -26,10 +28,18 @@ export class LoginComponent {
   }
 
   onSubmit():void {
-    console.log(this.password + " " + this.email)
-    this.LoginService.login(this.email, this.password).subscribe(
-      user => console.log("hello " + user)
+    const loggedUser = new LoggedUser(this.email, this.password)
+    this.LoginService.login(loggedUser)
+    .pipe(
+      catchError(err => 
+         EMPTY)
+    ).subscribe(
+      (user) => {
+        console.log('user')
+      },
+      (error) => {
+        console.log("subs error= ", error)
+      }
     )
-
   }
 }

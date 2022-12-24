@@ -18,7 +18,7 @@
                 <span *ngIf="mypassword.dirty == true && hasErrorPassword()" class="error">Wrong password</span>
             </div>
             <div id="last">
-                <input type="submit" [value]="btnLoginPopup" id="submit">
+                <input type="submit" [value]="btnLoginPopup" id="submit" [disabled]="!myForm.valid">
             </div>
         </form>
     </section>
