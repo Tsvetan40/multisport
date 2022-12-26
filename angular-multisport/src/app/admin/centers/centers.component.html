@@ -20,19 +20,16 @@
                 <span class="error">Error in description</span>
             </div>
             <div class="inner selcet-pictures">
-                <select name="choose-picture" id="choose" [(ngModel)]="chooseOption">
+                <select name="choose-picture" id="choose">
                     <option default>From computer</option>
                     <option >From browser</option>
                 </select>
                 <div class="picture-wrapper">
-                    <div *ngIf="chooseOption == 'From browser'" class="option-content">
-                        <input type="text" name="url" id="url" placeholder="URL" class="option-input input-field">
-                    </div>
-                    <div *ngIf="chooseOption == 'From computer'" class="option-content">
-                        <input type="file" name="file" id="file" placeholder="File" class="option-input input-field">
+                    <div  class="option-content">
+                        <input type="text" name="url" id="url" placeholder="URL" class="option-input input-field" #picture>
                     </div>
                     <div>
-                        <span id="add-piture">Add picture</span>
+                        <span id="add-piture" (click)="addPictureList(picture.value)">Add picture</span>
                     </div>    
                 </div>
             </div>
@@ -44,6 +41,14 @@
     
     <section class="content" id="pictures">
         <p *ngIf="pictures.length == 0">No pictures yet</p>
-    
+        <div *ngFor="let picture of pictures; index as i;" class="picture-content">
+            <div class="picture-item">
+                <img [src]="picture" alt="Not aveilable" class="img">
+                <span></span>
+            </div>
+            <div class="delete-picture-container">
+                <button (click)="deletePicture(i)">Delete</button>
+            </div>
+        </div>
     </section>
 </main>

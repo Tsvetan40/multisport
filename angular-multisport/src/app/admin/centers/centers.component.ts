@@ -10,5 +10,18 @@ export class CentersComponent {
   address!: string
   description!: string
   pictures: string[] = []
-  chooseOption = "From computer"
+
+  addPictureList(picture: string) {
+    if (!picture) {
+      console.log('display error message')
+      return
+    }
+
+    this.pictures.push(picture)
+  }
+
+  deletePicture(i: number) {
+    console.log(typeof i)
+    this.pictures.splice(i, 1)
+  }
 }
