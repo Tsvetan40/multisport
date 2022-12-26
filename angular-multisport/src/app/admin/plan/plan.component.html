@@ -1,0 +1,39 @@
+<h2>Add plan</h2>
+
+<div class="wrapper">
+    <section id="content">
+        <form id="form" #planForm="ngForm">
+            <div class="content-inner">
+                <input type="text" name="name" id="name" class="input-field" placeholder="Enter name of plan"
+                required ngModel #planName="ngModel" [(ngModel)]="name">
+                <span *ngIf="planName.dirty && planName?.value.length < 4" class="error">
+                    Name must be more than 4 letters
+                </span>
+            </div>
+            <div class="content-inner">
+                <input type="number" name="price" id="price" class="input-field" placeholder="Enter price"
+                required ngModel #fprice="ngModel" [(ngModel)]="price">
+                <span *ngIf="fprice.dirty == true && fprice?.value < 10" class="error">
+                    Price must be greater than 10
+                </span>
+            </div>
+            <div class="content-inner content-centers">
+                <div class="add-center-wrapper">
+                    <input type="text" name="centers" id="centers" class="input-field" placeholder="Enter name of center">
+                    <span id="add-center" (click)="addCenter()">Add Center</span>
+                </div>
+
+                <div class="add-center-wrapper">
+                    <span class="error">Error</span>
+                </div>
+
+            </div>
+            <div class="content-inner">
+                <button id="submit" [disabled]="!planForm.valid">Add plan</button>
+            </div>
+        </form>
+    </section>
+    <section id="list-centers">
+        <p>No senters yet</p>
+    </section>
+</div>

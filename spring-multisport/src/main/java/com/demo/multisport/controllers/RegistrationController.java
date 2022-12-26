@@ -37,29 +37,24 @@ public class RegistrationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody @Valid LoggedUser user, BindingResult bindingResult, HttpSession session) {
-
+    public ResponseEntity<LoggedUser> login(@RequestBody @Valid LoggedUser user, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>((new User().withEmail(user.getEmail()).withPassword(user.getEmail())),
-                                        HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
         }
 
-
+        User loggedUser;
         try {
-            User loggedUser = userService.loginUser(user.getEmail(), user.getPassword());
+            loggedUser = userService.loginUser(user.getEmail(), user.getPassword());
             session.setAttribute("user", loggedUser);
-            return new ResponseEntity<>(loggedUser, HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(new User().withEmail(user.getEmail()).withPassword(user.getEmail()),
-                                        HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
         }
-
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping("/newuser")
     public ResponseEntity<User> newUserRegistration(@RequestBody @Valid User user, BindingResult error, HttpSession session) {
         if (error.hasErrors()) {
-
             return new ResponseEntity<>(new User().withEmail(user.getEmail()).withPassword(user.getPassword()),
                                         HttpStatus.BAD_REQUEST);
         }

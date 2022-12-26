@@ -11,6 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { RegistrationComponent } from './navigation/registration/registration.component';
 import { LoginComponent } from './navigation/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from './admin/admin.component';
+import { ArticleComponent } from './admin/article/article.component';
+import { UserComponent } from './admin/user/user.component';
+import { PlanComponent } from './admin/plan/plan.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { HttpClientModule } from '@angular/common/http';
     NavigationComponent,
     HomeComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    AdminComponent,
+    ArticleComponent,
+    UserComponent,
+    PlanComponent
   ],
   imports: [
     BrowserModule,

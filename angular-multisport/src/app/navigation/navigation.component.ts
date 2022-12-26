@@ -1,4 +1,5 @@
 import { Component, HostListener, Input, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -13,6 +14,8 @@ export class NavigationComponent implements OnInit{
   public show!: boolean
   public popupBtn: string = ''
   private readonly phoneWidth: number = 400
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth
@@ -65,5 +68,11 @@ export class NavigationComponent implements OnInit{
 
   normaliseLogin(event: string): void {
     this.popupBtn = ''
+  }
+
+  goAdmin():void {
+    //now just navigate later check from backend
+    this.router.navigateByUrl("multisport/manageusers")
+
   }
 }

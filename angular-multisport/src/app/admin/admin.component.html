@@ -1,0 +1,13 @@
+<app-navigation></app-navigation>
+
+<header>
+    <ul>
+        <li class="li"><span class="item" (click)="displayUsers()">Users</span></li>
+        <li class="li"><span class="item" (click)="displayArticles()">Articles</span></li>
+        <li class="li"><span class="item" (click)="displayPlans()">Plans</span></li>
+    </ul>
+</header>
+
+<app-plan *ngIf="showPlan"></app-plan>
+<app-article *ngIf="showArticles"></app-article>
+<app-user *ngIf="showUsers"></app-user>
