@@ -23,9 +23,9 @@ h2 {
     flex-grow: 1;
 }
 
-#form {
+/* #form {
 
-}
+} */
 
 .content-inner {
     display: flex;
@@ -34,9 +34,9 @@ h2 {
     padding-top: 10px;
 }
 
-.content-inner.content-centers {
+/* .content-inner.content-centers {
     
-}
+} */
 
 .add-center-wrapper {
     display: flex;
@@ -100,10 +100,10 @@ h2 {
     padding: 3px;
 }
 
-#add-center {
+/* #add-center {
 
 }
 
 .add-center-wrapper {
 
-}
+} */

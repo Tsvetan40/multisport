@@ -1,0 +1,49 @@
+<h2>Add centers</h2>
+
+<main id="wrapper">
+    <section id="content">
+        <form id="form" #centerForm="ngForm">
+            <div class="inner">
+                <input type="text" name="name" id="name" class="input-field"  placeholder="Enter name center"
+                 required ngModel #fCenterName="ngModel" [(ngModel)]="name">
+                <span class="error">Name must be between 4 and 20 letters</span>
+            </div>
+            <div class="inner">
+                <input type="text" name="address" id="address" class="input-field" placeholder="Enter address"
+                required ngModel #fAddress="ngModel" [(ngModel)]="address">
+                <span class="error">Address length must be between 10 and 40</span>
+            </div>
+            <div class="inner">
+                <textarea name="description" id="description" cols="30" rows="10" placeholder="Description"
+                required [(ngModel)]="description">
+                </textarea>
+                <span class="error">Error in description</span>
+            </div>
+            <div class="inner selcet-pictures">
+                <select name="choose-picture" id="choose" [(ngModel)]="chooseOption">
+                    <option default>From computer</option>
+                    <option >From browser</option>
+                </select>
+                <div class="picture-wrapper">
+                    <div *ngIf="chooseOption == 'From browser'" class="option-content">
+                        <input type="text" name="url" id="url" placeholder="URL" class="option-input input-field">
+                    </div>
+                    <div *ngIf="chooseOption == 'From computer'" class="option-content">
+                        <input type="file" name="file" id="file" placeholder="File" class="option-input input-field">
+                    </div>
+                    <div>
+                        <span id="add-piture">Add picture</span>
+                    </div>    
+                </div>
+            </div>
+            <div class="inner last">
+                <button id="submit">Submit center</button>
+            </div>
+        </form>
+    </section>
+    
+    <section class="content" id="pictures">
+        <p *ngIf="pictures.length == 0">No pictures yet</p>
+    
+    </section>
+</main>

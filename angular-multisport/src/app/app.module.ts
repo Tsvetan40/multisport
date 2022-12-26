@@ -15,6 +15,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ArticleComponent } from './admin/article/article.component';
 import { UserComponent } from './admin/user/user.component';
 import { PlanComponent } from './admin/plan/plan.component';
+import { CentersComponent } from './admin/centers/centers.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PlanComponent } from './admin/plan/plan.component';
     AdminComponent,
     ArticleComponent,
     UserComponent,
-    PlanComponent
+    PlanComponent,
+    CentersComponent
   ],
   imports: [
     BrowserModule,

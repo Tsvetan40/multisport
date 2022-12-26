@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper {
+    display: flex;
+}
+
+h2 {
+    padding: 1%;
+    text-align: center;
+}
+
+#content {
+    flex-grow: 2;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 550px;
+}
+
+.input-field {
+    padding: 8px;
+    font-size: 20px;
+    border-radius: 10px;
+    color: #1A1819;
+}
+
+.input-field .outline:focus {
+    outline: 2px solid #545454;
+}
+
+#choose {
+    padding: 3px;
+    font-size: 16px;
+    color: #1A1819;
+    cursor: pointer;
+}
+
+.option-content > input[text] {
+    /* padding: 8px;
+    font-size: 20px;
+    border-radius: 10px;
+    color: #1A1819; */
+}
+
+textarea {
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 10px;
+    resize: none;
+}
+
+textarea:focus {
+    outline: 2px solid #545454;
+}
+
+.error {
+    color: red;
+}
+
+#pictures {
+    flex-grow: 1;
+}
+
+#url {
+    padding: 8px;
+    font-size: 15px;
+    border-radius: 10px;
+    color: #1A1819;
+}
+
+#file {
+    font-size: 16px;
+    padding-left: 0px;
+}
+
+#file:focus {
+    outline: none;
+}
+
+#choose {
+
+}
+
+.option-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+}
+
+.option-input {
+
+}
+
+#add-piture {
+    font-size: 16px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    padding: 7px;
+    border-radius: 10px;
+    background-color: #006F86;
+}
+
+.inner.selcet-pictures {
+
+}
+
+.picture-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+
+.inner.last {
+    display: flex;
+    flex-direction: row;
+}
+
+#submit {
+    font-size: 18px;
+    border: 1px solid #252525;
+    padding: 6px;
+    border-radius: 10px;
+    background-color: #006F86;
+    color: #fff;
+    cursor: pointer;
+}

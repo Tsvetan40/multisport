@@ -9,21 +9,26 @@ export class AdminComponent {
   showPlan: boolean = false
   showArticles: boolean = false
   showUsers: boolean = false
+  showCenters = false
 
 
-
-  displayPlans() {
+  displayPlans(): void {
     this.showPlan = !this.showPlan
-    this.showArticles = this.showUsers = false
+    this.showCenters = this.showArticles = this.showUsers = false
   }
 
-  displayArticles() {
+  displayArticles(): void {
     this.showArticles = !this.showArticles
-    this.showPlan = this.showUsers = false
+    this.showCenters = this.showPlan = this.showUsers = false
   }
   
-  displayUsers() {
+  displayUsers(): void {
     this.showUsers = !this.showUsers
-    this.showArticles = this.showPlan = false
+    this.showCenters = this.showArticles = this.showPlan = false
+  }
+
+  displayCenters(): void {
+    this.showCenters = !this.showCenters;
+    this.showArticles = this.showPlan = this.showUsers = false
   }
 }
