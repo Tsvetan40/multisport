@@ -6,35 +6,46 @@
             <div class="inner">
                 <input type="text" name="name" id="name" class="input-field"  placeholder="Enter name center"
                  required ngModel #fCenterName="ngModel" [(ngModel)]="name">
-                <span class="error">Name must be between 4 and 20 letters</span>
+                <span *ngIf="fCenterName.dirty && (name.length < 4 || name.length > 20)"
+                     class="error">Name must be between 4 and 20 letters</span>
             </div>
             <div class="inner">
                 <input type="text" name="address" id="address" class="input-field" placeholder="Enter address"
                 required ngModel #fAddress="ngModel" [(ngModel)]="address">
-                <span class="error">Address length must be between 10 and 40</span>
+                <span *ngIf="fAddress.dirty && (address.length < 10 || address.length > 40)"
+                 class="error">Address length must be between 10 and 40</span>
             </div>
             <div class="inner">
-                <textarea name="description" id="description" cols="30" rows="10" placeholder="Description"
+                <textarea name="description" id="description" cols="30" rows="15" placeholder="Description"
                 required [(ngModel)]="description">
                 </textarea>
-                <span class="error">Error in description</span>
+                <!-- <span class="error">Error in description</span> -->
             </div>
             <div class="inner selcet-pictures">
-                <select name="choose-picture" id="choose">
-                    <option default>From computer</option>
-                    <option >From browser</option>
-                </select>
                 <div class="picture-wrapper">
                     <div  class="option-content">
                         <input type="text" name="url" id="url" placeholder="URL" class="option-input input-field" #picture>
                     </div>
                     <div>
-                        <span id="add-piture" (click)="addPictureList(picture.value)">Add picture</span>
+                        <span id="add-piture" (click)="addPictureList(picture)">Add picture</span>
                     </div>    
                 </div>
             </div>
+            <div class="inner">
+                <select name="type" id="type" [(ngModel)]="typeCenter">
+                    <option default>Sport Center</option>
+                    <option>Relax Center</option>
+                </select>
+                <div *ngIf="typeCenter == 'Relax Center'" class="relax-description">
+                    <textarea name="relax" id="relax-description" cols="30" rows="10" 
+                    placeholder="Services of relax center" required [(ngModel)]="services">
+
+                    </textarea>
+                </div>
+            </div>
             <div class="inner last">
-                <button id="submit">Submit center</button>
+                <button id="submit" (click)="submit()" 
+                [disabled]="centerForm.invalid || pictures.length == 0">Submit center</button>
             </div>
         </form>
     </section>

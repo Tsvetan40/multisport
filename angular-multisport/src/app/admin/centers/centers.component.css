@@ -12,9 +12,6 @@ h2 {
     text-align: center;
 }
 
-#content {
-
-}
 
 #form {
     display: flex;
@@ -48,12 +45,6 @@ h2 {
     cursor: pointer;
 }
 
-.option-content > input[text] {
-    /* padding: 8px;
-    font-size: 20px;
-    border-radius: 10px;
-    color: #1A1819; */
-}
 
 textarea {
     padding: 5px;
@@ -95,18 +86,10 @@ textarea:focus {
     outline: none;
 }
 
-#choose {
-
-}
-
 .option-content {
     display: flex;
     flex-direction: column;
     flex-grow: 2;
-}
-
-.option-input {
-
 }
 
 #add-piture {
@@ -119,9 +102,6 @@ textarea:focus {
     background-color: #006F86;
 }
 
-.inner.selcet-pictures {
-
-}
 
 .picture-wrapper {
     display: flex;
@@ -153,9 +133,6 @@ textarea:focus {
     padding: 10px;
 }
 
-.delete-picture-container {
-
-}
 
 .delete-picture-container > button {
     border: none;
@@ -172,6 +149,14 @@ textarea:focus {
     height: 140px;
 }
 
-.picture-item {
+#type {
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #252525;
+}
 
+.relax-description {
+    display: flex;
+    flex-direction: column;
 }

@@ -41,7 +41,7 @@ public abstract class Center {
     @Column(nullable = false)
     private String description;
 
-    // store url or path to image
+    // check length
     @NonNull
     @ElementCollection
     private Set<String> pictures;
