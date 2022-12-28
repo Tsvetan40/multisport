@@ -1,0 +1,36 @@
+<h2>Add article</h2>
+
+<main class="outer">
+    <form #articleForm="ngForm">
+        <div class="wrapper">
+            <div class="wrapper-inner">
+                <input type="text" name="title" id="title" class="input-field" placeholder="Add title"
+                required ngModel #ftitle="ngModel" [(ngModel)]="title" minlength="4" maxlength="50">   
+            </div>
+            <div class="wrapper-inner">
+                <span *ngIf="ftitle.dirty && (title.length < 4 || title.length > 50)"
+                class="error">Title must be between 4 and 50 charecters</span>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="wrapper-inner">
+                <input type="text" name="author" id="author" class="input-field" placeholder="author"
+                required ngModel #fauthor="ngModel" [(ngModel)]="author">   
+            </div>
+            <div class="wrapper-inner">
+                <span *ngIf="fauthor.dirty && authorHasErrors()" class="error invalid">Invalid format for author</span>
+                <span class="error not-fount"></span>    
+            </div>
+        </div>
+        <div class="wrapper wrapper-area">
+            <textarea name="text" id="text" cols="100" rows="30" placeholder="Content of article"
+            required ngModel #ftext="ngModel" [(ngModel)]="text"
+            ></textarea>
+        </div>
+        <div class="wrappper">
+            <div class="wrapper-inner">
+                <button id="submit" [disabled]="!articleForm.valid" (click)="submitArticle()">Submit</button>
+            </div>
+        </div>
+    </form>
+</main>

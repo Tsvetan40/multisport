@@ -9,9 +9,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -28,7 +30,7 @@ public abstract class Center {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank
-//    @Size(min = 4, max = 20)
+    @Size(min = 4, max = 20)
     @Column(nullable = false, length = 20)
     private String name;
     @NotBlank
@@ -39,6 +41,11 @@ public abstract class Center {
 //    @Size(min = 4, max = 255)
     @Column(nullable = false)
     private String description;
+
+    // check length
+    @NonNull
+    @ElementCollection
+    private Set<String> pictures;
 
     @ManyToMany(mappedBy = "centers")
     private Set<Plan> plans;

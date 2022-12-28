@@ -1,0 +1,65 @@
+<h2>Add centers</h2>
+
+<main id="wrapper">
+    <section id="content">
+        <form id="form" #centerForm="ngForm">
+            <div class="inner">
+                <input type="text" name="name" id="name" class="input-field"  placeholder="Enter name center"
+                 required ngModel #fCenterName="ngModel" [(ngModel)]="name">
+                <span *ngIf="fCenterName.dirty && (name.length < 4 || name.length > 20)"
+                     class="error">Name must be between 4 and 20 letters</span>
+            </div>
+            <div class="inner">
+                <input type="text" name="address" id="address" class="input-field" placeholder="Enter address"
+                required ngModel #fAddress="ngModel" [(ngModel)]="address">
+                <span *ngIf="fAddress.dirty && (address.length < 10 || address.length > 40)"
+                 class="error">Address length must be between 10 and 40</span>
+            </div>
+            <div class="inner">
+                <textarea name="description" id="description" cols="30" rows="15" placeholder="Description"
+                required [(ngModel)]="description">
+                </textarea>
+                <!-- <span class="error">Error in description</span> -->
+            </div>
+            <div class="inner selcet-pictures">
+                <div class="picture-wrapper">
+                    <div  class="option-content">
+                        <input type="text" name="url" id="url" placeholder="URL" class="option-input input-field" #picture>
+                    </div>
+                    <div>
+                        <span id="add-piture" (click)="addPictureList(picture)">Add picture</span>
+                    </div>    
+                </div>
+            </div>
+            <div class="inner">
+                <select name="type" id="type" [(ngModel)]="typeCenter">
+                    <option default>Sport Center</option>
+                    <option>Relax Center</option>
+                </select>
+                <div *ngIf="typeCenter == 'Relax Center'" class="relax-description">
+                    <textarea name="relax" id="relax-description" cols="30" rows="10" 
+                    placeholder="Services of relax center" required [(ngModel)]="services">
+
+                    </textarea>
+                </div>
+            </div>
+            <div class="inner last">
+                <button id="submit" (click)="submit()" 
+                [disabled]="centerForm.invalid || pictures.length == 0">Submit center</button>
+            </div>
+        </form>
+    </section>
+    
+    <section class="content" id="pictures">
+        <p *ngIf="pictures.length == 0">No pictures yet</p>
+        <div *ngFor="let picture of pictures; index as i;" class="picture-content">
+            <div class="picture-item">
+                <img [src]="picture" alt="Not aveilable" class="img">
+                <span></span>
+            </div>
+            <div class="delete-picture-container">
+                <button (click)="deletePicture(i)">Delete</button>
+            </div>
+        </div>
+    </section>
+</main>

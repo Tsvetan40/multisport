@@ -25,7 +25,7 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank
-    @Size(min = 4)
+    @Size(min = 4, max=20)
     @Column(columnDefinition = "VARCHAR(20) NOT NULL")
     private String name;
     @Min(10)

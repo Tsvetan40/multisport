@@ -49,7 +49,7 @@
             </div>
             
             <div id="last">
-                <input type="submit" [value]="btnRegistrationPopup" id="submit">
+                <input type="submit" [value]="btnRegistrationPopup" id="submit" [disabled]="!myForm.valid">
             </div>
         </form>
 
