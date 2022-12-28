@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-centers',
@@ -12,6 +13,7 @@ export class CentersComponent {
   services!: string 
   typeCenter: string = 'Sport Center'
   pictures: string[] = []
+  @ViewChild('centerForm') centerForm!: NgForm
 
   addPictureList(picture: HTMLInputElement) {
     if (!picture.value) {
@@ -30,10 +32,10 @@ export class CentersComponent {
     this.name = ''
     this.services = ''
     this.description = ''
+    //this.centerForm.reset()
   }
 
   deletePicture(i: number) {
-    console.log(typeof i)
     this.pictures.splice(i, 1)
   }
 }

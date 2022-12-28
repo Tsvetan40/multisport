@@ -6,30 +6,35 @@
             <div class="content-inner">
                 <input type="text" name="name" id="name" class="input-field" placeholder="Enter name of plan"
                 required ngModel #planName="ngModel" [(ngModel)]="name">
-                <span *ngIf="planName.dirty && planName?.value.length < 4" class="error">
+                <span *ngIf="planName.dirty && (name.length < 4 || name.length > 20)" class="error">
                     Name must be more than 4 letters
                 </span>
             </div>
             <div class="content-inner">
                 <input type="number" name="price" id="price" class="input-field" placeholder="Enter price"
                 required ngModel #fprice="ngModel" [(ngModel)]="price">
-                <span *ngIf="fprice.dirty == true && fprice?.value < 10" class="error">
+                <span *ngIf="fprice.dirty == true && price < 10" class="error">
                     Price must be greater than 10
                 </span>
             </div>
             <div class="content-inner content-centers">
                 <div class="add-center-wrapper">
-                    <input type="text" name="centers" id="centers" class="input-field" placeholder="Enter name of center">
-                    <span id="add-center" (click)="addCenter()">Add Center</span>
+                    <input type="text" name="centers" id="centers" class="input-field" placeholder="Enter name of center"
+                    ngModel #centername="ngModel" [(ngModel)]="nameCenter">
+                    <button type="button" id="add-center" (click)="addCenter()" 
+                     [disabled]="disableAddCenterBtn()">Add Center
+                    </button>
                 </div>
 
                 <div class="add-center-wrapper">
-                    <span class="error">Error</span>
+                    <span *ngIf="centerHasErrors()"
+                         class="error">Center name must be between 4 and 20 symbols</span>
                 </div>
 
             </div>
             <div class="content-inner">
-                <button id="submit" [disabled]="!planForm.valid">Add plan</button>
+                <button id="submit" [disabled]="!planForm.valid || centers.length == 0" (click)="submitPlan()">Add plan</button>
+                <span *ngIf="centers.length == 0 && isSubmitTouched" class="error" id="submit-error">You must eneter centers to plan</span>
             </div>
         </form>
     </section>

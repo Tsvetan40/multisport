@@ -13,6 +13,7 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -29,7 +30,7 @@ public abstract class Center {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank
-//    @Size(min = 4, max = 20)
+    @Size(min = 4, max = 20)
     @Column(nullable = false, length = 20)
     private String name;
     @NotBlank

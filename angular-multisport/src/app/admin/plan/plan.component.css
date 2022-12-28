@@ -100,10 +100,12 @@ h2 {
     padding: 3px;
 }
 
-/* #add-center {
-
+#submit-error {
+    display: flex;
+    align-items: center;
 }
 
+/*
 .add-center-wrapper {
 
 } */
