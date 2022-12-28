@@ -21,6 +21,7 @@ ul {
 .item {
     color: #fff;
     padding: 5px;
+    font-family: sans-serif;
 }
 
 .item > span {

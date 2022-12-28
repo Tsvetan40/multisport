@@ -45,6 +45,7 @@ export class RegistrationComponent {
   }
 
   onSubmit() {
+   console.log(this.form.valid)
     const user  = new User(this.firstName, this.secondName, this.email, this.password, this.age)
     //this.loginService.registartion(newUser).subscribe();
     //after successful registartion

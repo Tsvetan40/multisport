@@ -67,6 +67,7 @@ form {
     color: #252525;
     border: 1px solid teal;
     resize: none;
+    font-size: 16px;
 }
 
 .wrapper:nth-child(2) div:last-child {

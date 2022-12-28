@@ -9,7 +9,7 @@ export class PatternService {
   private regexNames: RegExp = new RegExp("^[a-zA-Z]*$")
   private regexPassword: RegExp = new RegExp(/^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{10,16}$/)
   // private regexPlanCenter: RegExp = new RegExp(/^[A-Za-z]([A-Za-z0-9]+){3,}$/)
-  
+  private regexArticleAuthor: RegExp = new RegExp(/^[A-Z][a-z]{3,}\s[A-Z][a-z]{3,}$/)
   constructor() {
   
   }
@@ -38,5 +38,9 @@ export class PatternService {
     }
     
     return center?.length < 4 || center?.length > 20 //has error and disable buttton for adding center
+  }
+
+  hasArticleAuthorErrorFormat(author: string): boolean {
+    return this.regexArticleAuthor.test(author)
   }
 }
