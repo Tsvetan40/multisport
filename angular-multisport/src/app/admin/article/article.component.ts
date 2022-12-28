@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent {
-
+  title!: string
+  author!: string
+  text!: string
 }
