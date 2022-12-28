@@ -39,6 +39,10 @@
         </form>
     </section>
     <section id="list-centers">
-        <p>No senters yet</p>
+        <p *ngIf="centers.length == 0" class="p-info-centers">No centers yet</p>
+        <p *ngIf="centers.length != 0" class="p-info-centers">Go to center:</p>
+        <div id="list-centers-inner" *ngFor="let center of centers">
+            <p class="center-link">{{ center }}</p>
+        </div>
     </section>
 </div>
