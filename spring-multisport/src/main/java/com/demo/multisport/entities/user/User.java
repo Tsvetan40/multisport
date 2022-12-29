@@ -66,8 +66,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Comment> comments;
 
-    @OneToMany(mappedBy = "author")
-    private Set<Article> articles;
+//    @OneToMany(mappedBy = "author")
+//    private Set<Article> articles;
 
     public User(@NonNull String firstName, @NonNull String secondName,@NonNull String email,@NonNull String password, int age) {
         this.firstName = firstName;
