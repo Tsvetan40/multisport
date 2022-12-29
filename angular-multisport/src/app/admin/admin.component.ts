@@ -6,29 +6,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
-  showPlan: boolean = false
-  showArticles: boolean = false
-  showUsers: boolean = false
-  showCenters = false
 
-
+  constructor() {}
+  
   displayPlans(): void {
-    this.showPlan = !this.showPlan
-    this.showCenters = this.showArticles = this.showUsers = false
+
   }
 
   displayArticles(): void {
-    this.showArticles = !this.showArticles
-    this.showCenters = this.showPlan = this.showUsers = false
+
   }
   
   displayUsers(): void {
-    this.showUsers = !this.showUsers
-    this.showCenters = this.showArticles = this.showPlan = false
+
   }
 
   displayCenters(): void {
-    this.showCenters = !this.showCenters;
-    this.showArticles = this.showPlan = this.showUsers = false
+
   }
 }
