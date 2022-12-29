@@ -1,7 +1,7 @@
 package com.demo.multisport.entities.page;
 
 
-import com.demo.multisport.entities.User;
+import com.demo.multisport.entities.user.User;
 import com.demo.multisport.entities.center.Center;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,5 +1,6 @@
-package com.demo.multisport.entities;
+package com.demo.multisport.entities.user;
 
+import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Article;
 import com.demo.multisport.entities.page.Comment;
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,2 +1,4 @@
-package com.demo.multisport.entities.user;public interface IUser {
+package com.demo.multisport.entities.user;
+
+public interface IUser {
 }

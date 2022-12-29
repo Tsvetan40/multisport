@@ -45,15 +45,26 @@ export class RegistrationComponent {
   }
 
   onSubmit() {
-   console.log(this.form.valid)
     const user  = new User(this.firstName, this.secondName, this.email, this.password, this.age)
-    //this.loginService.registartion(newUser).subscribe();
-    //after successful registartion
-    if (this.email.includes('@multisport.com')) {
-      this.isAdminEventEmitter.emit(true)
-    } else {
-      this.isAdminEventEmitter.emit(false)
-    }
+    let responseUser: User
+    this.loginService.registartion(user).subscribe(
+      data => {
+        
+        if (data == null) {
+          return
+        }
+        
+        responseUser = data
+        console.log(responseUser['email'])
+        if (responseUser['email'].includes('@multisport.com')) {
+          this.isAdminEventEmitter.emit(true)
+        } else {
+          this.isAdminEventEmitter.emit(false)
+        }
 
+        this.close()
+      }
+    );
+    
   }
 }

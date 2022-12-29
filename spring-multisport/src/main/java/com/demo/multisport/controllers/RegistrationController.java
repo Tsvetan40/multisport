@@ -1,8 +1,8 @@
 package com.demo.multisport.controllers;
 
 
-import com.demo.multisport.entities.LoggedUser;
-import com.demo.multisport.entities.User;
+import com.demo.multisport.entities.user.LoggedUser;
+import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.UserDuplicateException;
 import com.demo.multisport.exceptions.UserNotFoundException;
 import com.demo.multisport.services.UserService;
@@ -10,24 +10,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("multisport")
-@SessionAttributes("user")
+//@SessionAttributes({"user"})
 @Slf4j
 public class RegistrationController {
 
-    @ModelAttribute
-    public User user() {
-        return new User();
-    }
+//    @ModelAttribute("user")
+//    public User user() {
+//        return new User();
+//    }
 
     private UserService userService;
 
@@ -37,36 +37,47 @@ public class RegistrationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoggedUser> login(@RequestBody @Valid LoggedUser user, BindingResult bindingResult, HttpSession session) {
+    public ResponseEntity<Optional<User>> login(@RequestBody @Valid LoggedUser loggedUser1, BindingResult bindingResult,
+                                                        HttpSession session) {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+            Optional<User> emptyUser = Optional.empty();
+            return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
+        log.info(session.getId());
+        log.info("session= " + ((User)session.getAttribute("user")));
 
-        User loggedUser;
+        User user;
         try {
-            loggedUser = userService.loginUser(user.getEmail(), user.getPassword());
-            session.setAttribute("user", loggedUser);
+            user = userService.loginUser(loggedUser1.getEmail(), loggedUser1.getPassword());
+            if (session.getAttribute("user") == null) {
+                session.setAttribute("user", user);
+            }
+            log.info("Logged info successfully");
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+            Optional<User> emptyUser = Optional.empty();
+            return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
     }
 
     @PostMapping("/newuser")
-    public ResponseEntity<User> newUserRegistration(@RequestBody @Valid User user, BindingResult error, HttpSession session) {
+    public ResponseEntity<Optional<User>> newUserRegistration(@RequestBody @Valid User newUser, BindingResult error,
+                                                               HttpSession session) {
         if (error.hasErrors()) {
-            return new ResponseEntity<>(new User().withEmail(user.getEmail()).withPassword(user.getPassword()),
-                                        HttpStatus.BAD_REQUEST);
+            Optional<User> emptyUser = Optional.empty();
+            return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
 
         User registeredUser;
         try {
-            registeredUser = userService.registerUser(user);
+            registeredUser = userService.registerUser(newUser);
+            log.info("Logged info successfully");
             session.setAttribute("user", registeredUser);
-            return new ResponseEntity<>(registeredUser, HttpStatus.OK);
+            log.info(session.getId());
+            return new ResponseEntity<>(Optional.of(registeredUser), HttpStatus.OK);
         } catch (UserDuplicateException e) {
-            return new ResponseEntity<>(new User().withPassword(user.getPassword()).withEmail(user.getEmail()),
-                    HttpStatus.BAD_REQUEST);
+            Optional<User> emptyUser = Optional.empty();
+            return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
 
     }

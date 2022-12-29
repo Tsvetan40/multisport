@@ -12,7 +12,8 @@ import { catchError, EMPTY, throwError } from 'rxjs';
 export class LoginComponent {
   @Input() btnLoginPopup: string = '';
   @Output() loginEventEmitter = new EventEmitter<string>()
-  
+  @Output() isAdminEventEmitter = new EventEmitter<boolean>()
+
   password!: string;
   email!: string;
   errMessage: string  = '';
@@ -29,17 +30,21 @@ export class LoginComponent {
 
   onSubmit():void {
     const loggedUser = new LoggedUser(this.email, this.password)
-    this.LoginService.login(loggedUser)
-    .pipe(
-      catchError(err => 
-         EMPTY)
-    ).subscribe(
-      (user) => {
-        console.log('user')
-      },
-      (error) => {
-        console.log("subs error= ", error)
+    this.LoginService.login(loggedUser).subscribe(
+      data => {
+        debugger
+        if (data == null) {
+          return
+        }
+        if (data.getEmail().includes('@multisport.com')) {
+          this.isAdminEventEmitter.emit(true)
+        } else {
+          this.isAdminEventEmitter.emit(false)
+        }
+
+        this.close()
       }
     )
+    
   }
 }
