@@ -1,21 +1,21 @@
 package com.demo.multisport.controllers;
 
 
+import com.demo.multisport.entities.Plan;
+import com.demo.multisport.entities.center.Center;
+import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.entities.page.Article;
-import com.demo.multisport.entities.user.LoggedUser;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.ArticleDuplicateException;
+import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.services.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -93,4 +93,36 @@ public class AdminController {
         }
     }
 
+    @DeleteMapping("/centers")
+    public ResponseEntity<Optional<Center>> deleteCenter(@RequestParam(name = "address", required = true) String address,
+                                                         HttpSession session) {
+        //to do authorization
+
+        adminService.deleteCenter(address);
+
+        // to do return optional empty
+        return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/centers")
+    public ResponseEntity<List<Center>> adminGetAllPlans(HttpSession session) {
+        // to do validate session
+
+        return new ResponseEntity<>(adminService.getAllCenters(), HttpStatus.OK);
+    }
+
+    @PostMapping("/centers/newcenter")
+    public ResponseEntity<Optional<Center>> addCenter(@RequestBody @Valid Center center, HttpSession session) {
+
+        //to do session authorization
+        log.info("hit");
+        try {
+            adminService.addCenter(center);
+            return new ResponseEntity<>(Optional.of(center), HttpStatus.OK);
+        } catch (CenterDuplicateException e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }
