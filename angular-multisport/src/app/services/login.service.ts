@@ -21,6 +21,6 @@ export class LoginService {
   }
 
   public manageUsers(): Observable<User> {
-    return this.http.get<User>(`${this.url}/manageusers`, {withCredentials: true})
+    return this.http.get<User>(`${this.url}/admin`, {withCredentials: true})
   }
 }

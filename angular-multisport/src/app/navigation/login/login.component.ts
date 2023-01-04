@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { PatternService } from 'src/app/services/pattern.service';
 import { LoggedUser } from 'src/app/models/LoggedUser';
-import { catchError, EMPTY, throwError } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
@@ -32,11 +32,12 @@ export class LoginComponent {
     const loggedUser = new LoggedUser(this.email, this.password)
     this.LoginService.login(loggedUser).subscribe(
       data => {
-        debugger
         if (data == null) {
           return
         }
-        if (data.getEmail().includes('@multisport.com')) {
+        debugger
+        console.log(data)
+        if (data['email'].includes('@multisport.com')) {
           this.isAdminEventEmitter.emit(true)
         } else {
           this.isAdminEventEmitter.emit(false)

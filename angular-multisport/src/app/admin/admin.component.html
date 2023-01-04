@@ -1,14 +1,15 @@
-<app-navigation></app-navigation>
-
 <header>
-    <ul>
+    <app-navigation></app-navigation>
+    <admin-nav></admin-nav>
+    <!-- <ul>
         <li class="li"><span class="item" (click)="displayUsers()">Users</span></li>
         <li class="li"><span class="item" (click)="displayArticles()">Articles</span></li>
+        when submitting plan should add name and address 
         <li class="li"><span class="item" (click)="displayPlans()">Plans</span></li>
         <li class="li"><span class="item" (click)="displayCenters()">Centers</span> </li>
-    </ul>
+    </ul> -->
 </header>
-
+<router-outlet></router-outlet>
 <!-- <app-plan *ngIf="showPlan"></app-plan>
 <app-article *ngIf="showArticles"></app-article>
 <app-user *ngIf="showUsers"></app-user>

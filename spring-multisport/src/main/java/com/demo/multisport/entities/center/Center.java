@@ -3,16 +3,12 @@ package com.demo.multisport.entities.center;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
 import com.demo.multisport.entities.page.Rating;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -22,28 +18,37 @@ import java.util.Set;
 @Table(name = "centers")
 @NoArgsConstructor
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_ABSENT)
 @JsonIgnoreProperties({"id", "plans"})
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = RelaxCenter.class, name = "relaxCenter"),
+        @JsonSubTypes.Type(value = SportCenter.class, name = "sportCenter")})
 public abstract class Center {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotBlank
+
+    @NotNull
     @Size(min = 4, max = 20)
     @Column(nullable = false, length = 20)
     private String name;
-    @NotBlank
-//    @Size(min = 10, max = 40)
+
+    @NotNull
+    @Size(min = 10, max = 40)
     @Column(nullable = false, length = 40, unique = true)
     private String address;
-    @NotBlank
-//    @Size(min = 4, max = 255)
-    @Column(nullable = false)
+
+    @NotNull
+    @Size(min = 4)
+    @Column(columnDefinition = "TEXT NOT NULL")
     private String description;
 
     // check length
-    @NonNull
+    @NotNull
     @ElementCollection
     private Set<String> pictures;
 
@@ -56,5 +61,13 @@ public abstract class Center {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "rating_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "FK_CENTER_RATING"))
+    @JsonIgnore
     private Rating rating;
+
+    public Center(String name, String address, String description, Set<String> pictures) {
+        this.name = name;
+        this.address = address;
+        this.description = description;
+        this.pictures = pictures;
+    }
 }

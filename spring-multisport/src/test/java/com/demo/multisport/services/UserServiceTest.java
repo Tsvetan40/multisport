@@ -17,7 +17,7 @@ public class UserServiceTest {
 
     @AfterEach
     void deleteTableContent() {
-       userService.deleteAll();
+       userService.deleteAllUsers();
     }
 
     @Test
