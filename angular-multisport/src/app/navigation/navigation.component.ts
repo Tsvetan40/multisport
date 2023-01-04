@@ -79,7 +79,7 @@ export class NavigationComponent implements OnInit{
         if (data == null) {
           return
         }
-        this.router.navigateByUrl("multisport/manageusers")
+        this.router.navigateByUrl("multisport/admin")
       }
     )
 
