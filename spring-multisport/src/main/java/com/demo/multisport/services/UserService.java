@@ -1,7 +1,7 @@
 package com.demo.multisport.services;
 
 import com.demo.multisport.dao.UserRepository;
-import com.demo.multisport.entities.User;
+import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.UserDuplicateException;
 import com.demo.multisport.exceptions.UserNotFoundException;
 import com.demo.multisport.services.impl.PasswordHashService;
@@ -9,7 +9,6 @@ import com.demo.multisport.services.impl.SaltGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service

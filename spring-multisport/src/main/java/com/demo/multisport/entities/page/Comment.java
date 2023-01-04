@@ -1,7 +1,7 @@
 package com.demo.multisport.entities.page;
 
 
-import com.demo.multisport.entities.User;
+import com.demo.multisport.entities.user.User;
 import com.demo.multisport.entities.center.Center;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -32,7 +32,8 @@ public class Comment {
     private LocalDateTime publishedAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_COMMENT_USE"))
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false,
+                foreignKey = @ForeignKey(name = "FK_COMMENT_USER"))
     private User user;
 
     //can be null because a comment can be either for article or center
@@ -56,7 +57,7 @@ public class Comment {
         this.center = center;
         this.article = article;
 
-        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy HH;:mm");
+        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd.MM.yyyy HH::mm");
         this.publishedAt = LocalDateTime.parse(formatter.format(publishedAt));
     }
 
@@ -70,7 +71,7 @@ public class Comment {
         this.center = center;
         this.article = article;
 
-        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy HH;:mm");
+        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd.MM.yyyy HH::mm");
         this.publishedAt = LocalDateTime.parse(formatter.format(LocalDateTime.now()));
     }
 }

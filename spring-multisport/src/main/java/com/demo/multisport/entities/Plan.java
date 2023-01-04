@@ -1,13 +1,11 @@
 package com.demo.multisport.entities;
 
 import com.demo.multisport.entities.center.Center;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.demo.multisport.entities.user.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;

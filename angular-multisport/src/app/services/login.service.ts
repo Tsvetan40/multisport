@@ -13,10 +13,14 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   public login(user: LoggedUser): Observable<LoggedUser> {
-    return this.http.post<LoggedUser>(`${this.url}/login`, user);
+    return this.http.post<LoggedUser>(`${this.url}/login`, user, {withCredentials: true});
   }
 
   public registartion(user: User): Observable<User> {
-    return this.http.post<User>(`${this.url}/newuser`, user)
+    return this.http.post<User>(`${this.url}/newuser`, user, {withCredentials: true})
+  }
+
+  public manageUsers(): Observable<User> {
+    return this.http.get<User>(`${this.url}/manageusers`, {withCredentials: true})
   }
 }

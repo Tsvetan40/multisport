@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: "multisport", component: HomeComponent },
-  { path: "multisport/manageusers", component: AdminComponent }
+  { path: "multisport/admin", component: AdminComponent }
 ];
 
 @NgModule({
