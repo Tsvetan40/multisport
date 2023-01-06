@@ -39,7 +39,7 @@
                 <input type="password" name="password" id="password" class="input" placeholder="Password" ngModel required
                 #mypassword="ngModel" [(ngModel)]="password">
                 <span *ngIf="mypassword.dirty == true && hasErrorPassword()" class="error">
-                    Password must be at least 8 symbols, at least 1 number, at least one special symbol and a capital letter
+                    Password must be at least 8 symbols, at least 3 numbers, at least one special symbol and a capital letter
                 </span>
             </div>
 
