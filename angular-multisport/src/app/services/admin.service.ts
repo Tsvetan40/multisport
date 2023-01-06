@@ -1,6 +1,8 @@
+import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Article } from '../models/page/Article';
 import { User } from '../models/User';
 
 @Injectable({
@@ -24,5 +26,9 @@ export class AdminService {
 
   setUser(user: User): void {
     this.user = user
+  }
+
+  saveArticle(article: Article): Observable<Article> {
+    return this.http.post<Article>(`${this.url}/articles/newarticle`, article, { withCredentials: true })
   }
 }

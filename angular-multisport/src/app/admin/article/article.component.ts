@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { PatternService } from 'src/app/services/pattern.service';
+import { Router } from '@angular/router';
+import { Article } from 'src/app/models/page/Article';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-article',
@@ -8,20 +10,29 @@ import { PatternService } from 'src/app/services/pattern.service';
 })
 export class ArticleComponent {
   title!: string
-  author!: string
   text!: string
+  errorMessage!: string 
 
-  constructor(private patternService: PatternService) {}
-
-  authorHasErrors(): boolean {
-    return !this.patternService.hasArticleAuthorErrorFormat(this.author)
-  }
+  constructor(private adminService: AdminService, private router: Router) {}
 
   submitArticle(): void {
-    //check this validation for later and in other components
-    if ( this.authorHasErrors() ) {
-      return
-    }
+  
+    this.adminService.saveArticle(new Article(this.title, this.text)).subscribe(
+      (data) => {
+        //to do
+        this.errorMessage = ''
+        alert('saved article!')
+      },
+      (error) => {
+        if (error['status'] == 400) {
+          this.errorMessage = "Article title already exists"
+        } else if (error['status'] == 401) {
+          this.router.navigate(['/multisport'])
+        }
+        console.log(error['status'])
+      }
+      )
 
   }
+
 }

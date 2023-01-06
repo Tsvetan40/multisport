@@ -41,12 +41,6 @@ public class Article {
     @JsonIgnore
     private LocalDateTime publishedAt;
 
-//    @NotBlank()
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "author",  referencedColumnName = "id", nullable = false,
-//                foreignKey = @ForeignKey(name = "FK_ARTICLE_USER"))
-//    private User author;
-
     @OneToMany(mappedBy = "article")
     private Set<Comment> comments;
 
