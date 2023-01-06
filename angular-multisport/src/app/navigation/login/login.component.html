@@ -15,7 +15,12 @@
             <div>
                 <input type="password" name="password" id="password" placeholder="Password" class="input"
                 required ngModel #mypassword="ngModel" [(ngModel)]="password">
-                <span *ngIf="mypassword.dirty == true && hasErrorPassword()" class="error">Wrong password</span>
+                <span *ngIf="mypassword.dirty == true && hasErrorPassword()" class="error">
+                    Password must be at least 8 symbols, at least 1 number, at least one special symbol and a capital letter
+                </span>
+            </div>
+            <div [ngStyle]="{'display': hasLoginError ? 'block' : 'none'}">
+                <span class="error">User not found</span>
             </div>
             <div id="last">
                 <input type="submit" [value]="btnLoginPopup" id="submit" [disabled]="!myForm.valid">

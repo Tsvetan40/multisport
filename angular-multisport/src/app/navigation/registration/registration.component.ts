@@ -15,7 +15,7 @@ export class RegistrationComponent {
   @Output() isAdminEventEmitter = new EventEmitter<boolean>()
   @ViewChild('myForm') form!: NgForm
 
-
+  hasAuthenticationError: boolean = false
   firstName: string = '';
   secondName: string = ''
   password: string = '';
@@ -46,23 +46,20 @@ export class RegistrationComponent {
 
   onSubmit() {
     const user  = new User(this.firstName, this.secondName, this.email, this.password, this.age)
-    let responseUser: User
-    debugger
+    
     this.authService.registartion(user).subscribe(
       data => {
         debugger
         if (data == null) {
+          this.hasAuthenticationError = true
           return
-        }
-      
-        responseUser = data
-      
-        if (responseUser['email'].includes('@multisport.com')) {
+        } else if (data['email'].includes('@multisport.com')) {
           this.isAdminEventEmitter.emit(true)
         } else {
           this.isAdminEventEmitter.emit(false)
         }
 
+        this.hasAuthenticationError = false
         this.close()
       }
     );

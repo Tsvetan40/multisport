@@ -11,7 +11,7 @@
         <li class="item dissapear" [ngStyle]="{display: show ? 'inline-block' : 'none'}"><span>Plans</span></li>
         <li class="item btn"><span (click)="setLogin()" >Login</span></li>
         <li class="item btn"><span (click)="setSingIn()">Sing up</span></li>
-        <li class="item"><span (click)="logout()">Logout</span></li>
+        <li class="item"><span (click)="logout()" routerLink="/multisport">Logout</span></li>
         <li class="item menu" (click)="chacgeClicked()"><span></span></li>
     </ul>
     <app-registration *ngIf="popupBtn == 'Sing in'" [btnRegistrationPopup]="popupBtn"

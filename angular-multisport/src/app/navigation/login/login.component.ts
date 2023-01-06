@@ -14,6 +14,7 @@ export class LoginComponent {
   @Output() loginEventEmitter = new EventEmitter<string>()
   @Output() isAdminEventEmitter = new EventEmitter<boolean>()
 
+  hasLoginError: boolean = false
   password!: string;
   email!: string;
   errMessage: string  = '';
@@ -33,6 +34,7 @@ export class LoginComponent {
     this.LoginService.login(loggedUser).subscribe(
       data => {
         if (data == null) {
+          this.hasLoginError = true
           return
         }
         console.log(data)
@@ -41,7 +43,7 @@ export class LoginComponent {
         } else {
           this.isAdminEventEmitter.emit(false)
         }
-
+        this.hasLoginError = false
         this.close()
       }
     )

@@ -23,7 +23,7 @@
                 <input type="text" name="second-name" id="second-name" placeholder="Second name" class="input"
                   ngModel required #sname="ngModel" [(ngModel)]="secondName">
                 <span *ngIf="sname.dirty == true && (sname.value.length < 4 || sname.value.length > 16)" class="error">
-                    Second name must be from 4 yo 16 letters
+                    Second name must be from 4 to 16 letters
                 </span>
                 <span *ngIf="sname.dirty && hasErrorSecondName()" class="error">Letters only</span>
                 
@@ -38,7 +38,9 @@
             <div>
                 <input type="password" name="password" id="password" class="input" placeholder="Password" ngModel required
                 #mypassword="ngModel" [(ngModel)]="password">
-                <span *ngIf="mypassword.dirty == true && hasErrorPassword()" class="error">Wrong password</span>
+                <span *ngIf="mypassword.dirty == true && hasErrorPassword()" class="error">
+                    Password must be at least 8 symbols, at least 1 number, at least one special symbol and a capital letter
+                </span>
             </div>
 
             <div>
@@ -47,7 +49,9 @@
                 <span *ngIf="myage.dirty == true && myage?.value < 16 || myage?.value > 100" class="error">
                     Age must be between 16 and 100</span>
             </div>
-            
+            <div [ngStyle]="{'display': hasAuthenticationError ? 'block' : 'none'}">
+                <span class="error">Email already persisted, please try another email</span>
+            </div>
             <div id="last">
                 <input type="submit" [value]="btnRegistrationPopup" id="submit" [disabled]="!myForm.valid">
             </div>
