@@ -53,9 +53,9 @@ export class RegistrationComponent {
         if (data == null) {
           return
         }
-        
+      
         responseUser = data
-        console.log(responseUser['email'])
+      
         if (responseUser['email'].includes('@multisport.com')) {
           this.isAdminEventEmitter.emit(true)
         } else {

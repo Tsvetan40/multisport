@@ -34,7 +34,7 @@ public class AdminController {
 
 
 
-    @GetMapping("")
+    @PostMapping("")
     public ResponseEntity<Optional<User>> manageUsersAdmin(HttpSession session) {
         User user = (User) session.getAttribute("user");
 

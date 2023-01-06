@@ -10,12 +10,12 @@ import { AdminServiceService } from '../services/admin-service.service';
 export class AdminComponent implements OnInit{
   
   user!: User
-  
+
   constructor(private adminService: AdminServiceService) {}
   
   ngOnInit(): void {
-    console.log("OnInit") 
-    this.user = this.adminService.getUser();
+    this.user = this.adminService.getUser()
+    console.log(this.user)
   }
 
 }

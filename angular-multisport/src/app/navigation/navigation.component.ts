@@ -17,7 +17,6 @@ export class NavigationComponent implements OnInit{
   public popupBtn: string = ''
   private readonly phoneWidth: number = 400
 
-  constructor(private router: Router, private loginService: LoginService, private adminService: AdminServiceService) {}
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth
@@ -72,16 +71,4 @@ export class NavigationComponent implements OnInit{
     this.popupBtn = ''
   }
 
-  goAdmin():void {
-
-    this.adminService.admin().subscribe(
-      data => {
-        if (data == null) {
-          return
-        }
-        this.router.navigateByUrl("multisport/admin")
-      }
-    )
-
-  }
 }
