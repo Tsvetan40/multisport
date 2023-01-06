@@ -1,5 +1,6 @@
 import { Component, HostListener, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminServiceService } from '../services/admin-service.service';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class NavigationComponent implements OnInit{
   public popupBtn: string = ''
   private readonly phoneWidth: number = 400
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(private router: Router, private loginService: LoginService, private adminService: AdminServiceService) {}
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth
@@ -72,10 +73,9 @@ export class NavigationComponent implements OnInit{
   }
 
   goAdmin():void {
-    //now just navigate later check from backend
-    this.loginService.manageUsers().subscribe(
+
+    this.adminService.admin().subscribe(
       data => {
-        debugger
         if (data == null) {
           return
         }

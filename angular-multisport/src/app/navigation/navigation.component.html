@@ -12,5 +12,6 @@
     <app-registration *ngIf="popupBtn == 'Sing in'" [btnRegistrationPopup]="popupBtn"
       (registrationEventEmitter)="normalise($event)" (isAdminEventEmitter)="setUserRole($event)">
     </app-registration>
-    <app-login *ngIf="popupBtn == 'Login'" [btnLoginPopup]="popupBtn" (loginEventEmitter)="normaliseLogin($event)"></app-login>
+    <app-login *ngIf="popupBtn == 'Login'" [btnLoginPopup]="popupBtn"
+     (loginEventEmitter)="normaliseLogin($event)" (isAdminEventEmitter)="setUserRole($event)"></app-login>
 </nav>

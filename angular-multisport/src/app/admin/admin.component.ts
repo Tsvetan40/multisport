@@ -1,27 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../models/User';
+import { AdminServiceService } from '../services/admin-service.service';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent {
-
-  constructor() {}
+export class AdminComponent implements OnInit{
   
-  displayPlans(): void {
-
-  }
-
-  displayArticles(): void {
-
-  }
+  user!: User
   
-  displayUsers(): void {
-
+  constructor(private adminService: AdminServiceService) {}
+  
+  ngOnInit(): void {
+    console.log("OnInit") 
+    this.user = this.adminService.getUser();
   }
 
-  displayCenters(): void {
-
-  }
 }

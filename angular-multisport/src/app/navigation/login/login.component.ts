@@ -35,7 +35,6 @@ export class LoginComponent {
         if (data == null) {
           return
         }
-        debugger
         console.log(data)
         if (data['email'].includes('@multisport.com')) {
           this.isAdminEventEmitter.emit(true)
