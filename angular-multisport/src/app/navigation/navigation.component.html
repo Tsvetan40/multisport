@@ -1,6 +1,8 @@
 <nav class="navigation">
     <ul>
-        <li class="item name"><span>MULTISPORT</span></li>
+        <li class="item name" routerLink="/multisport">
+          <span>MULTISPORT</span>
+        </li>
         <li class="item" [ngStyle]="{display: isAdmin ? 'inline-block' : 'none'}" routerLink="/multisport/admin">
           <span>Admin</span>
         </li>
@@ -9,6 +11,7 @@
         <li class="item dissapear" [ngStyle]="{display: show ? 'inline-block' : 'none'}"><span>Plans</span></li>
         <li class="item btn"><span (click)="setLogin()" >Login</span></li>
         <li class="item btn"><span (click)="setSingIn()">Sing up</span></li>
+        <li class="item"><span (click)="logout()">Logout</span></li>
         <li class="item menu" (click)="chacgeClicked()"><span></span></li>
     </ul>
     <app-registration *ngIf="popupBtn == 'Sing in'" [btnRegistrationPopup]="popupBtn"

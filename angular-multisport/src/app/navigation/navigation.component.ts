@@ -1,7 +1,5 @@
 import { Component, HostListener, Input, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import { AdminServiceService } from '../services/admin-service.service';
-import { LoginService } from '../services/login.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-navigation',
@@ -17,8 +15,22 @@ export class NavigationComponent implements OnInit{
   public popupBtn: string = ''
   private readonly phoneWidth: number = 400
 
+  constructor(private authService: AuthenticationService) {}
 
   ngOnInit(): void {
+
+    this.authService.checkSession().subscribe(
+      (data) => {
+        if (data == null) {
+          this.isAdmin = false
+        } else if (data['email'].includes("@multisport.com")){
+          this.isAdmin = true
+        } else {
+          this.isAdmin = false
+        }
+      }
+    )
+
     this.screenWidth = window.innerWidth
    
     if (this.screenWidth > this.phoneWidth) {
@@ -69,6 +81,11 @@ export class NavigationComponent implements OnInit{
 
   normaliseLogin(event: string): void {
     this.popupBtn = ''
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe()
+    this.isAdmin = false
   }
 
 }

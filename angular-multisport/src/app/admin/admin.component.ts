@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/User';
-import { AdminServiceService } from '../services/admin-service.service';
+import { AdminService } from '../services/admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,7 +11,7 @@ export class AdminComponent implements OnInit{
   
   user!: User
 
-  constructor(private adminService: AdminServiceService) {}
+  constructor(private adminService: AdminService) {}
   
   ngOnInit(): void {
     this.user = this.adminService.getUser()

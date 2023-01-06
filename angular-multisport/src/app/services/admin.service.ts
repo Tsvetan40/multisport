@@ -6,7 +6,7 @@ import { User } from '../models/User';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminServiceService {
+export class AdminService {
 
   private readonly url: string = "http://localhost:8080/multisport/admin"
   private user!: User

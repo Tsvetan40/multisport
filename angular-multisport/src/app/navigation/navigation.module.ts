@@ -6,7 +6,7 @@ import { NavigationComponent } from './navigation.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PatternService } from '../services/pattern.service';
-import { LoginService } from '../services/login.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 
@@ -29,6 +29,6 @@ import { LoginService } from '../services/login.service';
     CommonModule,
     RouterModule
   ],
-  providers: [LoginService, PatternService]
+  providers: [AuthenticationService, PatternService]
 })
 export class NavigationModule { }

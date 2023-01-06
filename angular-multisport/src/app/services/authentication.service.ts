@@ -7,7 +7,7 @@ import { User } from '../models/User';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class AuthenticationService {
   readonly url: string = "http://localhost:8080/multisport"
   
   constructor(private http: HttpClient) { }
@@ -17,7 +17,15 @@ export class LoginService {
   }
 
   public registartion(user: User): Observable<User> {
+    debugger
     return this.http.post<User>(`${this.url}/newuser`, user, {withCredentials: true})
   }
 
+  public logout(): Observable<User> {
+    return this.http.post<User>(`${this.url}/logout`, {}, { withCredentials:true })
+  }
+
+  public checkSession(): Observable<User> {
+    return this.http.post<User>(this.url, {}, { withCredentials: true })
+  }
 }

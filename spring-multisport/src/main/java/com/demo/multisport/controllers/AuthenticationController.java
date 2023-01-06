@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,21 +19,16 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("multisport")
-//@SessionAttributes({"user"})
 @Slf4j
-public class RegistrationController {
-
-//    @ModelAttribute("user")
-//    public User user() {
-//        return new User();
-//    }
+public class AuthenticationController {
 
     private UserService userService;
 
     @Autowired
-    public RegistrationController(UserService userService) {
+    public AuthenticationController(UserService userService) {
         this.userService = userService;
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<Optional<User>> login(@RequestBody @Valid LoggedUser loggedUser1, BindingResult bindingResult,
@@ -53,11 +47,12 @@ public class RegistrationController {
                 session.setAttribute("user", user);
             }
             log.info("Logged info successfully");
+            session.setMaxInactiveInterval(60*10);
+            return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             Optional<User> emptyUser = Optional.empty();
             return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
-        return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
     }
 
     @PostMapping("/newuser")
@@ -74,12 +69,33 @@ public class RegistrationController {
             log.info("Logged info successfully");
             session.setAttribute("user", registeredUser);
             log.info(session.getId());
+            session.setMaxInactiveInterval(60*10);
             return new ResponseEntity<>(Optional.of(registeredUser), HttpStatus.OK);
         } catch (UserDuplicateException e) {
             Optional<User> emptyUser = Optional.empty();
             return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
 
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Optional<User>> logout(HttpSession session) {
+        Optional<User> user = Optional.empty();
+        if (session.getAttribute("user") != null) {
+            user = Optional.of((User)session.getAttribute("user"));
+        }
+        session.invalidate();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Optional<User>> authentication(HttpSession session) {
+        log.info("Hit check if has session");
+        if (session.getAttribute("user") != null) {
+            return new ResponseEntity<>(Optional.of((User)session.getAttribute("user")), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
     }
 
 }

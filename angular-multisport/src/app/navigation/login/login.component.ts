@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { LoginService } from 'src/app/services/login.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PatternService } from 'src/app/services/pattern.service';
 import { LoggedUser } from 'src/app/models/LoggedUser';
 
@@ -17,7 +17,7 @@ export class LoginComponent {
   password!: string;
   email!: string;
   errMessage: string  = '';
-  constructor(private patternService: PatternService, private LoginService: LoginService) {}
+  constructor(private patternService: PatternService, private LoginService: AuthenticationService) {}
 
   close(): void {
     this.btnLoginPopup = ''

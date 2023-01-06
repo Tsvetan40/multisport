@@ -1,5 +1,5 @@
 import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
-import { LoginService } from 'src/app/services/login.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PatternService } from 'src/app/services/pattern.service';
 import { NgForm  } from '@angular/forms';
 import { User } from 'src/app/models/User';
@@ -25,7 +25,7 @@ export class RegistrationComponent {
   ngOnInit(): void {
   }
 
-  constructor(private loginService: LoginService,private patternService: PatternService) {}
+  constructor(private authService: AuthenticationService,private patternService: PatternService) {}
 
   close(): void {
     this.btnRegistrationPopup = ''
@@ -47,9 +47,10 @@ export class RegistrationComponent {
   onSubmit() {
     const user  = new User(this.firstName, this.secondName, this.email, this.password, this.age)
     let responseUser: User
-    this.loginService.registartion(user).subscribe(
+    debugger
+    this.authService.registartion(user).subscribe(
       data => {
-        
+        debugger
         if (data == null) {
           return
         }
