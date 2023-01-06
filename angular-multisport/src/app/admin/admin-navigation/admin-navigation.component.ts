@@ -10,10 +10,6 @@ export class AdminNavigationComponent {
 
   constructor(private router: Router) {}
 
-  displayUsers(): void {
-    this.router.navigate(['multisport/admin/users'])
-  }
-
   displayArticles(): void {
     this.router.navigate(['multisport/admin/articles'])
   }

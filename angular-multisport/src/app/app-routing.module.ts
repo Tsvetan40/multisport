@@ -10,7 +10,7 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: "multisport", component: HomeComponent },
-  { path: "multisport/admin", component: AdminComponent , canActivate: [AdminGuard],  children : [
+  { path: "multisport/admin", component: AdminComponent , canActivate: [AdminGuard], canActivateChild: [AdminGuard], children : [
     { path: "articles", component: ArticleComponent },
     { path: "users", component: UserComponent },
     { path: "plans", component: PlanComponent },
