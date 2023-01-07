@@ -12,8 +12,23 @@ export class ArticleComponent {
   title!: string
   text!: string
   errorMessage!: string 
+  showAddArticle: boolean
+  showAllArticles: boolean
 
-  constructor(private adminService: AdminService, private router: Router) {}
+  constructor(private adminService: AdminService, private router: Router) {
+    this.showAddArticle = true
+    this.showAllArticles = false
+  }
+
+  displayAllArticles(): void {
+    this.showAllArticles = true
+    this.showAddArticle = false
+  }
+
+  displayAddArticle(): void {
+    this.showAllArticles = false
+    this.showAddArticle = true
+  }
 
   submitArticle(): void {
   

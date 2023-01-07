@@ -6,6 +6,7 @@ import { CentersComponent } from './centers/centers.component';
 import { PlanComponent } from './plan/plan.component';
 import { UserComponent } from './user/user.component';
 import { NavigationModule } from '../navigation/navigation.module';
+import { AllArticlesComponent } from './article/all-articles.component';
 
 
 
@@ -16,7 +17,8 @@ import { NavigationModule } from '../navigation/navigation.module';
     ArticleComponent,
     CentersComponent,
     PlanComponent,
-    UserComponent
+    UserComponent,
+    AllArticlesComponent
   ],
   imports: [
     NavigationModule

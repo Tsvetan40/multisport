@@ -1,9 +1,7 @@
 package com.demo.multisport.controllers;
 
 
-import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.center.Center;
-import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.entities.page.Article;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.ArticleDuplicateException;
@@ -18,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 
 @RestController
 @RequestMapping("multisport/admin")
@@ -64,10 +62,10 @@ public class AdminController {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<List<Article>> getArticlesAdmin(HttpSession session) {
+    public ResponseEntity<List<String>> getArticlesAdmin(HttpSession session) {
         User admin = (User) session.getAttribute("user");
 
-        log.info("@GetMapping");
+        log.info("@GetMapping articles");
         log.info(session.getId());
         log.info("admin= " + admin);
 
@@ -75,7 +73,7 @@ public class AdminController {
             return new ResponseEntity<>( List.of(), HttpStatus.UNAUTHORIZED);
         }
 
-        return new ResponseEntity<>( adminService.getAllArticles(), HttpStatus.OK);
+        return new ResponseEntity<>( adminService.getAllArticlesTitle(), HttpStatus.OK);
     }
 
     @PostMapping("/articles/newarticle")

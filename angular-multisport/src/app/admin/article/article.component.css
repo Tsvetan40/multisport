@@ -48,13 +48,6 @@ form {
     color: red;
 }
 
-.error.invalid {
-
-}
-
-.error.not-found {
-
-}
 
 .wrapper.wrapper-area {
     display: flex;
@@ -70,9 +63,6 @@ form {
     font-size: 16px;
 }
 
-.wrapper:nth-child(2) div:last-child {
-    
-}
 
 #submit {
     border: none;
@@ -85,10 +75,36 @@ form {
     cursor: pointer;
 }
 
-form:last-child {
-}
-
 form > div:last-child > .wrapper-inner{
     align-items: center;
     justify-content: center;
+}
+
+.nav-div {
+    display: flex;
+    padding: 8px;
+    gap: 8px;
+}
+
+.nav-div > button {
+    font-size: 16px;
+    font-family: sans-serif;
+    border-radius: 5px;
+    padding: 3px;
+    border: none;
+    background-color: teal;
+    color: #fff;
+    cursor: pointer;
+}
+
+#show-add {
+
+}
+
+#show-all {
+
+}
+
+#section-all-articles {
+
 }

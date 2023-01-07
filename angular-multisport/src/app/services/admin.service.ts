@@ -31,4 +31,12 @@ export class AdminService {
   saveArticle(article: Article): Observable<Article> {
     return this.http.post<Article>(`${this.url}/articles/newarticle`, article, { withCredentials: true })
   }
+
+  getAllArticlesTitle(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.url}/articles`, { withCredentials: true })
+  }
+
+  deleteArticleByTitile(title: string): Observable<Article> {
+    return this.http.delete<Article>(`${this.url}/articles/?title=${title}`, { withCredentials: true })
+  }
 }

@@ -1,0 +1,6 @@
+<div class="wrapper">
+    <div id="content" *ngFor="let title of titles; let i = index">
+        <span class="title">{{title}}</span>
+        <button class="delete" (click)="deleteArticle(i)">Delete</button>
+    </div>
+</div>

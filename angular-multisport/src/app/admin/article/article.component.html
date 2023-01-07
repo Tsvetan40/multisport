@@ -1,7 +1,12 @@
-<h2>Add article</h2>
+<div class="nav-div">
+    <button id="show-add" (click)="displayAddArticle()">Add article</button>
+    <button id="show-all" (click)="displayAllArticles()">All articles</button>
+</div>
+<h2 *ngIf="showAddArticle == true">Add article</h2>
+<h2 *ngIf="showAllArticles == true">All articles</h2>
 
 <main class="outer">
-    <form #articleForm="ngForm">
+    <form *ngIf="showAddArticle == true" #articleForm="ngForm">
         <div class="wrapper">
             <div class="wrapper-inner">
                 <input type="text" name="title" id="title" class="input-field" placeholder="Add title"
@@ -26,4 +31,8 @@
             </div>
         </div>
     </form>
+
+    <section *ngIf="showAllArticles == true" id="section-all-articles">
+        <all-articles-admin></all-articles-admin>
+    </section>
 </main>

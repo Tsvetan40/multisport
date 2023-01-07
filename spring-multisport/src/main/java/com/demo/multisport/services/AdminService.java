@@ -3,7 +3,6 @@ package com.demo.multisport.services;
 
 import com.demo.multisport.dao.ArticleRepository;
 import com.demo.multisport.dao.CenterRepository;
-import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.entities.page.Article;
 import com.demo.multisport.exceptions.ArticleDuplicateException;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class AdminService {
@@ -26,8 +24,8 @@ public class AdminService {
         this.centerRepository = centerRepository;
     }
 
-    public List<Article> getAllArticles() {
-        return articleRepository.findAll();
+    public List<String> getAllArticlesTitle() {
+        return articleRepository.getAllTitles();
     }
 
     public void deleteArticle(String title) {
