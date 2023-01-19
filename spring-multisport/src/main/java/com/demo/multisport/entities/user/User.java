@@ -1,11 +1,7 @@
 package com.demo.multisport.entities.user;
 
 import com.demo.multisport.entities.Plan;
-import com.demo.multisport.entities.page.Article;
 import com.demo.multisport.entities.page.Comment;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +9,7 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,11 +19,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@JsonInclude( value = JsonInclude.Include.NON_EMPTY)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
     private Long id;
 
     @NotBlank
@@ -49,14 +44,14 @@ public class User {
     @NotBlank
     @Size(min = 10, max = 26)
     @Column(columnDefinition = "CHAR(26) NOT NULL")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @JsonIgnore
+
     @Size(min = 10, max = 10)
     @Column(columnDefinition = "CHAR(10) NOT NULL")
     private String salt;
 
+    @Positive
     private int age;
 
     @ManyToOne(cascade = CascadeType.ALL)

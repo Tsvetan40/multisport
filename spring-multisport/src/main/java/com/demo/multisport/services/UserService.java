@@ -1,9 +1,11 @@
 package com.demo.multisport.services;
 
 import com.demo.multisport.dao.UserRepository;
+import com.demo.multisport.dto.UserDto;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.UserDuplicateException;
 import com.demo.multisport.exceptions.UserNotFoundException;
+import com.demo.multisport.mapper.UserMapper;
 import com.demo.multisport.services.impl.PasswordHashService;
 import com.demo.multisport.services.impl.SaltGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +16,23 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
-    private SaltGeneratorService saltService;
-    private PasswordHashService hashService;
+    private final UserRepository userRepository;
+    private final SaltGeneratorService saltService;
+    private final PasswordHashService hashService;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, SaltGeneratorService saltService, PasswordHashService hashService) {
+    public UserService(UserRepository userRepository,
+                       SaltGeneratorService saltService,
+                       PasswordHashService hashService,
+                       UserMapper userMapper) {
         this.userRepository = userRepository;
         this.saltService = saltService;
         this.hashService = hashService;
+        this.userMapper = userMapper;
     }
 
-    public User loginUser(String email, String password) {
+    public UserDto loginUser(String email, String password) {
 
         if (!hasUser(email)) {
             throw new UserNotFoundException(String.format("User with email %s and password %s not found", email, password));
@@ -38,13 +45,16 @@ public class UserService {
             throw new UserNotFoundException(String.format("User with email %s and password %s not found", email, password));
         }
 
-        return loggedUser.get();
+        return userMapper.userToUserDto(loggedUser.get());
+
     }
 
-    public User registerUser(User user) {
-        if (hasUser(user.getEmail())) {
-            throw new UserDuplicateException("user with email " + user.getEmail() + " already exist");
+    public User registerUser(UserDto userDto) {
+        if (hasUser(userDto.getEmail())) {
+            throw new UserDuplicateException("user with email " + userDto.getEmail() + " already exist");
         }
+
+        User user = userMapper.userDtoToUser(userDto);
 
         user.setSalt(saltService.generate());
         user.setPassword(hashService.hash(user.getPassword(), user.getSalt()));

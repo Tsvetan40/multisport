@@ -1,7 +1,8 @@
 package com.demo.multisport.controllers;
 
 
-import com.demo.multisport.entities.user.LoggedUser;
+import com.demo.multisport.dto.LoggedUserDto;
+import com.demo.multisport.dto.UserDto;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.UserDuplicateException;
 import com.demo.multisport.exceptions.UserNotFoundException;
@@ -21,7 +22,7 @@ import java.util.Optional;
 @RequestMapping("multisport")
 @Slf4j
 public class AuthenticationController {
-
+    private static final int MAX_INACTIVE_INTERVAL  = 60*10;
     private UserService userService;
 
     @Autowired
@@ -31,59 +32,63 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Optional<User>> login(@RequestBody @Valid LoggedUser loggedUser1, BindingResult bindingResult,
-                                                        HttpSession session) {
+    public ResponseEntity<Optional<UserDto>> login(@RequestBody @Valid LoggedUserDto loggedUser,
+                                                BindingResult bindingResult,
+                                                HttpSession session) {
         if (bindingResult.hasErrors()) {
-            Optional<User> emptyUser = Optional.empty();
+            Optional<UserDto> emptyUser = Optional.empty();
             return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
-        log.info(session.getId());
-        log.info("session= " + ((User)session.getAttribute("user")));
 
-        User user;
+        log.info(session.getId());
+        log.info("session= " + ((UserDto)session.getAttribute("user")));
+
+        UserDto user;
         try {
-            user = userService.loginUser(loggedUser1.getEmail(), loggedUser1.getPassword());
+            user = userService.loginUser(loggedUser.getEmail(), loggedUser.getPassword());
             if (session.getAttribute("user") == null) {
                 session.setAttribute("user", user);
             }
+
             log.info("Logged info successfully");
-            session.setMaxInactiveInterval(60*10);
+            session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
             return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            Optional<User> emptyUser = Optional.empty();
+            Optional<UserDto> emptyUser = Optional.empty();
             return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
     }
 
     @PostMapping("/newuser")
-    public ResponseEntity<Optional<User>> newUserRegistration(@RequestBody @Valid User newUser, BindingResult error,
-                                                               HttpSession session) {
+    public ResponseEntity<Optional<UserDto>> newUserRegistration(@RequestBody @Valid UserDto userDto, BindingResult error,
+                                                              HttpSession session) {
         if (error.hasErrors()) {
-            Optional<User> emptyUser = Optional.empty();
+            Optional<UserDto> emptyUser = Optional.empty();
             return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
 
         User registeredUser;
         try {
-            registeredUser = userService.registerUser(newUser);
+            registeredUser = userService.registerUser(userDto);
             log.info("Logged info successfully");
-            session.setAttribute("user", registeredUser);
+            session.setAttribute("user", userDto);
             log.info(session.getId());
-            session.setMaxInactiveInterval(60*10);
-            return new ResponseEntity<>(Optional.of(registeredUser), HttpStatus.OK);
+            session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
+            return new ResponseEntity<>(Optional.of(userDto), HttpStatus.OK);
         } catch (UserDuplicateException e) {
-            Optional<User> emptyUser = Optional.empty();
+            Optional<UserDto> emptyUser = Optional.empty();
             return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
 
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Optional<User>> logout(HttpSession session) {
-        Optional<User> user = Optional.empty();
+    public ResponseEntity<Optional<UserDto>> logout(HttpSession session) {
+        Optional<UserDto> user = Optional.empty();
         if (session.getAttribute("user") != null) {
-            user = Optional.of((User)session.getAttribute("user"));
+            user = Optional.of((UserDto)session.getAttribute("user"));
         }
+
         session.invalidate();
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
