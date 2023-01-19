@@ -4,6 +4,7 @@ import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.entities.user.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,7 +34,6 @@ public class Plan {
     private double price;
 
     @OneToMany(mappedBy = "plan")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<User> subscribedUsers;
 
     @ManyToMany
