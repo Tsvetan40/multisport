@@ -1,5 +1,6 @@
 package com.demo.multisport.entities.center;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @DiscriminatorValue(value = "SportCenter")
 public class SportCenter extends Center{
 

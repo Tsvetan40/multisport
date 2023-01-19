@@ -32,23 +32,19 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-
-
+    
     @PostMapping("")
-    public ResponseEntity<Optional<User>> manageUsersAdmin(HttpSession session) {
-        User user = (User) session.getAttribute("user");
+    public ResponseEntity<Optional<UserDto>> manageUsersAdmin(HttpSession session) {
+        UserDto user = (UserDto) session.getAttribute("user");
 
         log.info(session.getId());
         log.info("manage users= " + user);
 
-        if (user == null) {
-            Optional<User> emptyUser = Optional.empty();
+        if (user == null || !user.getEmail().contains("@multisport.com")) {
+            Optional<UserDto> emptyUser = Optional.empty();
             return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
-        if (!user.getEmail().contains("@multisport.com")) {
-            Optional<User> emptyUser = Optional.empty();
-            return new ResponseEntity<>(emptyUser, HttpStatus.OK);
-        }
+
         return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
     }
 

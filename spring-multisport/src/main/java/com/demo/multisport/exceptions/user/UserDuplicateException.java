@@ -1,4 +1,4 @@
-package com.demo.multisport.exceptions;
+package com.demo.multisport.exceptions.user;
 
 public class UserDuplicateException extends RuntimeException{
     public UserDuplicateException() {

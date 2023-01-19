@@ -1,4 +1,4 @@
-package com.demo.multisport.exceptions;
+package com.demo.multisport.exceptions.user;
 
 public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException() {

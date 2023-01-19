@@ -3,34 +3,33 @@ package com.demo.multisport.entities.page;
 
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.entities.center.Center;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "comments")
 @NoArgsConstructor
-@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+@Getter
+@Setter
+@Builder
 public class Comment {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-    @JsonIgnore
     private Long id;
 
     @NonNull
+    @Size(max = 255)
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
     private String content;
+
     @NonNull
     @Column(columnDefinition = "DATETIME DEFAULT NOW() NOT NULL")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY) // maybe not that see if is part of the response
     private LocalDateTime publishedAt;
 
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false,
                 foreignKey = @ForeignKey(name = "FK_COMMENT_USER"))
@@ -47,31 +46,17 @@ public class Comment {
                 foreignKey = @ForeignKey(name = "FK_COMMENT_CENTER"))
     private Center center;
 
-    public Comment(String content, LocalDateTime publishedAt, User user, Article article, Center center) {
-        if (article == null && center == null) {
-            //to do throw exception
-        }
-
+    public Comment (@NonNull String content, @NonNull LocalDateTime publishedAt, @NonNull User user, @NonNull Article article) {
         this.content = content;
+        this.publishedAt = publishedAt;
         this.user = user;
-        this.center = center;
         this.article = article;
-
-        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd.MM.yyyy HH::mm");
-        this.publishedAt = LocalDateTime.parse(formatter.format(publishedAt));
     }
 
-    public Comment(String content, User user, Article article, Center center) {
-        if (article == null && center == null) {
-            //to do throw exception
-        }
-
+    public Comment (@NonNull String content, @NonNull LocalDateTime publishedAt, @NonNull User user, @NonNull Center center) {
         this.content = content;
+        this.publishedAt = publishedAt;
         this.user = user;
         this.center = center;
-        this.article = article;
-
-        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd.MM.yyyy HH::mm");
-        this.publishedAt = LocalDateTime.parse(formatter.format(LocalDateTime.now()));
     }
 }

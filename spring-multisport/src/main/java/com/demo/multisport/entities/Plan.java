@@ -22,10 +22,12 @@ public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @NotBlank
     @Size(min = 4, max=20)
-    @Column(columnDefinition = "VARCHAR(20) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(20) NOT NULL UNIQUE")
     private String name;
+
     @Min(10)
     private double price;
 

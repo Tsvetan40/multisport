@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -18,15 +17,8 @@ import java.util.Set;
 @Table(name = "centers")
 @NoArgsConstructor
 @Data
-//@AllArgsConstructor
-@JsonInclude(value = JsonInclude.Include.NON_ABSENT)
-@JsonIgnoreProperties({"id", "plans"})
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        property = "type")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = RelaxCenter.class, name = "relaxCenter"),
-        @JsonSubTypes.Type(value = SportCenter.class, name = "sportCenter")})
+@Builder
+@AllArgsConstructor
 public abstract class Center {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,10 +50,9 @@ public abstract class Center {
     @OneToMany(mappedBy = "center")
     private Set<Comment> comments;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "rating_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "FK_CENTER_RATING"))
-    @JsonIgnore
     private Rating rating;
 
     public Center(String name, String address, String description, Set<String> pictures) {

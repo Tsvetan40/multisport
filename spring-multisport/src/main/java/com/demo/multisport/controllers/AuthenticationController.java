@@ -4,8 +4,8 @@ package com.demo.multisport.controllers;
 import com.demo.multisport.dto.user.LoggedUserDto;
 import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.user.User;
-import com.demo.multisport.exceptions.UserDuplicateException;
-import com.demo.multisport.exceptions.UserNotFoundException;
+import com.demo.multisport.exceptions.user.UserDuplicateException;
+import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +67,8 @@ public class AuthenticationController {
             return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
 
-        User registeredUser;
         try {
-            registeredUser = userService.registerUser(userDto);
+            userService.registerUser(userDto);
             log.info("Logged info successfully");
             session.setAttribute("user", userDto);
             log.info(session.getId());

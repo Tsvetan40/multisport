@@ -3,8 +3,8 @@ package com.demo.multisport.services;
 import com.demo.multisport.dao.UserRepository;
 import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.user.User;
-import com.demo.multisport.exceptions.UserDuplicateException;
-import com.demo.multisport.exceptions.UserNotFoundException;
+import com.demo.multisport.exceptions.user.UserDuplicateException;
+import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.mapper.UserMapper;
 import com.demo.multisport.services.impl.PasswordHashService;
 import com.demo.multisport.services.impl.SaltGeneratorService;
@@ -66,9 +66,16 @@ public class UserService {
         return Optional.of(userRepository.save(user));
     }
 
-
     public void deleteAllUsers() {
         userRepository.deleteAll();
+    }
+
+    public User getUserByEmail(String email) {
+        try {
+            return userRepository.findUserByEmail(email).get();
+        } catch (Exception e) {
+            throw new UserNotFoundException("User with email " + email + " not found");
+        }
     }
 
     private boolean hasUser(String email) {
