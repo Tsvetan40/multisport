@@ -1,8 +1,8 @@
 package com.demo.multisport.controllers;
 
 
-import com.demo.multisport.dto.LoggedUserDto;
-import com.demo.multisport.dto.UserDto;
+import com.demo.multisport.dto.user.LoggedUserDto;
+import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.UserDuplicateException;
 import com.demo.multisport.exceptions.UserNotFoundException;

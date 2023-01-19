@@ -1,8 +1,7 @@
 package com.demo.multisport.mapper;
 
-import com.demo.multisport.dto.UserDto;
+import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.user.User;
-import lombok.NonNull;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 

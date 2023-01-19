@@ -1,4 +1,4 @@
-package com.demo.multisport.exceptions;
+package com.demo.multisport.exceptions.article;
 
 public class ArticleDuplicateException extends RuntimeException {
     public ArticleDuplicateException() {

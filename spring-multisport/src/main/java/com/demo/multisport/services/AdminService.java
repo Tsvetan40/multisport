@@ -3,10 +3,13 @@ package com.demo.multisport.services;
 
 import com.demo.multisport.dao.ArticleRepository;
 import com.demo.multisport.dao.CenterRepository;
+import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.entities.page.Article;
-import com.demo.multisport.exceptions.ArticleDuplicateException;
+import com.demo.multisport.exceptions.article.ArticleDuplicateException;
 import com.demo.multisport.exceptions.CenterDuplicateException;
+import com.demo.multisport.exceptions.article.NoSuchArticleException;
+import com.demo.multisport.mapper.ArticleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,24 +18,33 @@ import java.util.List;
 @Service
 public class AdminService {
 
-    private ArticleRepository articleRepository;
-    private CenterRepository centerRepository;
+    private final ArticleRepository articleRepository;
+    private final CenterRepository centerRepository;
+    private final ArticleMapper articleMapper;
 
     @Autowired
-    public AdminService(ArticleRepository articleRepository, CenterRepository centerRepository) {
+    public AdminService(ArticleRepository articleRepository, CenterRepository centerRepository, ArticleMapper articleMapper) {
         this.articleRepository = articleRepository;
         this.centerRepository = centerRepository;
+        this.articleMapper = articleMapper;
     }
 
     public List<String> getAllArticlesTitle() {
         return articleRepository.getAllTitles();
     }
 
-    public void deleteArticle(String title) {
-        articleRepository.deleteByTitle(title);
+    public ArticleDto deleteArticle(String title) {
+        try {
+            Article article = articleRepository.deleteByTitle(title);
+            return  articleMapper.articleToArticleDto(article);
+        } catch (Exception e) {
+            throw new NoSuchArticleException("No article with title " + title);
+        }
     }
 
-    public void addArticle(Article article) {
+    public void addArticle(ArticleDto articleDto) {
+        Article article = articleMapper.articleDtoToArticle(articleDto);
+        article.withPublishedAt();
         if (articleRepository.countArticleByTitle(article.getTitle()) > 0) {
             throw new ArticleDuplicateException("Article Already exists! Change Title");
         }

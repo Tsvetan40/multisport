@@ -1,8 +1,6 @@
 package com.demo.multisport.entities.page;
 
-import com.demo.multisport.entities.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -20,14 +18,12 @@ import java.util.Set;
 @Table(name = "articles")
 @Data
 @NoArgsConstructor
-@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
     private Long id;
 
-    @NotBlank()
+    @NotBlank
     @Size(min = 4, max = 50)
     @Column(length = 50, nullable = false, unique = true)
     private String title;
@@ -38,28 +34,23 @@ public class Article {
 
     @NonNull
     @Column(name = "published_at", columnDefinition = "DATETIME DEFAULT NOW() NOT NULL")
-    @JsonIgnore
     private LocalDateTime publishedAt;
 
     @OneToMany(mappedBy = "article")
     private Set<Comment> comments;
 
-    public Article(String title, String content, Set<Comment> comments) {
+    public Article(@NonNull String title,@NonNull String content, Set<Comment> comments) {
             this.title = title;
             this.content = content;
             this.comments = comments;
-
-            DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd.MM.yyyy HH::mm");
-            this.publishedAt = LocalDateTime.parse(formatter.format(LocalDateTime.now()));
+            this.publishedAt = LocalDateTime.now();
     }
 
-    public Article(String title, String content, Set<Comment> comments, LocalDateTime publishedAt) {
+    public Article(@NonNull String title,@NonNull String content, Set<Comment> comments,@NonNull LocalDateTime publishedAt) {
         this.title = title;
         this.content = content;
         this.comments = comments;
-
-        DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("dd.MM.yyyy HH::mm");
-        this.publishedAt = LocalDateTime.parse(formatter.format(publishedAt));
+        this.publishedAt = publishedAt;
     }
 
     public Article withPublishedAt() {

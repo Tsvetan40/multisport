@@ -1,4 +1,4 @@
-package com.demo.multisport.dto;
+package com.demo.multisport.dto.user;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

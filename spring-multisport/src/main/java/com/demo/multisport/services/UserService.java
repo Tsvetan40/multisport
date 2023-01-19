@@ -1,7 +1,7 @@
 package com.demo.multisport.services;
 
 import com.demo.multisport.dao.UserRepository;
-import com.demo.multisport.dto.UserDto;
+import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.UserDuplicateException;
 import com.demo.multisport.exceptions.UserNotFoundException;

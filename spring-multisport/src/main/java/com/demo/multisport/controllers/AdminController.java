@@ -1,10 +1,12 @@
 package com.demo.multisport.controllers;
 
 
+import com.demo.multisport.dto.page.ArticleDto;
+import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.entities.page.Article;
 import com.demo.multisport.entities.user.User;
-import com.demo.multisport.exceptions.ArticleDuplicateException;
+import com.demo.multisport.exceptions.article.ArticleDuplicateException;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.services.AdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +25,7 @@ import java.util.Optional;
 @Slf4j
 public class AdminController {
 
-    private AdminService adminService;
+    private final AdminService adminService;
 
     @Autowired
     public AdminController(AdminService adminService) {
@@ -51,14 +53,13 @@ public class AdminController {
     }
 
     @DeleteMapping("/articles")
-    public ResponseEntity<Optional<Article>> deleteArticle(@RequestParam(required = true, name = "title") String title,
-                                                           HttpSession session) {
+    public ResponseEntity<Optional<ArticleDto>> deleteArticle(@RequestParam(required = true, name = "title") String title,
+                                                              HttpSession session) {
         if (session.getAttribute("user") == null) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
         }
 
-        adminService.deleteArticle(title);
-        return new ResponseEntity<>(Optional.of(new Article()), HttpStatus.OK);
+        return new ResponseEntity<>(Optional.of(adminService.deleteArticle(title)), HttpStatus.OK);
     }
 
     @GetMapping("/articles")
@@ -77,15 +78,16 @@ public class AdminController {
     }
 
     @PostMapping("/articles/newarticle")
-    public ResponseEntity<Optional<Article>> postArticle(@RequestBody @Valid Article article,
+    public ResponseEntity<Optional<ArticleDto>> postArticle(@RequestBody @Valid ArticleDto articleDto,
                                                          HttpSession session) {
-        if (((User)session.getAttribute("user")) == null) {
+        if (session.getAttribute("user") == null) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
         }
+
         log.info("PostMapping " + session.getId());
         try {
-            adminService.addArticle(article.withPublishedAt());
-            return new ResponseEntity<>(Optional.of(article), HttpStatus.OK);
+            adminService.addArticle(articleDto);
+            return new ResponseEntity<>(Optional.of(articleDto), HttpStatus.OK);
         } catch (ArticleDuplicateException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         }
