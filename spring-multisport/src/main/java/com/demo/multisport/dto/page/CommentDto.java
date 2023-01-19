@@ -1,4 +1,4 @@
-package com.demo.multisport.dto;
+package com.demo.multisport.dto.page;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,6 +13,7 @@ import javax.persistence.*;
 @Table(name = "ratings")
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Data
 @JsonInclude(value = JsonInclude.Include.NON_ABSENT)
 public class Rating {
@@ -23,8 +22,10 @@ public class Rating {
     @JsonIgnore
     private Long id;
 
+    @NonNull
     private Double rate;
 
+    @NonNull
     @OneToOne(mappedBy = "rating")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Center center;

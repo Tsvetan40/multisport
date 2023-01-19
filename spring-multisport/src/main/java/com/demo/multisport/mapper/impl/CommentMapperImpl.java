@@ -1,6 +1,6 @@
 package com.demo.multisport.mapper.impl;
 
-import com.demo.multisport.dto.CommentDto;
+import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.entities.page.Comment;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.mapper.CommentMapper;
