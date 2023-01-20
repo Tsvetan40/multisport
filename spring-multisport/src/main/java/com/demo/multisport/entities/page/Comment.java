@@ -42,7 +42,7 @@ public class Comment {
     private Article article;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "center_id", referencedColumnName = "id",
+    @JoinColumn(name = "center_address", referencedColumnName = "address",
                 foreignKey = @ForeignKey(name = "FK_COMMENT_CENTER"))
     private Center center;
 

@@ -3,7 +3,6 @@ package com.demo.multisport.entities.center;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
 import com.demo.multisport.entities.page.Rating;
-import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +16,6 @@ import java.util.Set;
 @Table(name = "centers")
 @NoArgsConstructor
 @Data
-@Builder
 @AllArgsConstructor
 public abstract class Center {
     @Id

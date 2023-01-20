@@ -1,5 +1,6 @@
 package com.demo.multisport.dto.center;
 
+import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.center.RelaxCenter;
 import com.demo.multisport.entities.center.SportCenter;
@@ -26,6 +27,7 @@ import java.util.Set;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = RelaxCenter.class, name = "relaxCenter"),
         @JsonSubTypes.Type(value = SportCenter.class, name = "sportCenter")})
+@Builder
 public class CenterDto {
 
     @NonNull
@@ -52,7 +54,7 @@ public class CenterDto {
     private Set<Plan> plans;
 
     @JsonProperty(required = false)
-    private Set<Comment> comments;
+    private Set<CommentDto> comments;
 
     @JsonProperty(required = false)
     @NonNull
