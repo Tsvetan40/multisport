@@ -1,5 +1,6 @@
 package com.demo.multisport.services;
 
+import com.demo.multisport.services.user.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

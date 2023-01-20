@@ -1,4 +1,4 @@
-package com.demo.multisport.services;
+package com.demo.multisport.services.user;
 
 
 import com.demo.multisport.dao.ArticleRepository;

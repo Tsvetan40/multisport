@@ -6,7 +6,7 @@ import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.user.UserDuplicateException;
 import com.demo.multisport.exceptions.user.UserNotFoundException;
-import com.demo.multisport.services.UserService;
+import com.demo.multisport.services.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

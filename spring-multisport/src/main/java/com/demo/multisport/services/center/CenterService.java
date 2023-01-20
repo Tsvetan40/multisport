@@ -1,4 +1,4 @@
-package com.demo.multisport.services;
+package com.demo.multisport.services.center;
 
 import com.demo.multisport.dao.CenterRepository;
 import com.demo.multisport.entities.center.Center;

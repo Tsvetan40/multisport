@@ -1,4 +1,4 @@
-package com.demo.multisport.dto.plan;
+package com.demo.multisport.dto;
 
 import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.entities.user.User;

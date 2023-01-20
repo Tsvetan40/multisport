@@ -1,4 +1,4 @@
-package com.demo.multisport.services;
+package com.demo.multisport.services.page;
 
 import com.demo.multisport.dao.ArticleRepository;
 import com.demo.multisport.entities.page.Article;
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ArticleService {
+public class PageService {
     private final ArticleRepository articleRepository;
 
     @Autowired
-    public ArticleService(ArticleRepository articleRepository) {
+    public PageService(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
     }
 

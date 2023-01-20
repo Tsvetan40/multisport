@@ -1,6 +1,6 @@
 package com.demo.multisport.services.impl;
 
-import com.demo.multisport.dto.plan.PlanDto;
+import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.mapper.PlanMapper;
 import org.springframework.stereotype.Component;

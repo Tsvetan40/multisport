@@ -4,21 +4,21 @@ import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.entities.page.Comment;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.mapper.CommentMapper;
-import com.demo.multisport.services.ArticleService;
-import com.demo.multisport.services.CenterService;
-import com.demo.multisport.services.UserService;
+import com.demo.multisport.services.page.PageService;
+import com.demo.multisport.services.center.CenterService;
+import com.demo.multisport.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CommentMapperImpl implements CommentMapper {
-    private final ArticleService articleService;
+    private final PageService pageService;
     private final UserService userService;
     private final CenterService centerService;
 
     @Autowired
-    public CommentMapperImpl(ArticleService articleService, UserService userService, CenterService centerService) {
-        this.articleService = articleService;
+    public CommentMapperImpl(PageService pageService, UserService userService, CenterService centerService) {
+        this.pageService = pageService;
         this.userService = userService;
         this.centerService = centerService;
     }
@@ -34,7 +34,7 @@ public class CommentMapperImpl implements CommentMapper {
                 .build();
 
         if (commentDto.getArticleTitle() != null && commentDto.getCenterAddress() == null) {
-            comment.setArticle(articleService.getArticleByTitle(commentDto.getArticleTitle()).get());
+            comment.setArticle(pageService.getArticleByTitle(commentDto.getArticleTitle()).get());
         } else if (commentDto.getArticleTitle() == null && commentDto.getCenterAddress() != null) {
             comment.setCenter(centerService.getCenterByAddressAndType(commentDto.getCenterAddress(), commentDto.getTypeCenter()));
         } else {
