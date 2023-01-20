@@ -12,7 +12,7 @@ public class RatingDto {
 
     @NonNull
     @JsonProperty(required = true)
-    private Double price;
+    private Double rate;
 
     @NonNull
     @JsonProperty(required = true)

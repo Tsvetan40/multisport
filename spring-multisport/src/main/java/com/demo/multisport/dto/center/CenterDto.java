@@ -56,7 +56,7 @@ public class CenterDto {
     @JsonProperty(required = false)
     private Set<CommentDto> comments;
 
-    @JsonProperty(required = false)
+    @JsonProperty(required = true)
     @NonNull
     private Double rating;
 

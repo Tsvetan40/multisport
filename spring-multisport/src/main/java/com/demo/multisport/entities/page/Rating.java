@@ -11,7 +11,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "ratings")
-@AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data

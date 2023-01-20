@@ -4,29 +4,24 @@ import com.demo.multisport.dao.CenterRepository;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.entities.center.RelaxCenter;
 import com.demo.multisport.entities.center.SportCenter;
+import com.demo.multisport.entities.page.Comment;
 import com.demo.multisport.entities.page.Rating;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.mapper.CenterMapper;
 import com.demo.multisport.mapper.CommentMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//this is for the part of the app, where only users has access
 @Component
-public class CenterMapperImpl implements CenterMapper {
-
+public class AdminCenterMapperImpl implements CenterMapper {
     private final CenterRepository centerRepository;
     private final CommentMapper commentMapper;
-    private static final String SPORT_CENTER_DISCRIMINATOR_VALUE = "SportCenter";
-    private static final String RELAX_CENTER_DISCRIMINATOR_VALUE = "RelaxCenter";
 
-    @Autowired
-    public CenterMapperImpl(CenterRepository centerRepository, CommentMapper commentMapper) {
-        this.centerRepository = centerRepository;
+    public AdminCenterMapperImpl(CenterRepository centerRepository, CommentMapper commentMapper) {
         this.commentMapper = commentMapper;
+        this.centerRepository = centerRepository;
     }
 
     @Override
@@ -37,20 +32,6 @@ public class CenterMapperImpl implements CenterMapper {
         }
 
         return sportCenter.get();
-        //user part, so i don't need to show plan
-        //user part, i need to show comments
-        //and i also need to show rating
-//        return new SportCenter()
-//                .withName(centerDto.getName())
-//                .withAddress(centerDto.getAddress())
-//                .withDescription(centerDto.getDescription())
-//                .withPictures(centerDto.getPictures())
-//                .withComments(centerRepository.getComments(centerDto.getAddress()).stream().collect(Collectors.toSet()))
-//                .withRating(centerRepository.getRating(centerDto.getAddress()));
-                //plan -> user part no plan at all, admin part whole plan
-                //comments -> user part comment content and user name, admin part comment content, user email
-                //rating -> user part rating, admin part rating
-
     }
 
     @Override
@@ -60,43 +41,38 @@ public class CenterMapperImpl implements CenterMapper {
             throw new CenterNotFoundException("Relax Center not found " + centerDto.getName());
         }
         return relaxCenter.get();
-
-//        return new RelaxCenter()
-//                .withAddress(centerDto.getAddress())
-//                .withName(centerDto.getName())
-//                .withDescription(centerDto.getDescription())
-//                .withPictures(centerDto.getPictures())
-//                .withRating(centerRepository.getRating(centerDto.getAddress()))
-//                .withComments(centerRepository.getComments(centerDto.getAddress()).stream().collect(Collectors.toSet()))
-//                .withServices(centerDto.getServices());
     }
 
     @Override
     public CenterDto sportCenterToCenterDto(SportCenter sportCenter) {
-        //this is user part i don't need plans
         return CenterDto
                 .builder()
+                .address(sportCenter.getAddress())
                 .name(sportCenter.getName())
                 .description(sportCenter.getDescription())
-                .address(sportCenter.getAddress())
                 .pictures(sportCenter.getPictures())
+                .plans(sportCenter.getPlans())
                 .comments(sportCenter.getComments().stream().map(commentMapper::commentToCommentDto).collect(Collectors.toSet()))
                 .rating(this.map(sportCenter.getRating()))
                 .build();
+
+
     }
 
     @Override
     public CenterDto relaxCenterToCenterDto(RelaxCenter relaxCenter) {
         return CenterDto
                 .builder()
+                .address(relaxCenter.getAddress())
                 .name(relaxCenter.getName())
                 .description(relaxCenter.getDescription())
-                .address(relaxCenter.getAddress())
                 .pictures(relaxCenter.getPictures())
+                .plans(relaxCenter.getPlans())
                 .comments(relaxCenter.getComments().stream().map(commentMapper::commentToCommentDto).collect(Collectors.toSet()))
                 .rating(this.map(relaxCenter.getRating()))
                 .services(relaxCenter.getServices())
                 .build();
+
     }
 
     @Override

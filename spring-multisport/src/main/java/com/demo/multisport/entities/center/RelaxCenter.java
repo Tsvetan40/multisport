@@ -3,10 +3,7 @@ package com.demo.multisport.entities.center;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
 import com.demo.multisport.entities.page.Rating;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
@@ -19,6 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class RelaxCenter extends Center{
     @ElementCollection
     private Set<String> services;

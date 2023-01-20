@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @DiscriminatorValue(value = "SportCenter")
 @Builder

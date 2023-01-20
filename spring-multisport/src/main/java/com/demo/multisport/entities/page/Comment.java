@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)

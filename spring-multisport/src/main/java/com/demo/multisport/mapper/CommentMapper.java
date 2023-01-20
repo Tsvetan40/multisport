@@ -5,7 +5,6 @@ import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.entities.page.Comment;
 import org.mapstruct.Mapper;
 
-@Mapper
 public interface CommentMapper {
     Comment commentDtoToComment(CommentDto commentDto);
     CommentDto commentToCommentDto(Comment comment);

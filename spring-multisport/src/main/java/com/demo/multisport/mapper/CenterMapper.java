@@ -3,9 +3,9 @@ package com.demo.multisport.mapper;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.entities.center.RelaxCenter;
 import com.demo.multisport.entities.center.SportCenter;
+import com.demo.multisport.entities.page.Rating;
 import org.mapstruct.Mapper;
 
-@Mapper
 public interface CenterMapper {
     SportCenter centerDtoToSportCenter(CenterDto centerDto);
     RelaxCenter centerDtoToRelaxCenter(CenterDto centerDto);
@@ -13,4 +13,5 @@ public interface CenterMapper {
     CenterDto sportCenterToCenterDto(SportCenter sportCenter);
     CenterDto relaxCenterToCenterDto(RelaxCenter relaxCenter);
 
+    Double map(Rating rating);
 }
