@@ -7,6 +7,7 @@ import com.demo.multisport.entities.center.RelaxCenter;
 import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.services.article.AdminArticleService;
 import com.demo.multisport.services.center.CenterService;
+import com.demo.multisport.services.comment.CommentServiceAdminImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class AdminPageServiceImpl implements PageService {
     private final CenterService centerService;
     private final AdminArticleService adminArticleService;
+    private final CommentServiceAdminImpl commentServiceAdmin;
 
     @Override
     public CenterDto getCenterDtoFromSportCenter(SportCenter sportCenter) {
@@ -44,10 +46,6 @@ public class AdminPageServiceImpl implements PageService {
         return centerService.countCentersByAddress(centerDto.getAddress());
     }
 
-    public void addComment(CommentDto commentDto) {
-
-    }
-
     public ArticleDto deleteArticleByTitle(String title) {
        return adminArticleService.deleteArticleByTitle(title);
     }
@@ -62,5 +60,13 @@ public class AdminPageServiceImpl implements PageService {
 
     public long countArticlesByTitle(String title) {
         return adminArticleService.countArticlesByTitle(title);
+    }
+
+    public CommentDto addComment(CommentDto commentDto) {
+        return commentServiceAdmin.addComment(commentDto);
+    }
+
+    public CommentDto deleteComment(CommentDto commentDto) {
+        return commentServiceAdmin.deleteComment(commentDto);
     }
 }

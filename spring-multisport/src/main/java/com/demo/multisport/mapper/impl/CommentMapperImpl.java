@@ -11,6 +11,8 @@ import com.demo.multisport.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.security.InvalidParameterException;
+
 @Component
 public class CommentMapperImpl implements CommentMapper {
     private final UserService userService;
@@ -36,9 +38,19 @@ public class CommentMapperImpl implements CommentMapper {
                   .user(userService.getUserByEmail(commentDto.getEmail()))
                   .build();
         if (commentDto.getArticleTitle() != null && commentDto.getCenterAddress() == null) {
-            comment.setArticle(articleRepository.getArticleByTitle(commentDto.getArticleTitle()).get());
+            try {
+                comment.setArticle(articleRepository.getArticleByTitle(commentDto.getArticleTitle()).get());
+            } catch (Exception e) {
+                throw new InvalidParameterException("Comment doesn't have article " + commentDto);
+            }
         } else if (commentDto.getArticleTitle() == null && commentDto.getCenterAddress() != null) {
-            comment.setCenter(centerRepository.getCenterByAddressAndType(commentDto.getCenterAddress(), commentDto.getTypeCenter()).get());
+            try {
+                comment.setCenter(centerRepository.getCenterByAddressAndType(commentDto.getCenterAddress(), commentDto.getTypeCenter()).get());
+            } catch (Exception e) {
+                throw new InvalidParameterException("Comment doesn't have center " + commentDto);
+            }
+        } else {
+            throw new InvalidParameterException("Invalid parameter: " + commentDto);
         }
 
         return comment;
