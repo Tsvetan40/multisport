@@ -1,13 +1,7 @@
 package com.demo.multisport.controllers;
 
 
-import com.demo.multisport.dto.center.CenterDto;
-import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.user.UserDto;
-import com.demo.multisport.entities.user.User;
-import com.demo.multisport.exceptions.CenterNotFoundException;
-import com.demo.multisport.exceptions.article.ArticleDuplicateException;
-import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.services.user.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 
