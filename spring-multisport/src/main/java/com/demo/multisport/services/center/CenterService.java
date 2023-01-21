@@ -10,7 +10,6 @@ public class CenterService {
 
     private final CenterRepository centerRepository;
 
-
     @Autowired
     public CenterService(CenterRepository centerRepository) {
         this.centerRepository = centerRepository;

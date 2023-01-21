@@ -2,14 +2,9 @@ package com.demo.multisport.dto.center;
 
 import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.entities.Plan;
-import com.demo.multisport.entities.center.RelaxCenter;
-import com.demo.multisport.entities.center.SportCenter;
-import com.demo.multisport.entities.page.Comment;
-import com.demo.multisport.entities.page.Rating;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -21,14 +16,18 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @JsonInclude(value = JsonInclude.Include.NON_ABSENT)
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        property = "type")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = RelaxCenter.class, name = "relaxCenter"),
-        @JsonSubTypes.Type(value = SportCenter.class, name = "sportCenter")})
+//@JsonTypeInfo(
+//        use = JsonTypeInfo.Id.NAME,
+//        property = "type")
+//@JsonSubTypes({
+//        @JsonSubTypes.TypeCenter(value = RelaxCenter.class, name = "relaxCenter"),
+//        @JsonSubTypes.TypeCenter(value = SportCenter.class, name = "sportCenter")})
 @Builder
 public class CenterDto {
+
+    @NonNull
+    @JsonProperty(required = true)
+    private TypeCenter centerType;
 
     @NonNull
     @JsonProperty(required = true)

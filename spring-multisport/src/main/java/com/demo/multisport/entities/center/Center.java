@@ -14,9 +14,8 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "center_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "centers")
-@NoArgsConstructor
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 public abstract class Center {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,10 +52,12 @@ public abstract class Center {
             foreignKey = @ForeignKey(name = "FK_CENTER_RATING"))
     private Rating rating;
 
-    public Center(String name, String address, String description, Set<String> pictures) {
-        this.name = name;
-        this.address = address;
-        this.description = description;
-        this.pictures = pictures;
-    }
+    protected Center() { }
+
+//    public Center(String name, String address, String description, Set<String> pictures) {
+//        this.name = name;
+//        this.address = address;
+//        this.description = description;
+//        this.pictures = pictures;
+//    }
 }

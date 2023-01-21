@@ -1,20 +1,31 @@
 package com.demo.multisport.mapper;
 
+import com.demo.multisport.dao.CenterRepository;
+import com.demo.multisport.dao.RatingRepository;
 import com.demo.multisport.dto.page.ArticleDto;
+import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.entities.page.Article;
+import com.demo.multisport.entities.page.Rating;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Set;
+
 @SpringBootTest
 public class ArticleMapperTest {
 
     ArticleMapper articleMapper;
+    CenterRepository  centerRepository;
+    RatingRepository ratingRepository;
 
     @Autowired
-    ArticleMapperTest(ArticleMapper articleMapper) {
+    ArticleMapperTest(ArticleMapper articleMapper, CenterRepository centerRepository, RatingRepository ratingRepository) {
         this.articleMapper = articleMapper;
+        this.centerRepository = centerRepository;
+        this.ratingRepository = ratingRepository;
     }
 
     @Test

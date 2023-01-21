@@ -1,4 +1,4 @@
-package com.demo.multisport.services.impl;
+package com.demo.multisport.mapper.impl;
 
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.entities.Plan;
@@ -20,7 +20,7 @@ public class PlanMapperImpl implements PlanMapper {
                 .build();
     }
 
-    //maybe not working because of the ralationships user and centers
+    //maybe not working because of the relationships user and centers
     @Override
     public PlanDto planToPlanDto(Plan plan) {
         return PlanDto

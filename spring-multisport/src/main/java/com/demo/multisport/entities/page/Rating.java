@@ -8,13 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "ratings")
-@NoArgsConstructor
 @RequiredArgsConstructor
-@Data
 @JsonInclude(value = JsonInclude.Include.NON_ABSENT)
+@Getter
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,10 +23,16 @@ public class Rating {
     private Long id;
 
     @NonNull
+    @Min(1)
+    @Max(5)
     private Double rate;
 
     @NonNull
     @OneToOne(mappedBy = "rating")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Center center;
+
+    public Rating () {
+        this.rate = 5.0;
+    }
 }

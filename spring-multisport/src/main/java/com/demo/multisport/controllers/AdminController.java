@@ -1,10 +1,11 @@
 package com.demo.multisport.controllers;
 
 
+import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.user.UserDto;
-import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.entities.user.User;
+import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.ArticleDuplicateException;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.services.user.AdminService;
@@ -31,7 +32,6 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    
     @PostMapping("")
     public ResponseEntity<Optional<UserDto>> manageUsersAdmin(HttpSession session) {
         UserDto user = (UserDto) session.getAttribute("user");
@@ -89,35 +89,41 @@ public class AdminController {
     }
 
     @DeleteMapping("/centers")
-    public ResponseEntity<Optional<Center>> deleteCenter(@RequestParam(name = "address", required = true) String address,
-                                                         HttpSession session) {
+    public ResponseEntity<Optional<CenterDto>> deleteCenter(@RequestParam(name = "address", required = true) String address,
+                                                            HttpSession session) {
         //to do authorization
 
-        adminService.deleteCenter(address);
+        try {
+            CenterDto centerDto = adminService.deleteCenter(address);
+            return new ResponseEntity<>(Optional.of(centerDto), HttpStatus.OK);
+        } catch (CenterNotFoundException e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+        }
 
-        // to do return optional empty
-        return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
     }
 
 
     @GetMapping("/centers")
-    public ResponseEntity<List<Center>> adminGetAllPlans(HttpSession session) {
+    public ResponseEntity<List<CenterDto>> adminGetAllCenters(HttpSession session) {
         // to do validate session
+
+        System.out.println("HIT GetMapping centers");
 
         return new ResponseEntity<>(adminService.getAllCenters(), HttpStatus.OK);
     }
 
     @PostMapping("/centers/newcenter")
-    public ResponseEntity<Optional<Center>> addCenter(@RequestBody @Valid Center center, HttpSession session) {
+    public ResponseEntity<Optional<CenterDto>> addCenter(@RequestBody @Valid CenterDto centerDto, HttpSession session) {
 
         //to do session authorization
         log.info("hit");
         try {
-            adminService.addCenter(center);
-            return new ResponseEntity<>(Optional.of(center), HttpStatus.OK);
+            adminService.addCenter(centerDto);
+            return new ResponseEntity<>(Optional.of(centerDto), HttpStatus.OK);
         } catch (CenterDuplicateException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         }
 
     }
+
 }

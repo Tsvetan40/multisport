@@ -1,7 +1,9 @@
 package com.demo.multisport.mapper.impl;
 
 import com.demo.multisport.dao.CenterRepository;
+import com.demo.multisport.dao.CommentRepository;
 import com.demo.multisport.dto.center.CenterDto;
+import com.demo.multisport.dto.center.TypeCenter;
 import com.demo.multisport.entities.center.RelaxCenter;
 import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.entities.page.Rating;
@@ -20,55 +22,45 @@ public class CenterMapperImpl implements CenterMapper {
 
     private final CenterRepository centerRepository;
     private final CommentMapper commentMapper;
+    private final CommentRepository commentRepository;
     private static final String SPORT_CENTER_DISCRIMINATOR_VALUE = "SportCenter";
     private static final String RELAX_CENTER_DISCRIMINATOR_VALUE = "RelaxCenter";
 
     @Autowired
-    public CenterMapperImpl(CenterRepository centerRepository, CommentMapper commentMapper) {
+    public CenterMapperImpl(CenterRepository centerRepository,
+                            CommentMapper commentMapper,
+                            CommentRepository commentRepository) {
         this.centerRepository = centerRepository;
         this.commentMapper = commentMapper;
+        this.commentRepository =commentRepository;
     }
 
     @Override
     public SportCenter centerDtoToSportCenter(CenterDto centerDto) {
-        Optional<SportCenter> sportCenter = centerRepository.getSportCenterByAddress(centerDto.getAddress());
-        if (sportCenter.isEmpty()) {
-            throw new CenterNotFoundException("Sport center not found " + centerDto.getName());
-        }
+        SportCenter sportCenter = new SportCenter();
 
-        return sportCenter.get();
-        //user part, so i don't need to show plan
-        //user part, i need to show comments
-        //and i also need to show rating
-//        return new SportCenter()
-//                .withName(centerDto.getName())
-//                .withAddress(centerDto.getAddress())
-//                .withDescription(centerDto.getDescription())
-//                .withPictures(centerDto.getPictures())
-//                .withComments(centerRepository.getComments(centerDto.getAddress()).stream().collect(Collectors.toSet()))
-//                .withRating(centerRepository.getRating(centerDto.getAddress()));
-                //plan -> user part no plan at all, admin part whole plan
-                //comments -> user part comment content and user name, admin part comment content, user email
-                //rating -> user part rating, admin part rating
+        sportCenter.setName(centerDto.getName());
+        sportCenter.setAddress(centerDto.getAddress());
+        sportCenter.setDescription(centerDto.getDescription());
+        sportCenter.setPictures(centerDto.getPictures());
+        sportCenter.setComments(commentRepository.getCommentsByAddress(centerDto.getAddress()).stream().collect(Collectors.toSet()));
+        sportCenter.setRating(centerRepository.getRating(centerDto.getAddress()));
 
+        return sportCenter;
     }
 
     @Override
     public RelaxCenter centerDtoToRelaxCenter(CenterDto centerDto) {
-        Optional<RelaxCenter> relaxCenter = centerRepository.getRelaxCenterByAddress(centerDto.getAddress());
-        if (relaxCenter.isEmpty()) {
-            throw new CenterNotFoundException("Relax Center not found " + centerDto.getName());
-        }
-        return relaxCenter.get();
+        RelaxCenter relaxCenter = new RelaxCenter();
+        relaxCenter.setAddress(centerDto.getAddress());
+        relaxCenter.setName(centerDto.getName());
+        relaxCenter.setDescription(centerDto.getDescription());
+        relaxCenter.setPictures(centerDto.getPictures());
+        relaxCenter.setRating(centerRepository.getRating(centerDto.getAddress()));
+        relaxCenter.setComments(commentRepository.getCommentsByAddress(centerDto.getAddress()).stream().collect(Collectors.toSet()));
+        relaxCenter.setServices(centerDto.getServices());
 
-//        return new RelaxCenter()
-//                .withAddress(centerDto.getAddress())
-//                .withName(centerDto.getName())
-//                .withDescription(centerDto.getDescription())
-//                .withPictures(centerDto.getPictures())
-//                .withRating(centerRepository.getRating(centerDto.getAddress()))
-//                .withComments(centerRepository.getComments(centerDto.getAddress()).stream().collect(Collectors.toSet()))
-//                .withServices(centerDto.getServices());
+        return relaxCenter;
     }
 
     @Override
@@ -76,6 +68,7 @@ public class CenterMapperImpl implements CenterMapper {
         //this is user part i don't need plans
         return CenterDto
                 .builder()
+                .centerType(TypeCenter.SPORT_CENTER)
                 .name(sportCenter.getName())
                 .description(sportCenter.getDescription())
                 .address(sportCenter.getAddress())
@@ -89,6 +82,7 @@ public class CenterMapperImpl implements CenterMapper {
     public CenterDto relaxCenterToCenterDto(RelaxCenter relaxCenter) {
         return CenterDto
                 .builder()
+                .centerType(TypeCenter.RELAX_CENTER)
                 .name(relaxCenter.getName())
                 .description(relaxCenter.getDescription())
                 .address(relaxCenter.getAddress())

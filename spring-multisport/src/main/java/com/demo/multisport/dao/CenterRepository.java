@@ -20,25 +20,23 @@ public interface CenterRepository extends JpaRepository<Center, Long> {
     long countCentersByAddress(String address);
 
     @Transactional
-    void deleteCenterByAddress(String address);
+    Optional<Center> deleteCenterByAddress(String address);
 
     @Query(nativeQuery = true,
-           value = "SELECT * FROM centers WHERE address=:address AND center_type='SportCenter'")
+           value = "SELECT * FROM centers WHERE address=:address AND center_type='SportCenter';")
     Optional<SportCenter> getSportCenterByAddress(@Param("address") String address);
 
     @Query(nativeQuery = true,
-            value = "SELECT * FROM centers WHERE address=:address AND center_type='RelaxCenter'")
+            value = "SELECT * FROM centers WHERE address=:address AND center_type='RelaxCenter';")
     Optional<RelaxCenter> getRelaxCenterByAddress(@Param("address") String address);
 
     @Query(nativeQuery = true,
-            value = "SELECT * FROM ratings r INNER JOIN centers c ON r.id = c.rating_id AND c.address=:address")
+            value = "select ratings.id, ratings.rate\n" +
+                    "from ratings\n" +
+                    "inner join centers on ratings.id = centers.rating_id where centers.address=:address ;")
     Rating getRating(@Param("address") String address);
 
-//    @Query(nativeQuery = true,
-//            value = "SELECT * FROM comments cmnt INNER JOIN centers cntr ON cntr.address = cmnt.center_address")
-//    List<Comment> getComments(@Param("address") String address);
-
-    @Query(nativeQuery = true, value = "SELECT * FROM centers WHERE address=:address AND center_type=:type")
+    @Query(nativeQuery = true, value = "SELECT * FROM centers WHERE address=:address AND center_type=:type;")
     Optional<Center> getCenterByAddressAndType(@Param("address") String address,
                                                @Param("type") String type);
 }

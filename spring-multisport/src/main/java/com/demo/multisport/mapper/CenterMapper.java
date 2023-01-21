@@ -4,7 +4,7 @@ import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.entities.center.RelaxCenter;
 import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.entities.page.Rating;
-import org.mapstruct.Mapper;
+
 
 public interface CenterMapper {
     SportCenter centerDtoToSportCenter(CenterDto centerDto);
