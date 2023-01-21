@@ -33,9 +33,12 @@ public class AdminPageServiceImpl implements PageService {
         centerService.addRelaxCenterAdmin(centerDto);
     }
 
-
     public void deleteCenter(String address) {
         centerService.deleteCenter(address);
+    }
+
+    public long countCentersByAddress(CenterDto centerDto) {
+        return centerService.countCentersByAddress(centerDto.getAddress());
     }
 
     public void addComment(CommentDto commentDto) {

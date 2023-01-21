@@ -47,60 +47,6 @@ public class AdminController {
         return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
     }
 
-    @DeleteMapping("/articles")
-    public ResponseEntity<Optional<ArticleDto>> deleteArticle(@RequestParam(required = true, name = "title") String title,
-                                                              HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
-        }
-
-        return new ResponseEntity<>(Optional.of(adminService.deleteArticle(title)), HttpStatus.OK);
-    }
-
-    @GetMapping("/articles")
-    public ResponseEntity<List<String>> getArticlesAdmin(HttpSession session) {
-        User admin = (User) session.getAttribute("user");
-
-        log.info("@GetMapping articles");
-        log.info(session.getId());
-        log.info("admin= " + admin);
-
-        if (admin == null) {
-            return new ResponseEntity<>( List.of(), HttpStatus.UNAUTHORIZED);
-        }
-
-        return new ResponseEntity<>( adminService.getAllArticlesTitle(), HttpStatus.OK);
-    }
-
-    @PostMapping("/articles/newarticle")
-    public ResponseEntity<Optional<ArticleDto>> postArticle(@RequestBody @Valid ArticleDto articleDto,
-                                                         HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
-        }
-
-        log.info("PostMapping " + session.getId());
-        try {
-            adminService.addArticle(articleDto);
-            return new ResponseEntity<>(Optional.of(articleDto), HttpStatus.OK);
-        } catch (ArticleDuplicateException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @DeleteMapping("/centers")
-    public ResponseEntity<String> deleteCenter(@RequestParam(name = "address", required = true) String address,
-                                                            HttpSession session) {
-        //to do authorization
-
-        try {
-            adminService.deleteCenter(address);
-            return new ResponseEntity<>(address, HttpStatus.OK);
-        } catch (CenterNotFoundException e) {
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        }
-
-    }
 
 //    @GetMapping("/centers")
 //    public ResponseEntity<List<CenterDto>> adminGetAllCenters(HttpSession session) {
@@ -111,18 +57,5 @@ public class AdminController {
 //        return new ResponseEntity<>(adminService.getAllCenters(), HttpStatus.OK);
 //    }
 
-    @PostMapping("/centers/newcenter")
-    public ResponseEntity<Optional<CenterDto>> addCenter(@RequestBody @Valid CenterDto centerDto, HttpSession session) {
-
-        //to do session authorization
-        log.info("hit");
-        try {
-            adminService.addCenter(centerDto);
-            return new ResponseEntity<>(Optional.of(centerDto), HttpStatus.OK);
-        } catch (CenterDuplicateException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
-        }
-
-    }
 
 }

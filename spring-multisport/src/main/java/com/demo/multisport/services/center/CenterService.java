@@ -46,4 +46,8 @@ public class CenterService {
     private void saveCenterAdmin(Center center) {
         centerRepository.save(center);
     }
+
+    public long countCentersByAddress(String address) {
+        return centerRepository.countCentersByAddress(address);
+    }
 }
