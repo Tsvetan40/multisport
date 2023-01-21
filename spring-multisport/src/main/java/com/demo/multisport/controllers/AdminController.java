@@ -89,28 +89,27 @@ public class AdminController {
     }
 
     @DeleteMapping("/centers")
-    public ResponseEntity<Optional<CenterDto>> deleteCenter(@RequestParam(name = "address", required = true) String address,
+    public ResponseEntity<String> deleteCenter(@RequestParam(name = "address", required = true) String address,
                                                             HttpSession session) {
         //to do authorization
 
         try {
-            CenterDto centerDto = adminService.deleteCenter(address);
-            return new ResponseEntity<>(Optional.of(centerDto), HttpStatus.OK);
+            adminService.deleteCenter(address);
+            return new ResponseEntity<>(address, HttpStatus.OK);
         } catch (CenterNotFoundException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
 
     }
 
-
-    @GetMapping("/centers")
-    public ResponseEntity<List<CenterDto>> adminGetAllCenters(HttpSession session) {
-        // to do validate session
-
-        System.out.println("HIT GetMapping centers");
-
-        return new ResponseEntity<>(adminService.getAllCenters(), HttpStatus.OK);
-    }
+//    @GetMapping("/centers")
+//    public ResponseEntity<List<CenterDto>> adminGetAllCenters(HttpSession session) {
+//        // to do validate session
+//
+//        System.out.println("HIT GetMapping centers");
+//
+//        return new ResponseEntity<>(adminService.getAllCenters(), HttpStatus.OK);
+//    }
 
     @PostMapping("/centers/newcenter")
     public ResponseEntity<Optional<CenterDto>> addCenter(@RequestBody @Valid CenterDto centerDto, HttpSession session) {

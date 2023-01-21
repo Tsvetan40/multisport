@@ -1,21 +1,49 @@
 package com.demo.multisport.services.center;
 
 import com.demo.multisport.dao.CenterRepository;
+import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.entities.center.Center;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.demo.multisport.entities.center.RelaxCenter;
+import com.demo.multisport.entities.center.SportCenter;
+import com.demo.multisport.exceptions.CenterNotFoundException;
+import com.demo.multisport.mapper.AdminCenterMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
-public class CenterService {
+import java.util.Optional;
 
+@Service
+@RequiredArgsConstructor
+public class CenterService {
+    private final AdminCenterMapper adminCenterMapper;
     private final CenterRepository centerRepository;
 
-    @Autowired
-    public CenterService(CenterRepository centerRepository) {
-        this.centerRepository = centerRepository;
+    public CenterDto getCenterDtoFromSportCenterAdmin(SportCenter sportCenter) {
+        return adminCenterMapper.sportCenterToCenterDtoExtractRecord(sportCenter);
     }
 
-    public Center getCenterByAddressAndType(String address, String type) {
-        return centerRepository.getCenterByAddressAndType(address, type).get();
+    public CenterDto getCenterDtoFromRelaxCenterAdmin(RelaxCenter relaxCenter) {
+        return adminCenterMapper.relaxCenterToCenterDtoExtractRecord(relaxCenter);
+    }
+
+    public void addSportCenterAdmin(CenterDto centerDto) {
+        SportCenter newSportCenter =  adminCenterMapper.centerDtoToSportCenterCreateRecord(centerDto);
+        this.saveCenterAdmin(newSportCenter);
+    }
+
+    public void addRelaxCenterAdmin(CenterDto centerDto) {
+        RelaxCenter newRelaxCenter =  adminCenterMapper.centerDtoToRelaxCenterCreateRecord(centerDto);
+        this.saveCenterAdmin(newRelaxCenter);
+    }
+
+    public void deleteCenter(String address) {
+        Optional<Center> center = centerRepository.deleteCenterByAddress(address);
+        if (center.isEmpty()) {
+            throw new CenterNotFoundException("Center with " + address + " not found");
+        }
+    }
+
+    private void saveCenterAdmin(Center center) {
+        centerRepository.save(center);
     }
 }

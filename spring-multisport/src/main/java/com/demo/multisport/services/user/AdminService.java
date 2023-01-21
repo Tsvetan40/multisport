@@ -15,26 +15,25 @@ import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.ArticleDuplicateException;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
+import com.demo.multisport.mapper.AdminCenterMapper;
 import com.demo.multisport.mapper.ArticleMapper;
 import com.demo.multisport.mapper.CenterMapper;
 import com.demo.multisport.mapper.impl.AdminCenterMapperImpl;
 import com.demo.multisport.mapper.impl.CenterMapperImpl;
+import com.demo.multisport.services.page.AdminPageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AdminService {
-
     private final ArticleRepository articleRepository;
     private final CenterRepository centerRepository;
     private final ArticleMapper articleMapper;
-    private final CenterMapper centerMapper;
-    private final CenterMapper adminCenterMapper;
+    private final AdminCenterMapper adminCenterMapper;
     private final RatingRepository ratingRepository;
+    private final AdminPageServiceImpl adminPageService;
 
     @Autowired
     public AdminService(ArticleRepository articleRepository,
@@ -42,13 +41,14 @@ public class AdminService {
                         ArticleMapper articleMapper,
                         CenterMapperImpl centerMapper,
                         AdminCenterMapperImpl adminCenterMapper,
-                        RatingRepository ratingRepository) {
+                        RatingRepository ratingRepository,
+                        AdminPageServiceImpl adminPageService) {
         this.articleRepository = articleRepository;
         this.centerRepository = centerRepository;
         this.articleMapper = articleMapper;
-        this.centerMapper = centerMapper;
         this.adminCenterMapper = adminCenterMapper;
         this.ratingRepository = ratingRepository;
+        this.adminPageService = adminPageService;
     }
 
     public List<String> getAllArticlesTitle() {
@@ -73,45 +73,21 @@ public class AdminService {
         articleRepository.save(article);
     }
 
-    public List<CenterDto> getAllCenters() {
-        return centerRepository.findAll()
-                .stream()
-                .map(center -> {
-                    if (centerMapper instanceof RelaxCenter)
-                        return centerMapper.relaxCenterToCenterDto((RelaxCenter) center);
 
-                    return centerMapper.sportCenterToCenterDto((SportCenter) center);
-                    })
-                .collect(Collectors.toList());
-
-    }
-
-    public void addCenter(CenterDto center) {
-        if (centerRepository.countCentersByAddress(center.getAddress()) > 0) {
-            throw new CenterDuplicateException("Center already exists!" + center.getName());
+    public void addCenter(CenterDto centerDto) {
+        if (centerRepository.countCentersByAddress(centerDto.getAddress()) > 0) {
+            throw new CenterDuplicateException("Center already exists!" + centerDto.getName());
         }
 
-        Rating rating = new Rating();
-        ratingRepository.save(rating);
-
-        if (center.getServices() == null) {
-            SportCenter sportCenter = adminCenterMapper.centerDtoToSportCenter(center);
-            System.out.println(sportCenter);
-            centerRepository.save(sportCenter);
+        if (centerDto.getServices() == null) {
+            adminPageService.addSportCenter(centerDto);
         } else {
-            centerRepository.save(adminCenterMapper.centerDtoToRelaxCenter(center));
+            adminPageService.addRelaxCenter(centerDto);
         }
 
     }
 
-    public CenterDto deleteCenter(String address) {
-        Optional<Center> center = centerRepository.deleteCenterByAddress(address);
-        if (center.isEmpty()) {
-            throw new CenterNotFoundException("Center with " + address + " not found");
-        }
-
-        return center.get() instanceof RelaxCenter ? centerMapper.relaxCenterToCenterDto((RelaxCenter) center.get()) :
-                                                     centerMapper.sportCenterToCenterDto((SportCenter) center.get());
-
+    public void deleteCenter(String address) {
+        adminPageService.deleteCenter(address);
     }
 }
