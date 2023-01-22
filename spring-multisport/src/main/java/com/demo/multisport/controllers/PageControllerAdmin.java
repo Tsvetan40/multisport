@@ -3,10 +3,12 @@ package com.demo.multisport.controllers;
 
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
+import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.ArticleDuplicateException;
+import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.services.user.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,18 +30,22 @@ public class PageControllerAdmin {
     private final AdminService adminService;
 
     @DeleteMapping("/articles")
-    public ResponseEntity<Optional<ArticleDto>> deleteArticle(@RequestParam(required = true, name = "title") String title,
+    public ResponseEntity<String> deleteArticle(@RequestParam(required = true, name = "title") String title,
                                                               HttpSession session) {
         if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Unauthorized user", HttpStatus.UNAUTHORIZED);
         }
-
-        return new ResponseEntity<>(Optional.of(adminService.deleteArticle(title)), HttpStatus.OK);
+        try {
+            adminService.deleteArticle(title);
+            return new ResponseEntity<>("Article with title " + title + "deleted", HttpStatus.OK);
+        } catch (NoSuchArticleException e) {
+            return new ResponseEntity<>("Article with title " + title + " doesn't exist", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/articles")
     public ResponseEntity<List<String>> getArticlesAdmin(HttpSession session) {
-        User admin = (User) session.getAttribute("user");
+        UserDto admin = (UserDto) session.getAttribute("user");
 
         log.info("@GetMapping articles");
         log.info(session.getId());

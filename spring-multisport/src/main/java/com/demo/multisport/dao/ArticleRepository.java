@@ -13,8 +13,7 @@ import java.util.Optional;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    @Transactional
-    Article deleteByTitle(String title);
+    void deleteArticleByTitle(String title);
     long countArticleByTitle(String title);
 
     @Query(nativeQuery = true, value = "SELECT title FROM articles")

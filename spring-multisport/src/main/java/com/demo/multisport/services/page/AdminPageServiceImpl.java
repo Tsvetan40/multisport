@@ -46,8 +46,8 @@ public class AdminPageServiceImpl implements PageService {
         return centerService.countCentersByAddress(centerDto.getAddress());
     }
 
-    public ArticleDto deleteArticleByTitle(String title) {
-       return adminArticleService.deleteArticleByTitle(title);
+    public void deleteArticleByTitle(String title) {
+        adminArticleService.deleteArticleByTitle(title);
     }
 
     public ArticleDto addArticle(ArticleDto articleDto) {

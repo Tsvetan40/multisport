@@ -10,6 +10,7 @@ import com.demo.multisport.services.page.AdminPageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 //goes to controllers only
@@ -28,16 +29,16 @@ public class AdminService {
         return adminPageService.getAllTitles();
     }
 
-    public ArticleDto deleteArticle(String title) {
+    public void deleteArticle(String title) {
         try {
-            return adminPageService.deleteArticleByTitle(title);
+            adminPageService.deleteArticleByTitle(title);
         } catch (Exception e) {
             throw new NoSuchArticleException("No article with title " + title);
         }
     }
 
     public ArticleDto addArticle(ArticleDto articleDto) {
-
+        articleDto.setPublishedAt(LocalDateTime.now());
         if (adminPageService.countArticlesByTitle(articleDto.getTitle()) > 0) {
             throw new ArticleDuplicateException("Article Already exists! Change Title");
         }
