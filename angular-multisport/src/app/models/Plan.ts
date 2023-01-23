@@ -4,22 +4,16 @@ import { SportCenter } from "./centers/SportCenter";
 export class Plan {
     private name: string
     private price: number
-    private relaxCenters: RelaxCenter[] = []
-    private sportCenters: SportCenter[] = []
+    private centersAddresses: string[]
 
-    constructor (name: string, price: number, relaxCenters: RelaxCenter[], sportCenters: SportCenter[]) {
+    constructor (name: string, price: number, centersAddresses: string[]) {
         this.name = name
         this.price = price
-        this.relaxCenters = relaxCenters
-        this.sportCenters = sportCenters
+        this.centersAddresses = centersAddresses
     }
 
-    public getSportCenters(): SportCenter[] {
-        return this.sportCenters
-    }
-
-    public getRelaxCenters(): RelaxCenter[] {
-        return this.relaxCenters
+    public getCentersAddresses(): string[] {
+        return this.centersAddresses
     }
 
     public getPrice(): number {

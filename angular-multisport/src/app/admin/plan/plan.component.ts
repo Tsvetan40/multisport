@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Plan } from 'src/app/models/Plan';
+import { AdminService } from 'src/app/services/admin.service';
 import { PatternService } from 'src/app/services/pattern.service';
 
 @Component({
@@ -8,32 +10,36 @@ import { PatternService } from 'src/app/services/pattern.service';
   styleUrls: ['./plan.component.css']
 })
 export class PlanComponent {
-  nameCenter!: string
+  addressCenter!: string
   name!: string
   price!: number
-  centers: string[] = []
+  centersAddresses: string[] = []
   isSubmitTouched: boolean = false
   @ViewChild('planForm') planForm!: NgForm
 
-  constructor(private patternService: PatternService) {}
+  constructor(private patternService: PatternService, private adminService: AdminService) {}
 
   disableAddCenterBtn(): boolean {
-    return this.patternService.disableAddCenterBtn(this.nameCenter, this.planForm)
+    return this.patternService.disableAddCenterBtn(this.addressCenter, this.planForm)
   }
 
   centerHasErrors(): boolean {
-    return this.patternService.displayErrorCenter(this.nameCenter, this.planForm)
+    console.log()
+    return this.patternService.displayErrorCenterAddress(this.addressCenter, this.planForm)
   }
 
   //to to not any but HtmlInputElement
   addCenter(): void {
     console.log('click')
-    this.centers.push(this.nameCenter)
-    this.nameCenter = ''
+    this.centersAddresses.push(this.addressCenter)
+    this.addressCenter = ''
   }
 
   submitPlan():void {
     this.isSubmitTouched = true
-        
+    const plan = new Plan(this.name, this.price, this.centersAddresses)
+    this.adminService.savePlan(plan).subscribe() 
+    this.centersAddresses = []
+    this.planForm.control.reset()
   }
 }

@@ -5,6 +5,7 @@ import { RelaxCenter } from '../models/centers/RelaxCenter';
 import { SportCenter } from '../models/centers/SportCenter';
 import { Article } from '../models/page/Article';
 import { RegisteredUser } from '../models/user/RegisteredUser';
+import { Plan } from '../models/Plan';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,10 @@ export class AdminService {
 
   saveRelaxCenter(relaxCenter: RelaxCenter): Observable<RelaxCenter> {
     return this.http.post<RelaxCenter>(`${this.url}/centers/newcenter`, relaxCenter, { withCredentials: true })
+  }
+
+  savePlan(plan: Plan): Observable<Plan> {
+    return this.http.post<Plan>(`${this.url}/newplan`, plan, { withCredentials: true })
   }
 
   getAllArticlesTitle(): Observable<string[]> {

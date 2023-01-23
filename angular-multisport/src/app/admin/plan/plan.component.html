@@ -19,10 +19,10 @@
             </div>
             <div class="content-inner content-centers">
                 <div class="add-center-wrapper">
-                    <input type="text" name="centers" id="centers" class="input-field" placeholder="Enter name of center"
-                    ngModel #centername="ngModel" [(ngModel)]="nameCenter">
+                    <input type="text" name="centers" id="address" class="input-field" placeholder="Enter name of address"
+                    ngModel #centername="ngModel" [(ngModel)]="addressCenter">
                     <button type="button" id="add-center" (click)="addCenter()" 
-                     [disabled]="disableAddCenterBtn()">Add Center
+                     [disabled]="disableAddCenterBtn()">Add Address
                     </button>
                 </div>
 
@@ -33,15 +33,15 @@
 
             </div>
             <div class="content-inner">
-                <button id="submit" [disabled]="!planForm.valid || centers.length == 0" (click)="submitPlan()">Add plan</button>
-                <span *ngIf="centers.length == 0 && isSubmitTouched" class="error" id="submit-error">You must eneter centers to plan</span>
+                <button id="submit" [disabled]="!planForm.valid || centersAddresses.length == 0" (click)="submitPlan()">Add plan</button>
+                <span *ngIf="centersAddresses.length == 0 && isSubmitTouched" class="error" id="submit-error">You must eneter centers to plan</span>
             </div>
         </form>
     </section>
     <section id="list-centers">
-        <p *ngIf="centers.length == 0" class="p-info-centers">No centers yet</p>
-        <p *ngIf="centers.length != 0" class="p-info-centers">Go to center:</p>
-        <div id="list-centers-inner" *ngFor="let center of centers">
+        <p *ngIf="centersAddresses.length == 0" class="p-info-centers">No centers yet</p>
+        <p *ngIf="centersAddresses.length != 0" class="p-info-centers">Go to center:</p>
+        <div id="list-centers-inner" *ngFor="let center of centersAddresses">
             <p class="center-link">{{ center }}</p>
         </div>
     </section>
