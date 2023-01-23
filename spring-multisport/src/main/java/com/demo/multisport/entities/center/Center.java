@@ -39,6 +39,7 @@ public abstract class Center {
     // check length
     @NotNull
     @ElementCollection
+    @Column(columnDefinition = "VARCHAR(512) NOT NULL")
     private Set<String> pictures;
 
     @ManyToMany(mappedBy = "centers")

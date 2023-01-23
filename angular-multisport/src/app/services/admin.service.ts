@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { RelaxCenter } from '../models/centers/RelaxCenter';
+import { SportCenter } from '../models/centers/SportCenter';
 import { Article } from '../models/page/Article';
 import { RegisteredUser } from '../models/user/RegisteredUser';
 
@@ -29,6 +31,14 @@ export class AdminService {
 
   saveArticle(article: Article): Observable<Article> {
     return this.http.post<Article>(`${this.url}/articles/newarticle`, article, { withCredentials: true })
+  }
+
+  saveSportCenter(sportCenetr: SportCenter): Observable<SportCenter> {
+    return this.http.post<SportCenter>(`${this.url}/centers/newcenter`, sportCenetr, { withCredentials: true } )
+  }
+
+  saveRelaxCenter(relaxCenter: RelaxCenter): Observable<RelaxCenter> {
+    return this.http.post<RelaxCenter>(`${this.url}/centers/newcenter`, relaxCenter, { withCredentials: true })
   }
 
   getAllArticlesTitle(): Observable<string[]> {
