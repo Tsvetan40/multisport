@@ -1,5 +1,6 @@
 package com.demo.multisport.services.user;
 
+import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.page.CommentDto;
@@ -7,6 +8,7 @@ import com.demo.multisport.exceptions.article.ArticleDuplicateException;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.services.page.AdminPageServiceImpl;
+import com.demo.multisport.services.plan.AdminPlanServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,11 @@ import java.util.List;
 public class AdminService {
 
     private final AdminPageServiceImpl adminPageService;
-
+    private final AdminPlanServiceImpl adminPlanService;
 
     @Autowired
-    public AdminService(AdminPageServiceImpl adminPageService) {
+    public AdminService(AdminPageServiceImpl adminPageService, AdminPlanServiceImpl adminPlanService) {
+        this.adminPlanService = adminPlanService;
         this.adminPageService = adminPageService;
     }
 
@@ -69,5 +72,13 @@ public class AdminService {
 
     public CommentDto deleteComment(CommentDto commentDto) {
         return adminPageService.deleteComment(commentDto);
+    }
+
+    public void addPlan(PlanDto planDto) {
+        adminPlanService.addPlan(planDto);
+    }
+
+    public List<PlanDto> getAllPlans() {
+        return adminPlanService.getAllPlans();
     }
 }

@@ -35,7 +35,7 @@ public class PlanDto {
     @NonNull
     @NotEmpty
     @JsonProperty(required = true)
-    private Set<Center> centers;
+    private Set<String> centersAddresses;
 
 
 }

@@ -8,13 +8,14 @@ import lombok.*;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @DiscriminatorValue(value = "RelaxCenter")
 @Getter
 @Setter
-public class RelaxCenter extends Center{
+public class RelaxCenter extends Center implements Serializable {
 
     public RelaxCenter() {
         super();

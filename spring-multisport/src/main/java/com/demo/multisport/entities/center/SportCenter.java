@@ -8,11 +8,12 @@ import com.demo.multisport.entities.page.Rating;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @DiscriminatorValue(value = "SportCenter")
-public class SportCenter extends Center{
+public class SportCenter extends Center implements Serializable {
 
     public SportCenter (){
         super();
