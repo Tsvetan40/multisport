@@ -6,12 +6,19 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavigationModule } from './navigation/navigation.module';
 import { AdminModule } from './admin/admin.module';
-
+import { PublicSportCentersComponent } from './public/centers/sport/public-sport-centers.component';
+import { PublicRelaxCentersComponent } from './public/centers/relax/public-relax-centers.component';
+import { PublicPlansComponent } from './public/plan/public-plans.component';
+import { PublicArticlesComponent } from './public/articles/public-articles.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    PublicSportCentersComponent,
+    PublicRelaxCentersComponent,
+    PublicPlansComponent,
+    PublicArticlesComponent,
   ],
   imports: [
     BrowserModule,
