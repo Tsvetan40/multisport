@@ -64,6 +64,9 @@ export class CentersComponent {
     this.name = ''
     this.services = ''
     this.description = ''
+    this.centerForm.control.reset()
+    this.services = ''
+    this.pictures = []
     //this.centerForm.reset()
   }
 
