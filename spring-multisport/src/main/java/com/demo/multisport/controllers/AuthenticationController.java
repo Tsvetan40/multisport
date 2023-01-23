@@ -30,6 +30,15 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
+    @PostMapping("")
+    public ResponseEntity<Optional<UserDto>> check(HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(Optional.of((UserDto)session.getAttribute("user")), HttpStatus.OK);
+    }
+
 
     @PostMapping("/login")
     public ResponseEntity<Optional<UserDto>> login(@RequestBody @Valid LoggedUserDto loggedUser,

@@ -32,8 +32,7 @@ public class AdminController {
         log.info("manage users= " + user);
 
         if (user == null || !user.getEmail().contains("@multisport.com")) {
-            Optional<UserDto> emptyUser = Optional.empty();
-            return new ResponseEntity<>(emptyUser, HttpStatus.OK);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
