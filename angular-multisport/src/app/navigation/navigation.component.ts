@@ -18,8 +18,10 @@ export class NavigationComponent implements OnInit{
   constructor(private authService: AuthenticationService) {}
 
   ngOnInit(): void {
+    
 
     this.authService.checkSession().subscribe(
+
       (data) => {
         if (data == null) {
           this.isAdmin = false

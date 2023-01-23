@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PatternService } from 'src/app/services/pattern.service';
-import { LoggedUser } from 'src/app/models/LoggedUser';
+import { LoggedUser } from 'src/app/models/user/LoggedUser';
 
 
 @Component({

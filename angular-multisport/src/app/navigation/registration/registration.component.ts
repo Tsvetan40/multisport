@@ -2,7 +2,7 @@ import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PatternService } from 'src/app/services/pattern.service';
 import { NgForm  } from '@angular/forms';
-import { User } from 'src/app/models/User';
+import { RegisteredUser } from 'src/app/models/user/RegisteredUser';
 
 @Component({
   selector: 'app-registration',
@@ -45,11 +45,11 @@ export class RegistrationComponent {
   }
 
   onSubmit() {
-    const user  = new User(this.firstName, this.secondName, this.email, this.password, this.age)
+    const user  = new RegisteredUser(this.email, this.password, this.firstName, this.secondName, this.age)
     
     this.authService.registartion(user).subscribe(
       data => {
-        debugger
+        
         if (data == null) {
           this.hasAuthenticationError = true
           return

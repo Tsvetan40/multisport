@@ -3,7 +3,6 @@ package com.demo.multisport.controllers;
 
 import com.demo.multisport.dto.user.LoggedUserDto;
 import com.demo.multisport.dto.user.UserDto;
-import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.user.UserDuplicateException;
 import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.services.user.UserService;
@@ -19,24 +18,15 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("multisport")
+@RequestMapping("/multisport")
 @Slf4j
 public class AuthenticationController {
-    private static final int MAX_INACTIVE_INTERVAL  = 60*10;
+    private static final int MAX_INACTIVE_INTERVAL  = 60*10*10;
     private UserService userService;
 
     @Autowired
     public AuthenticationController(UserService userService) {
         this.userService = userService;
-    }
-
-    @PostMapping("")
-    public ResponseEntity<Optional<UserDto>> check(HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(Optional.of((UserDto)session.getAttribute("user")), HttpStatus.OK);
     }
 
 
@@ -102,10 +92,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Optional<User>> authentication(HttpSession session) {
+    public ResponseEntity<Optional<UserDto>> authentication(HttpSession session) {
         log.info("Hit check if has session");
         if (session.getAttribute("user") != null) {
-            return new ResponseEntity<>(Optional.of((User)session.getAttribute("user")), HttpStatus.OK);
+            return new ResponseEntity<>(Optional.of((UserDto)session.getAttribute("user")), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);

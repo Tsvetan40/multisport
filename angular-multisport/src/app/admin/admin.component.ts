@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/User';
+import { RegisteredUser } from '../models/user/RegisteredUser';
 import { AdminService } from '../services/admin.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AdminService } from '../services/admin.service';
 })
 export class AdminComponent implements OnInit{
   
-  user!: User
+  user!: RegisteredUser
 
   constructor(private adminService: AdminService) {}
   

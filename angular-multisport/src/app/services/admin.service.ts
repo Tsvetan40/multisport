@@ -1,9 +1,8 @@
-import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Article } from '../models/page/Article';
-import { User } from '../models/User';
+import { RegisteredUser } from '../models/user/RegisteredUser';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +10,20 @@ import { User } from '../models/User';
 export class AdminService {
 
   private readonly url: string = "http://localhost:8080/multisport/admin"
-  private user!: User
+  private user!: RegisteredUser
   
   constructor(private http: HttpClient) { }
 
 
-  admin(): Observable<User> {
-    return this.http.post<User>(this.url, {}, { withCredentials: true })
+  admin(): Observable<RegisteredUser> {
+    return this.http.post<RegisteredUser>(this.url, {}, { withCredentials: true })
   }
 
-  getUser(): User {
+  getUser(): RegisteredUser {
     return this.user;
   }
 
-  setUser(user: User): void {
+  setUser(user: RegisteredUser): void {
     this.user = user
   }
 
