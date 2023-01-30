@@ -75,7 +75,7 @@ public class AdminService {
     }
 
     public void addPlan(PlanDto planDto) {
-        adminPlanService.addPlanAdmin(planDto);
+        //adminPlanService.addPlanAdmin(planDto);
     }
 
     public List<PlanDto> getAllPlans() {
