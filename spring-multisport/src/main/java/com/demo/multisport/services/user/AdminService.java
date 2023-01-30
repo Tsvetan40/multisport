@@ -8,7 +8,7 @@ import com.demo.multisport.exceptions.article.ArticleDuplicateException;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.services.page.AdminPageServiceImpl;
-import com.demo.multisport.services.plan.AdminPlanServiceImpl;
+import com.demo.multisport.services.plan.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +20,16 @@ import java.util.List;
 public class AdminService {
 
     private final AdminPageServiceImpl adminPageService;
-    private final AdminPlanServiceImpl adminPlanService;
+    private final PlanService adminPlanService;
 
     @Autowired
-    public AdminService(AdminPageServiceImpl adminPageService, AdminPlanServiceImpl adminPlanService) {
+    public AdminService(AdminPageServiceImpl adminPageService, PlanService adminPlanService) {
         this.adminPlanService = adminPlanService;
         this.adminPageService = adminPageService;
     }
 
     public List<String> getAllArticlesTitle() {
-        return adminPageService.getAllTitles();
+        return adminPageService.getAllArticlesTitles();
     }
 
     public void deleteArticle(String title) {
@@ -75,7 +75,7 @@ public class AdminService {
     }
 
     public void addPlan(PlanDto planDto) {
-        adminPlanService.addPlan(planDto);
+        adminPlanService.addPlanAdmin(planDto);
     }
 
     public List<PlanDto> getAllPlans() {
