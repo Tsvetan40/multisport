@@ -3,11 +3,9 @@ package com.demo.multisport.services.page;
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
-import com.demo.multisport.entities.center.RelaxCenter;
-import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.services.article.ArticleServiceImpl;
 import com.demo.multisport.services.center.CenterService;
-import com.demo.multisport.services.plan.AdminPlanServiceImpl;
+import com.demo.multisport.services.plan.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,25 +21,24 @@ public class PageServiceImpl implements PageService{
 
     private final ArticleServiceImpl articleService;
     private final CenterService centerService;
-    private final AdminPlanServiceImpl planService;
+    private final PlanService planService;
+    private final String SPORT_CENTER_TYPE = "SportCenter";
+    private final String RELAX_CENTER_TYPE = "RelaxCenter";
 
     @Override
     public List<String> getAllArticlesTitles() {
         return articleService.getAllTitles();
     }
 
+    public Optional<CenterDto> getCenterDtoByAddress(String address, String type) {
+        if (type.equals(SPORT_CENTER_TYPE)) {
+            return centerService.sportCenterToCenterDto(address);
+        }
+        return centerService.relaxCenterToCenterDto(address);
+    }
+
     public Optional<ArticleDto> getArticleByTitle(String title) {
         return this.articleService.getArticleByTitle(title);
-    }
-
-    @Override
-    public CenterDto getCenterDtoFromSportCenter(SportCenter sportCenter) {
-        return null;
-    }
-
-    @Override
-    public CenterDto getCenterDtoFromRelaxCenter(RelaxCenter relaxCenter) {
-        return null;
     }
 
     public Set<PlanDto> getAllPlans() {

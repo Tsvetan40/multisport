@@ -21,16 +21,6 @@ public class AdminPageServiceImpl implements PageService {
     private final CommentServiceAdminImpl commentServiceAdmin;
 
     @Override
-    public CenterDto getCenterDtoFromSportCenter(SportCenter sportCenter) {
-        return centerService.getCenterDtoFromSportCenterAdmin(sportCenter);
-    }
-
-    @Override
-    public CenterDto getCenterDtoFromRelaxCenter(RelaxCenter relaxCenter) {
-        return centerService.getCenterDtoFromRelaxCenterAdmin(relaxCenter);
-    }
-
-    @Override
     public List<String> getAllArticlesTitles() {
         return adminArticleService.getAllTitles();
     }
@@ -44,7 +34,7 @@ public class AdminPageServiceImpl implements PageService {
     }
 
     public void deleteCenter(String address) {
-        centerService.deleteCenter(address);
+        centerService.deleteCenterAdmin(address);
     }
 
     public long countCentersByAddress(CenterDto centerDto) {

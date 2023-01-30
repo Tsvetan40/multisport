@@ -22,14 +22,6 @@ public class CenterService {
     private final CenterRepository centerRepository;
     private final CenterMapperImpl centerMapperImpl;
 
-    public CenterDto getCenterDtoFromSportCenterAdmin(SportCenter sportCenter) {
-        return adminCenterMapper.sportCenterToCenterDtoExtractRecord(sportCenter);
-    }
-
-    public CenterDto getCenterDtoFromRelaxCenterAdmin(RelaxCenter relaxCenter) {
-        return adminCenterMapper.relaxCenterToCenterDtoExtractRecord(relaxCenter);
-    }
-
     public void addSportCenterAdmin(CenterDto centerDto) {
         SportCenter newSportCenter =  adminCenterMapper.centerDtoToSportCenterCreateRecord(centerDto);
         this.saveCenterAdmin(newSportCenter);
@@ -40,7 +32,7 @@ public class CenterService {
         this.saveCenterAdmin(newRelaxCenter);
     }
 
-    public void deleteCenter(String address) {
+    public void deleteCenterAdmin(String address) {
         Optional<Center> center = centerRepository.deleteCenterByAddress(address);
         if (center.isEmpty()) {
             throw new CenterNotFoundException("Center with " + address + " not found");
@@ -53,6 +45,24 @@ public class CenterService {
 
     public long countCentersByAddress(String address) {
         return centerRepository.countCentersByAddress(address);
+    }
+
+    public Optional<CenterDto> sportCenterToCenterDto(String address) {
+        Optional<SportCenter> sportCenter = centerRepository.getSportCenterByAddress(address);
+        if (sportCenter.isEmpty()) {
+            throw new CenterNotFoundException("Center with address" + address + " not found");
+        }
+
+        return Optional.of(centerMapperImpl.sportCenterToCenterDtoExtractRecord(sportCenter.get()));
+    }
+
+    public Optional<CenterDto> relaxCenterToCenterDto(String address) {
+        Optional<RelaxCenter> relaxCenter = centerRepository.getRelaxCenterByAddress(address);
+        if (relaxCenter.isEmpty()) {
+            throw new CenterNotFoundException("Center with address" + address + " not found");
+        }
+
+        return Optional.of(centerMapperImpl.relaxCenterToCenterDtoExtractRecord(relaxCenter.get()));
     }
 
     public Set<CenterDto> getAllSportCenters() {

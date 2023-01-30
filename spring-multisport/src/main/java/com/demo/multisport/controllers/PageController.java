@@ -3,6 +3,7 @@ package com.demo.multisport.controllers;
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
+import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.services.page.PageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import java.util.Set;
 public class PageController {
 
     private final PageServiceImpl pageService;
+    private final String SPORT_CENTER_TYPE = "SportCenter";
+    private final String RELAX_CENTER_TYPE = "RelaxCenter";
 
     @Autowired
     public PageController(PageServiceImpl pageService) {
@@ -51,6 +54,16 @@ public class PageController {
     @GetMapping("/plans")
     public ResponseEntity<Set<PlanDto>> getAllPlans() {
         return new ResponseEntity<>(pageService.getAllPlans(), HttpStatus.OK);
+    }
+
+    @GetMapping("/sport-centers/{address}")
+    public ResponseEntity<Optional<CenterDto>> getSportCenter(@PathVariable(value = "address", required = true) String address) {
+        return new ResponseEntity<>(pageService.getCenterDtoByAddress(address, SPORT_CENTER_TYPE), HttpStatus.OK);
+    }
+
+    @GetMapping("/relax-centers/{address}")
+    public ResponseEntity<Optional<CenterDto>> getRelaxCenter(@PathVariable(value = "address", required = true) String address) {
+        return new ResponseEntity<>(pageService.getCenterDtoByAddress(address, RELAX_CENTER_TYPE), HttpStatus.OK);
     }
 
     @GetMapping("/sport-centers")
