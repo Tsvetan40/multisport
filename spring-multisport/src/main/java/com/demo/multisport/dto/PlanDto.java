@@ -17,18 +17,23 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Builder
+@JsonInclude(value = JsonInclude.Include.NON_ABSENT)
 public class PlanDto {
 
     @NonNull
+    @JsonProperty(required = true)
     @Size(min = 4, max = 20)
     private String name;
 
     @NonNull
+    @JsonProperty(required = true)
     @Min(10)
     private Double price;
 
+    @JsonProperty(required = false)
     private Set<User> users;
 
+    @JsonProperty(required = true)
     @NonNull
     @NotEmpty
     private Set<String> centersAddresses;
