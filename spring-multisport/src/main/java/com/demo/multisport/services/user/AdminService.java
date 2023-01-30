@@ -29,7 +29,7 @@ public class AdminService {
     }
 
     public List<String> getAllArticlesTitle() {
-        return adminPageService.getAllTitles();
+        return adminPageService.getAllArticlesTitles();
     }
 
     public void deleteArticle(String title) {

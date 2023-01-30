@@ -30,6 +30,11 @@ public class AdminPageServiceImpl implements PageService {
         return centerService.getCenterDtoFromRelaxCenterAdmin(relaxCenter);
     }
 
+    @Override
+    public List<String> getAllArticlesTitles() {
+        return adminArticleService.getAllTitles();
+    }
+
     public void addSportCenter(CenterDto centerDto) {
         centerService.addSportCenterAdmin(centerDto);
     }
@@ -52,10 +57,6 @@ public class AdminPageServiceImpl implements PageService {
 
     public ArticleDto addArticle(ArticleDto articleDto) {
         return adminArticleService.addArticle(articleDto);
-    }
-
-    public List<String> getAllTitles() {
-        return adminArticleService.getAllTitles();
     }
 
     public long countArticlesByTitle(String title) {
