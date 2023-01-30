@@ -4,11 +4,13 @@ import com.demo.multisport.dao.PlanRepository;
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.exceptions.plan.DuplicatePlanException;
+import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.mapper.PlanMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,5 +34,15 @@ public class PlanService {
                 .stream()
                 .map(planMapper::planToPlanDto)
                 .collect(Collectors.toList());
+    }
+
+    public Optional<PlanDto> getPlanByName(String planName) {
+        Optional<Plan> plan = planRepository.getPlanByName(planName);
+        if (plan.isEmpty()) {
+            throw new NoSuchPlanException("plan with name " + planName + "not found");
+        }
+        return Optional.of(planMapper.planToPlanDto(plan.get()));
+
+
     }
 }

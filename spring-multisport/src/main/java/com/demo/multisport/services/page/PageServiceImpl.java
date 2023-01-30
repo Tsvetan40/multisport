@@ -52,4 +52,8 @@ public class PageServiceImpl implements PageService{
     public Set<CenterDto> getAllRelaxCenters() {
         return centerService.getAlRelaxCenters();
     }
+
+    public Optional<PlanDto> getPlanByName(String planName) {
+        return planService.getPlanByName(planName);
+    }
 }
