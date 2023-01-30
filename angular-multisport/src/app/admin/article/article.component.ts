@@ -44,7 +44,6 @@ export class ArticleComponent {
         } else if (error['status'] == 401) {
           this.router.navigate(['/multisport'])
         }
-        console.log(error['status'])
       }
       )
 

@@ -10,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Set;
 
-@Service
 public class PlanMultipartService implements MultipartService {
     private final String DIR_PLAN = "plan";
     @Override

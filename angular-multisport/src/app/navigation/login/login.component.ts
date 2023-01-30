@@ -37,7 +37,6 @@ export class LoginComponent {
           this.hasLoginError = true
           return
         }
-        console.log(data)
         if (data['email'].includes('@multisport.com')) {
           this.isAdminEventEmitter.emit(true)
         } else {

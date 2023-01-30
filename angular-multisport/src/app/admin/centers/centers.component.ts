@@ -56,7 +56,6 @@ export class CentersComponent {
                                           CenterType.RELAX_CENTER,
                                           this.getServices())
         debugger
-        console.log(relaxCenter)
         this.adminService.saveRelaxCenter(relaxCenter).subscribe()
     }
   

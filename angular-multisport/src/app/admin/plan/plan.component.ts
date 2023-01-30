@@ -13,6 +13,7 @@ export class PlanComponent {
   addressCenter!: string
   name!: string
   price!: number
+  picture!: File
   centersAddresses: string[] = []
   isSubmitTouched: boolean = false
   @ViewChild('planForm') planForm!: NgForm
@@ -24,21 +25,24 @@ export class PlanComponent {
   }
 
   centerHasErrors(): boolean {
-    console.log()
     return this.patternService.displayErrorCenterAddress(this.addressCenter, this.planForm)
   }
 
   //to to not any but HtmlInputElement
   addCenter(): void {
-    console.log('click')
     this.centersAddresses.push(this.addressCenter)
     this.addressCenter = ''
+  }
+
+  loadPicture(event: any) {
+    this.picture = event.target.files[0]
   }
 
   submitPlan():void {
     this.isSubmitTouched = true
     const plan = new Plan(this.name, this.price, this.centersAddresses)
-    this.adminService.savePlan(plan).subscribe() 
+    debugger
+    this.adminService.savePlan(plan, this.picture).subscribe() 
     this.centersAddresses = []
     this.planForm.control.reset()
   }

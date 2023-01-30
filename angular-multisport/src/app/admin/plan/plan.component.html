@@ -31,6 +31,10 @@
                          class="error">Center name must be between 4 and 20 symbols</span>
                 </div>
 
+                <div class="add-center-wrapper">
+                    <input type="file" id="file" (change)="loadPicture($event)" required>
+                </div>
+
             </div>
             <div class="content-inner">
                 <button id="submit" [disabled]="!planForm.valid || centersAddresses.length == 0" (click)="submitPlan()">Add plan</button>

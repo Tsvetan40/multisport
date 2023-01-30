@@ -42,8 +42,21 @@ export class AdminService {
     return this.http.post<RelaxCenter>(`${this.url}/centers/newcenter`, relaxCenter, { withCredentials: true })
   }
 
-  savePlan(plan: Plan): Observable<Plan> {
-    return this.http.post<Plan>(`${this.url}/newplan`, plan, { withCredentials: true })
+  savePlan(plan: Plan, picture: File): Observable<Plan> {
+    const formParams = new FormData()
+    formParams.append('name', plan.getName())
+    formParams.append('price', plan.getPrice().toString())
+    
+    let centersAdddressesString = ''
+    plan.getCentersAddresses().forEach(centersAdddress => {
+      centersAdddressesString += centersAdddress;
+    })
+
+
+    formParams.append('centersAddresses', centersAdddressesString)
+    formParams.append('file', picture)
+
+    return this.http.post<Plan>(`${this.url}/newplan`, formParams, { withCredentials: true })
   }
 
   getAllArticlesTitle(): Observable<string[]> {

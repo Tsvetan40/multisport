@@ -3,6 +3,7 @@ package com.demo.multisport.controllers;
 
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.exceptions.plan.DuplicatePlanException;
+import com.demo.multisport.services.MultipartService;
 import com.demo.multisport.services.impl.PlanMultipartService;
 import com.demo.multisport.services.user.AdminService;
 import org.apache.catalina.valves.rewrite.QuotedStringTokenizer;
@@ -21,10 +22,8 @@ import java.util.stream.Collectors;
 public class AdminPlanController {
 
     private final AdminService adminService;
-    private final PlanMultipartService planMultipartService;
 
-    public AdminPlanController(AdminService adminService, PlanMultipartService planMultipartService) {
-        this.planMultipartService = planMultipartService;
+    public AdminPlanController(AdminService adminService) {
         this.adminService = adminService;
     }
 
@@ -39,10 +38,9 @@ public class AdminPlanController {
         return tokenizingCommaStrings
                 .stream()
                 .map(quotedString -> {
-                    String a = quotedString.substring(1, quotedString.length() - 1);
-                    System.out.println("a=" + a);
-                    return a;
-        }).collect(Collectors.toSet());
+                    return quotedString.substring(1, quotedString.length() - 1);
+                })
+                .collect(Collectors.toSet());
 
     }
 
@@ -56,9 +54,6 @@ public class AdminPlanController {
         try {
 
             Set<String> addresses = stringToSetAddresses(centersAddresses);
-            for (String address : addresses) {
-                System.out.println(address);
-            }
 
             Double priceConverted = Double.parseDouble(String.format("%.2f", Double.parseDouble(price)));
             planDto = new PlanDto(name, priceConverted, addresses);
@@ -69,7 +64,8 @@ public class AdminPlanController {
 
         try {
             adminService.addPlan(planDto);
-            planMultipartService.save(file);
+            MultipartService multipartService = new PlanMultipartService();
+            multipartService.save(file);
             return new ResponseEntity<>(Optional.of(planDto), HttpStatus.OK);
         } catch (DuplicatePlanException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
