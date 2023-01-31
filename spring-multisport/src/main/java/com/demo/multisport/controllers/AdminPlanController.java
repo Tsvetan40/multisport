@@ -4,16 +4,15 @@ package com.demo.multisport.controllers;
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.exceptions.plan.DuplicatePlanException;
 import com.demo.multisport.services.MultipartService;
-import com.demo.multisport.services.impl.PlanMultipartService;
+import com.demo.multisport.services.impl.PlanMultipart;
 import com.demo.multisport.services.user.AdminService;
-import org.apache.catalina.valves.rewrite.QuotedStringTokenizer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.SecondaryTable;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -63,9 +62,9 @@ public class AdminPlanController {
 
 
         try {
-            adminService.addPlan(planDto);
-            MultipartService multipartService = new PlanMultipartService();
-            multipartService.save(file);
+            MultipartService multipartService = new PlanMultipart();
+            String filePath = multipartService.save(file);
+            adminService.addPlan(planDto, filePath);
             return new ResponseEntity<>(Optional.of(planDto), HttpStatus.OK);
         } catch (DuplicatePlanException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
@@ -75,6 +74,10 @@ public class AdminPlanController {
 
     @GetMapping("/plans")
     public ResponseEntity<List<PlanDto>> getAllPlans() {
-        return new ResponseEntity<>(adminService.getAllPlans(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(adminService.getAllPlans(), HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(new LinkedList<PlanDto>(), HttpStatus.OK);
+        }
     }
 }

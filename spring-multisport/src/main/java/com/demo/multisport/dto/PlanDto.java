@@ -16,6 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 @JsonInclude(value = JsonInclude.Include.NON_ABSENT)
 public class PlanDto {
@@ -38,4 +39,6 @@ public class PlanDto {
     @NotEmpty
     private Set<String> centersAddresses;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String imageBase64;
 }

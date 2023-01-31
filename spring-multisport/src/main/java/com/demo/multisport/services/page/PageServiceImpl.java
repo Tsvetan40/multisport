@@ -9,6 +9,7 @@ import com.demo.multisport.services.plan.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +42,7 @@ public class PageServiceImpl implements PageService{
         return this.articleService.getArticleByTitle(title);
     }
 
-    public Set<PlanDto> getAllPlans() {
+    public Set<PlanDto> getAllPlans() throws IOException {
         return new HashSet<>(planService.getAllPlans());
     }
 
@@ -53,7 +54,7 @@ public class PageServiceImpl implements PageService{
         return centerService.getAlRelaxCenters();
     }
 
-    public Optional<PlanDto> getPlanByName(String planName) {
+    public Optional<PlanDto> getPlanByName(String planName) throws IOException {
         return planService.getPlanByName(planName);
     }
 }

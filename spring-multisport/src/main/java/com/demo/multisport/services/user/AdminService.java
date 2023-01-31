@@ -12,6 +12,7 @@ import com.demo.multisport.services.plan.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -74,11 +75,11 @@ public class AdminService {
         return adminPageService.deleteComment(commentDto);
     }
 
-    public void addPlan(PlanDto planDto) {
-        //adminPlanService.addPlanAdmin(planDto);
+    public void addPlan(PlanDto planDto, String filePath) {
+        adminPlanService.addPlanAdmin(planDto, filePath);
     }
 
-    public List<PlanDto> getAllPlans() {
+    public List<PlanDto> getAllPlans() throws IOException {
         return adminPlanService.getAllPlans();
     }
 }

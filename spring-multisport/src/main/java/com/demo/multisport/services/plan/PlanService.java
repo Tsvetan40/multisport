@@ -9,6 +9,8 @@ import com.demo.multisport.mapper.PlanMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,8 +22,9 @@ public class PlanService {
     private final PlanMapper planMapper;
     private final PlanRepository planRepository;
 
-    public void addPlanAdmin(PlanDto planDto) {
-        Plan plan = planMapper.planDtoToPlan(planDto);
+    public void addPlanAdmin(PlanDto planDto, String filePath) {
+        Plan plan = planMapper.planDtoToPlan(planDto, filePath);
+        plan.setPathFile(filePath);
         try {
             planRepository.save(plan);
         } catch (Exception e) {
@@ -29,14 +32,17 @@ public class PlanService {
         }
     }
 
-    public List<PlanDto> getAllPlans() {
-        return planRepository.findAll()
-                .stream()
-                .map(planMapper::planToPlanDto)
-                .collect(Collectors.toList());
+    public List<PlanDto> getAllPlans() throws IOException {
+        List<Plan> allPlans = planRepository.findAll();
+        List<PlanDto> allPlansDto = new LinkedList<>();
+        for (Plan plan : allPlans) {
+            allPlansDto.add(planMapper.planToPlanDto(plan));
+        }
+
+        return allPlansDto;
     }
 
-    public Optional<PlanDto> getPlanByName(String planName) {
+    public Optional<PlanDto> getPlanByName(String planName) throws IOException {
         Optional<Plan> plan = planRepository.getPlanByName(planName);
         if (plan.isEmpty()) {
             throw new NoSuchPlanException("plan with name " + planName + "not found");

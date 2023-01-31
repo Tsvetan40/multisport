@@ -6,12 +6,16 @@ import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
+import com.demo.multisport.services.MultipartService;
+import com.demo.multisport.services.impl.PlanMultipart;
 import com.demo.multisport.services.page.PageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -51,16 +55,19 @@ public class PageController {
     @GetMapping("/plans/{name}")
     public ResponseEntity<Optional<PlanDto>> getPlan(@PathVariable(name = "name") String planName) {
         try{
-             return new ResponseEntity<>(pageService.getPlanByName(planName), HttpStatus.OK);
-        } catch (NoSuchPlanException e) {
+            return new ResponseEntity<>(pageService.getPlanByName(planName), HttpStatus.OK);
+        } catch (NoSuchPlanException | IOException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
         }
-
     }
 
     @GetMapping("/plans")
     public ResponseEntity<Set<PlanDto>> getAllPlans() {
-        return new ResponseEntity<>(pageService.getAllPlans(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(pageService.getAllPlans(), HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(new HashSet<>(), HttpStatus.OK);
+        }
     }
 
     @GetMapping("/sport-centers/{address}")

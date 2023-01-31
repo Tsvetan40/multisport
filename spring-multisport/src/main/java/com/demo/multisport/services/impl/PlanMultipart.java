@@ -1,24 +1,25 @@
 package com.demo.multisport.services.impl;
 
 import com.demo.multisport.services.MultipartService;
-import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Set;
+import java.io.*;
+import java.nio.file.Files;
 
-public class PlanMultipartService implements MultipartService {
-    private final String DIR_PLAN = "plan";
+public class PlanMultipart implements MultipartService {
+    private final String DIR_PLAN;
+    private final File dir;
+
+    public PlanMultipart() {
+        this.DIR_PLAN = "plan";
+        this.dir = new File(DIR_PLAN);
+    }
     @Override
-    public void save(MultipartFile file){
-        File dir = new File(DIR_PLAN);
+    public String save(MultipartFile file){
         if (!dir.exists()) {
             dir.mkdirs();
         }
-
 
         String path = dir.getAbsolutePath() + "/" + file.getOriginalFilename();
         File newFile = new File(path);
@@ -27,10 +28,12 @@ public class PlanMultipartService implements MultipartService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return path;
     }
 
     @Override
-    public Set<MultipartFile> getFiles(String directory) {
-        return null;
+    public byte[] getFileBytes(String pathFile) throws IOException {
+        File file = new File(pathFile);
+        return Files.readAllBytes(file.toPath());
     }
 }

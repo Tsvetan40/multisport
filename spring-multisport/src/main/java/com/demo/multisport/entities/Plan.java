@@ -3,10 +3,7 @@ package com.demo.multisport.entities;
 import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.entities.user.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -43,4 +40,9 @@ public class Plan {
             inverseJoinColumns = @JoinColumn(name = "center_id", nullable = false)
     )
     private Set<Center> centers;
+
+    @NonNull
+    @NotBlank
+    @Column(name = "path_file")
+    private String pathFile;
 }
