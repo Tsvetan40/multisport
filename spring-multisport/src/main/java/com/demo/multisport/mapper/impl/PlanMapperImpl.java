@@ -39,7 +39,10 @@ public class PlanMapperImpl implements PlanMapper {
 
     private String fileToString(String pathFile) throws IOException {
         PlanMultipart planMultipart = new PlanMultipart();
-        return Base64.encodeBase64String(planMultipart.getFileBytes(pathFile));
+        String fileContent = Base64.encodeBase64String(planMultipart.getFileBytes(pathFile));
+        String type = planMultipart.getType(pathFile);
+//        System.out.println(String.format("data:image/%s;base64,%s", type, fileContent));
+        return String.format("data:image/%s;base64,%s", type, fileContent);
     }
 
 

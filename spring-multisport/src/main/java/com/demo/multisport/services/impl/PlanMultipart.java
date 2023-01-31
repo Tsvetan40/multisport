@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.Base64;
 
 public class PlanMultipart implements MultipartService {
     private final String DIR_PLAN;
@@ -34,6 +35,9 @@ public class PlanMultipart implements MultipartService {
     @Override
     public byte[] getFileBytes(String pathFile) throws IOException {
         File file = new File(pathFile);
-        return Files.readAllBytes(file.toPath());
+        FileInputStream inputStream = new FileInputStream(file);
+        byte[] byteArray = new byte[(int) file.length()];
+        inputStream.read(byteArray);
+        return byteArray;
     }
 }

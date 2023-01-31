@@ -10,6 +10,7 @@ import { PublicSportCentersComponent } from './public/centers/sport/public-sport
 import { PublicRelaxCentersComponent } from './public/centers/relax/public-relax-centers.component';
 import { PublicPlansComponent } from './public/plan/public-plans.component';
 import { PublicArticlesComponent } from './public/articles/public-articles.component';
+import { PublicService } from './services/public.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { PublicArticlesComponent } from './public/articles/public-articles.compo
     NavigationModule,
     AdminModule
   ],
-  providers: [],
+  providers: [PublicService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

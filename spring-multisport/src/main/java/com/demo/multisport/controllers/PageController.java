@@ -63,6 +63,7 @@ public class PageController {
 
     @GetMapping("/plans")
     public ResponseEntity<Set<PlanDto>> getAllPlans() {
+        System.out.println("Hit plans");
         try {
             return new ResponseEntity<>(pageService.getAllPlans(), HttpStatus.OK);
         } catch (IOException e) {
