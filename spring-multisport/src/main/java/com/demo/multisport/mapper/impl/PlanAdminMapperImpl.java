@@ -6,9 +6,8 @@ import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.mapper.PlanMapper;
-import com.demo.multisport.utils.PlanMultipartUtil;
+import com.demo.multisport.utils.MultipartUtilImpl;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -40,22 +39,13 @@ public class PlanAdminMapperImpl implements PlanMapper {
                 .build();
     }
 
-    private String fileToString(String pathFile) throws IOException {
-        PlanMultipartUtil planMultipartUtil = new PlanMultipartUtil();
-        String fileContent = Base64.encodeBase64String(planMultipartUtil.getFileBytes(pathFile));
-        String type = planMultipartUtil.getType(pathFile);
-
-        return String.format("data:image/%s;base64,%s", type, fileContent);
-    }
-
-
     @Override
     public PlanDto planToPlanDto(Plan plan) throws IOException {
         return PlanDto
                 .builder()
                 .name(plan.getName())
                 .price(plan.getPrice())
-                .imageBase64(fileToString(plan.getPathFile()))
+                .imageBase64(MultipartUtilImpl.convertFileToBase64(plan.getPathFile()))
                 .users(plan.getSubscribedUsers())
                 .centersAddresses(plan.getCenters()
                         .stream()
