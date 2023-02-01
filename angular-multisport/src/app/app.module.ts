@@ -11,6 +11,7 @@ import { PublicRelaxCentersComponent } from './public/centers/relax/public-relax
 import { PublicPlansComponent } from './public/plan/public-plans.component';
 import { PublicArticlesComponent } from './public/articles/public-articles.component';
 import { PublicService } from './services/public.service';
+import { PlanInfoComponent } from './public/plan/plan-info/plan-info.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PublicService } from './services/public.service';
     PublicRelaxCentersComponent,
     PublicPlansComponent,
     PublicArticlesComponent,
+    PlanInfoComponent,
   ],
   imports: [
     BrowserModule,

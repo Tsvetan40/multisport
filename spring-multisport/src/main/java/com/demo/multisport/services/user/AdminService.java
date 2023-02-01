@@ -80,6 +80,6 @@ public class AdminService {
     }
 
     public List<PlanDto> getAllPlans() throws IOException {
-        return adminPlanService.getAllPlans();
+        return adminPlanService.getAllPlansAdmin();
     }
 }

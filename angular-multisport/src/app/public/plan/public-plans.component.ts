@@ -9,7 +9,7 @@ import { Plan } from 'src/app/models/Plan';
 })
 export class PublicPlansComponent implements OnInit{
   
-  private plans: Plan[]
+  plans: Plan[]
   myImage: any
   title = 'toolset'
 
@@ -24,11 +24,6 @@ export class PublicPlansComponent implements OnInit{
         data.forEach(plan => {
           this.plans.push(plan)
         })
-
-        const pplan = this.plans[0]
-        console.log(pplan['imageBase64'])
-        this.myImage = pplan['imageBase64']
-
       }
     )
     

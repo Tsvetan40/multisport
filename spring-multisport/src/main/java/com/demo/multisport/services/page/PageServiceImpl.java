@@ -18,7 +18,7 @@ import java.util.Set;
 //goes to controller
 @Service
 @RequiredArgsConstructor
-public class PageServiceImpl implements PageService{
+public class PageServiceImpl implements PageService {
 
     private final ArticleServiceImpl articleService;
     private final CenterService centerService;

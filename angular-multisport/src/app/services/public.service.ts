@@ -14,4 +14,8 @@ export class PublicService {
   public getAllPlans(): Observable<Plan[]> {
     return this.http.get<Plan[]>(`${this.url}/plans`, { withCredentials: true })
   }
+
+  public getSinglePlan(name: string): Observable<Plan> {
+    return this.http.get<Plan>(`${this.url}/plans/${name}`, {withCredentials: true} )
+  }
 }

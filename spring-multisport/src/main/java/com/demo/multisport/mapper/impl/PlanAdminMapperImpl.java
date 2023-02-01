@@ -15,10 +15,12 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+//rename to plan mapper admin
 @Component
 @RequiredArgsConstructor
-@Qualifier("planMapper")
-public class PlanMapperImpl implements PlanMapper {
+@Qualifier("planAdminMapper")
+public class PlanAdminMapperImpl implements PlanMapper {
+
     private final CenterRepository centerRepository;
 
     @Override
@@ -28,6 +30,7 @@ public class PlanMapperImpl implements PlanMapper {
                 .name(planDto.getName())
                 .price(planDto.getPrice())
                 .pathFile(filePath)
+                .subscribedUsers(planDto.getUsers())
                 .centers(planDto
                         .getCentersAddresses()
                         .stream()
@@ -35,7 +38,6 @@ public class PlanMapperImpl implements PlanMapper {
                                 .orElseThrow(() -> new NoSuchPlanException("No such a plan with address " + address)))
                         .collect(Collectors.toSet()))
                 .build();
-
     }
 
     private String fileToString(String pathFile) throws IOException {
@@ -46,7 +48,7 @@ public class PlanMapperImpl implements PlanMapper {
         return String.format("data:image/%s;base64,%s", type, fileContent);
     }
 
-    //maybe changes when user is subscribing to a plan
+
     @Override
     public PlanDto planToPlanDto(Plan plan) throws IOException {
         return PlanDto

@@ -1,0 +1,43 @@
+<app-navigation></app-navigation>
+
+
+
+<main id="main">
+    <section id="main-info">
+
+        <div class="container-main">
+            <span id="plan-name">Plan name: {{plan['name']}}</span>
+        </div>        
+        <div class="container-main">
+            <span id="price">
+                Price: {{plan['price']}}
+            </span>
+        </div>
+    </section>
+    <section id="logo">
+        
+        <div class="container-picture">
+            <img [src]="plan['imageBase64']" alt="No picture">
+        </div>
+        
+    
+    </section>
+    <section id="centers-info">
+        <div class="container-centers">
+            <p>Centers:</p>
+        </div>
+        <div class="container-centers" *ngFor="let address of plan['centersAddresses']">
+                <p>{{address}}</p>
+        </div>
+    
+    </section>
+    <section id="subscribe">
+        
+        <button id="btn-subscribe">
+            Subscribe
+        </button>
+
+    </section>
+
+
+</main>

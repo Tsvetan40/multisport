@@ -1,2 +1,19 @@
-<p>public-plans works!</p>
-<img [src]="myImage" style="width: 200px; height: 200px;" alt="">
+<app-navigation></app-navigation>
+
+<h1>All plans</h1>
+
+<main class="container">
+    <div class="container-wrapper" *ngFor="let plan of this.plans">
+        
+        <div class="plan-inner">
+            <p class="plan-description">Name:</p>  
+            <p class="plan-dynamic">{{ plan['name'] }}</p>
+        </div>
+        
+        <div class="picture-container">
+            <img [src]="plan['imageBase64']" alt="picture cannot be loaded">
+        </div>
+
+    </div>
+
+</main>
