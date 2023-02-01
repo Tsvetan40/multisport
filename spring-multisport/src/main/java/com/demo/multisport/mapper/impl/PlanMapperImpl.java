@@ -6,7 +6,7 @@ import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.mapper.PlanMapper;
-import com.demo.multisport.services.impl.PlanMultipart;
+import com.demo.multisport.utils.PlanMultipartUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,9 +39,9 @@ public class PlanMapperImpl implements PlanMapper {
     }
 
     private String fileToString(String pathFile) throws IOException {
-        PlanMultipart planMultipart = new PlanMultipart();
-        String fileContent = Base64.encodeBase64String(planMultipart.getFileBytes(pathFile));
-        String type = planMultipart.getType(pathFile);
+        PlanMultipartUtil planMultipartUtil = new PlanMultipartUtil();
+        String fileContent = Base64.encodeBase64String(planMultipartUtil.getFileBytes(pathFile));
+        String type = planMultipartUtil.getType(pathFile);
 
         return String.format("data:image/%s;base64,%s", type, fileContent);
     }

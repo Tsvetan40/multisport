@@ -1,18 +1,15 @@
-package com.demo.multisport.services.impl;
+package com.demo.multisport.utils;
 
-import com.demo.multisport.services.MultipartService;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.util.Base64;
 
-public class PlanMultipart implements MultipartService {
+public class PlanMultipartUtil implements MultipartUtil {
     private final String DIR_PLAN;
     private final File dir;
 
-    public PlanMultipart() {
+    public PlanMultipartUtil() {
         this.DIR_PLAN = "plan";
         this.dir = new File(DIR_PLAN);
     }

@@ -3,8 +3,8 @@ package com.demo.multisport.controllers;
 
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.exceptions.plan.DuplicatePlanException;
-import com.demo.multisport.services.MultipartService;
-import com.demo.multisport.services.impl.PlanMultipart;
+import com.demo.multisport.utils.MultipartUtil;
+import com.demo.multisport.utils.PlanMultipartUtil;
 import com.demo.multisport.services.user.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -62,8 +62,8 @@ public class AdminPlanController {
 
 
         try {
-            MultipartService multipartService = new PlanMultipart();
-            String filePath = multipartService.save(file);
+            MultipartUtil multipartUtil = new PlanMultipartUtil();
+            String filePath = multipartUtil.save(file);
             adminService.addPlan(planDto, filePath);
             return new ResponseEntity<>(Optional.of(planDto), HttpStatus.OK);
         } catch (DuplicatePlanException e) {

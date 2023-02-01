@@ -1,11 +1,11 @@
-package com.demo.multisport.services;
+package com.demo.multisport.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
-public interface MultipartService {
+public interface MultipartUtil {
     String save(MultipartFile file);
 
     default String getType(String pathFile) {
