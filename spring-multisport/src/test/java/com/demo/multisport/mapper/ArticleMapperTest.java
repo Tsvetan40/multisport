@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.util.Set;
 
 @SpringBootTest
@@ -29,7 +30,7 @@ public class ArticleMapperTest {
     }
 
     @Test
-    void articleToArticleDtoTest(){
+    void articleToArticleDtoTest() throws IOException {
         Article article = new Article("title", "content", null);
         ArticleDto dto = articleMapper.articleToArticleDto(article);
 

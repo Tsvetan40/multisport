@@ -38,7 +38,7 @@ public class PageServiceImpl implements PageService {
         return centerService.relaxCenterToCenterDto(address);
     }
 
-    public Optional<ArticleDto> getArticleByTitle(String title) {
+    public Optional<ArticleDto> getArticleByTitle(String title) throws IOException{
         return this.articleService.getArticleByTitle(title);
     }
 

@@ -1,5 +1,6 @@
 package com.demo.multisport.services.user;
 
+import com.demo.multisport.MultisportApplication;
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
@@ -9,8 +10,10 @@ import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.services.page.AdminPageServiceImpl;
 import com.demo.multisport.services.plan.PlanService;
+import com.demo.multisport.utils.MultipartUtilImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -41,11 +44,14 @@ public class AdminService {
         }
     }
 
-    public ArticleDto addArticle(ArticleDto articleDto) {
+    public ArticleDto addArticle(ArticleDto articleDto, MultipartFile picture) {
         articleDto.setPublishedAt(LocalDateTime.now());
+
         if (adminPageService.countArticlesByTitle(articleDto.getTitle()) > 0) {
             throw new ArticleDuplicateException("Article Already exists! Change Title");
         }
+
+        MultipartUtilImpl.saveArticle(picture);
 
         return adminPageService.addArticle(articleDto);
     }

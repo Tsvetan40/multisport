@@ -4,7 +4,6 @@ package com.demo.multisport.controllers;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.user.UserDto;
-import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.ArticleDuplicateException;
@@ -15,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -25,7 +24,7 @@ import java.util.Optional;
 @RequestMapping("multisport/admin")
 @RequiredArgsConstructor
 @Slf4j
-public class PageControllerAdmin {
+public class AdminPageController {
 
     private final AdminService adminService;
 
@@ -59,15 +58,25 @@ public class PageControllerAdmin {
     }
 
     @PostMapping("/articles/newarticle")
-    public ResponseEntity<Optional<ArticleDto>> postArticle(@RequestBody @Valid ArticleDto articleDto,
+    public ResponseEntity<Optional<ArticleDto>> postArticle(@RequestPart String title,
+                                                            @RequestPart String content,
+                                                            @RequestPart MultipartFile picture,
                                                             HttpSession session) {
+        ArticleDto articleDto = null;
+
+        try {
+            articleDto = new ArticleDto(title, content);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
+        }
+
         if (session.getAttribute("user") == null) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
         }
 
         log.info("PostMapping " + session.getId());
         try {
-            adminService.addArticle(articleDto);
+            adminService.addArticle(articleDto, picture);
             return new ResponseEntity<>(Optional.of(articleDto), HttpStatus.OK);
         } catch (ArticleDuplicateException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);

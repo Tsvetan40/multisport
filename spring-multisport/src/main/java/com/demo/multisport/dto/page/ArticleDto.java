@@ -14,8 +14,10 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+@Builder
 public class ArticleDto {
 
     @NonNull
@@ -27,12 +29,14 @@ public class ArticleDto {
     @JsonProperty(required = true)
     private String content;
 
-    @NonNull
     @JsonIgnore
     private LocalDateTime publishedAt;
 
     @JsonProperty(required = false)
     private List<Comment> comments;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String imageBase64;
 
     public ArticleDto(@NonNull String title, @NonNull String content, List<Comment> comments) {
         this.title = title;

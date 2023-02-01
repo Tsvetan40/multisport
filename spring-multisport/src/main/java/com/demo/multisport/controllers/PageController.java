@@ -39,7 +39,7 @@ public class PageController {
         try {
             Optional<ArticleDto> articleDto = pageService.getArticleByTitle(title);
             return new ResponseEntity<>(articleDto, HttpStatus.OK);
-        } catch (NoSuchArticleException e) {
+        } catch (NoSuchArticleException | IOException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
         }
     }

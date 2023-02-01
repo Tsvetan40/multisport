@@ -13,6 +13,9 @@
                 required ngModel #ftitle="ngModel" [(ngModel)]="title" minlength="4" maxlength="50">   
             </div>
             <div class="wrapper-inner">
+                <input type="file" name="file" id ="file" required (change)="loadPicture($event)">
+            </div>
+            <div class="wrapper-inner">
                 <span *ngIf="ftitle.dirty && (title.length < 4 || title.length > 50)"
                 class="error">Title must be between 4 and 50 charecters</span>
             </div>

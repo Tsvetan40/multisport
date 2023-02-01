@@ -14,10 +14,15 @@ export class ArticleComponent {
   errorMessage!: string 
   showAddArticle: boolean
   showAllArticles: boolean
+  picture!: File
 
   constructor(private adminService: AdminService, private router: Router) {
     this.showAddArticle = true
     this.showAllArticles = false
+  }
+
+  loadPicture(event: any): void {
+    this.picture = event.target.files[0]
   }
 
   displayAllArticles(): void {
@@ -32,7 +37,7 @@ export class ArticleComponent {
 
   submitArticle(): void {
   
-    this.adminService.saveArticle(new Article(this.title, this.text)).subscribe(
+    this.adminService.saveArticle(new Article(this.title, this.text), this.picture).subscribe(
       (data) => {
         //to do
         this.errorMessage = ''

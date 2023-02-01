@@ -8,6 +8,7 @@ import com.demo.multisport.mapper.ArticleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class AdminArticleService implements ArticleService {
 
     //to do display specific article from admin
     @Override
-    public Optional<ArticleDto> getArticleByTitle(String title) {
+    public Optional<ArticleDto> getArticleByTitle(String title) throws IOException {
         Optional<Article> article = articleRepository.getArticleByTitle(title);
         if (article.isEmpty()) {
             throw new NoSuchArticleException("Can't find article with title " + title);
