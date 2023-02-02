@@ -6,8 +6,6 @@ import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
-import com.demo.multisport.services.MultipartService;
-import com.demo.multisport.services.impl.PlanMultipart;
 import com.demo.multisport.services.page.PageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

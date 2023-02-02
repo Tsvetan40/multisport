@@ -6,14 +6,13 @@ import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.mapper.PlanMapper;
-import com.demo.multisport.services.impl.PlanMultipart;
+import com.demo.multisport.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.util.stream.Collectors;
+
 
 //rename to plan mapper admin
 @Component
@@ -40,14 +39,6 @@ public class PlanAdminMapperImpl implements PlanMapper {
                 .build();
     }
 
-    private String fileToString(String pathFile) throws IOException {
-        PlanMultipart planMultipart = new PlanMultipart();
-        String fileContent = Base64.encodeBase64String(planMultipart.getFileBytes(pathFile));
-        String type = planMultipart.getType(pathFile);
-
-        return String.format("data:image/%s;base64,%s", type, fileContent);
-    }
-
 
     @Override
     public PlanDto planToPlanDto(Plan plan) throws IOException {
@@ -55,7 +46,7 @@ public class PlanAdminMapperImpl implements PlanMapper {
                 .builder()
                 .name(plan.getName())
                 .price(plan.getPrice())
-                .imageBase64(fileToString(plan.getPathFile()))
+                .imageBase64(FileUtil.fileToString(plan.getPathFile()))
                 .users(plan.getSubscribedUsers())
                 .centersAddresses(plan.getCenters()
                         .stream()
