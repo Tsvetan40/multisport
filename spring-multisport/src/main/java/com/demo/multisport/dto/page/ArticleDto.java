@@ -28,7 +28,7 @@ public class ArticleDto {
     private String content;
 
     @NonNull
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime publishedAt;
 
     @JsonProperty(required = false)

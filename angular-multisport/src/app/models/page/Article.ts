@@ -1,38 +1,52 @@
+import { withDisabledInitialNavigation } from "@angular/router"
+
 export class Article {
-    private title: string
-    private content: string
-    private pictureBase64: string
+    private _title: string
+    private _content: string
+    private _pictureBase64: string
+    private _publishedAt: Date
 
     constructor() {
-        this.title = ''
-        this.content = ''
-        this.pictureBase64 = ''
+        this._title = ''
+        this._content = ''
+        this._pictureBase64 = ''
+        this._publishedAt = new Date()
     }
 
     withTitle(title: string): Article {
-        this.title = title
+        this._title = title
+        return this
+    }
+
+    withPublishedAt(publishedAt: Date) {
+        this._publishedAt = publishedAt
         return this
     }
 
     withContent(content: string): Article {
-        this.content = content
+        this._content = content
         return this
     }
 
     withPictureBase64(pictureBase64: string): Article {
-        this.pictureBase64 = pictureBase64
+        this._pictureBase64 = pictureBase64
+        console.log(typeof this.publishedAt, 'getter')
         return this
     }
 
-    getTitle(): string {
-        return this.title
+    get title(): string {
+        return this._title
     }
 
-    getContent(): string {
-        return this.content
+    get content(): string {
+        return this._content
     }
 
-    getImageBase64() : string {
-        return this.pictureBase64
+    get pictureBase64() : string {
+        return this._pictureBase64
+    }
+
+    get publishedAt(): Date {
+        return this._publishedAt
     }
 }

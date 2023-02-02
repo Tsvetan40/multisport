@@ -43,7 +43,7 @@ public class ArticleServiceImpl implements ArticleService {
             throw new NoSuchArticleException("Can't find article with title " + title);
         }
 
-        ArticleDto articleDto = articleMapper.articleToPartArticleDto(article.get());
+        ArticleDto articleDto = articleMapper.articleToFullArticleDto(article.get());
         return Optional.of(articleDto);
     }
 }

@@ -16,6 +16,10 @@ export class PublicService {
     return this.http.get<Plan[]>(`${this.url}/plans`, { withCredentials: true })
   }
 
+  public getSingleArticle(title: string): Observable<Article> {
+    return this.http.get<Article>(`${this.url}/articles/${title}`, { withCredentials: true })
+  }
+
   public getAllArticle(): Observable<Article[]> {
     return this.http.get<Article[]>(`${this.url}/articles`, { withCredentials: true })
   }

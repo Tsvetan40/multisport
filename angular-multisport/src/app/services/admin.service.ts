@@ -32,8 +32,8 @@ export class AdminService {
 
   saveArticle(article: Article, picture: File): Observable<Article> {
     const formAttributes = new FormData();
-    formAttributes.append('title', article.getTitle())
-    formAttributes.append('content', article.getContent())
+    formAttributes.append('title', article.title)
+    formAttributes.append('content', article.content)
     formAttributes.append('picture', picture)
 
     return this.http.post<Article>(`${this.url}/articles/newarticle`, formAttributes, { withCredentials: true })
