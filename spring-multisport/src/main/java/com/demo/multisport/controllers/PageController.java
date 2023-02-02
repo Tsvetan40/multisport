@@ -41,13 +41,21 @@ public class PageController {
             return new ResponseEntity<>(articleDto, HttpStatus.OK);
         } catch (NoSuchArticleException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     //get the titles and then navigate to them
     @GetMapping("/articles")
-    public ResponseEntity<List<String>> getAllArticlesTitles() {
-        return new ResponseEntity<>(pageService.getAllArticlesTitles(), HttpStatus.OK);
+    public ResponseEntity<List<ArticleDto>> getAllArticlesTitles() {
+        try {
+            return new ResponseEntity<>(pageService.getAllArticlesTitlesAndImages(), HttpStatus.OK);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(List.of(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/plans/{name}")

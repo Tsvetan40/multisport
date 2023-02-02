@@ -8,12 +8,12 @@ import com.demo.multisport.services.center.CenterService;
 import com.demo.multisport.services.plan.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
 
 //goes to controller
 @Service
@@ -27,8 +27,8 @@ public class PageServiceImpl implements PageService {
     private final String RELAX_CENTER_TYPE = "RelaxCenter";
 
     @Override
-    public List<String> getAllArticlesTitles() {
-        return articleService.getAllTitles();
+    public List<ArticleDto> getAllArticlesTitlesAndImages() {
+        return articleService.getAllTitlesAndImages();
     }
 
     public Optional<CenterDto> getCenterDtoByAddress(String address, String type) {
@@ -39,7 +39,11 @@ public class PageServiceImpl implements PageService {
     }
 
     public Optional<ArticleDto> getArticleByTitle(String title) {
-        return this.articleService.getArticleByTitle(title);
+        try {
+            return articleService.getArticleByTitle(title);
+        } catch (IOException e) {
+            throw new IllegalStateException("ArticleDto cannot be mapped from article title" + title);
+        }
     }
 
     public Set<PlanDto> getAllPlans() throws IOException {

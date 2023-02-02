@@ -46,7 +46,7 @@ public class PlanAdminMapperImpl implements PlanMapper {
                 .builder()
                 .name(plan.getName())
                 .price(plan.getPrice())
-                .imageBase64(FileUtil.fileToString(plan.getPathFile()))
+                .imageBase64(FileUtil.convertFileToBase64(plan.getPathFile()))
                 .users(plan.getSubscribedUsers())
                 .centersAddresses(plan.getCenters()
                         .stream()

@@ -2,12 +2,43 @@ package com.demo.multisport.mapper;
 
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.entities.page.Article;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
+import com.demo.multisport.utils.FileUtil;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
-public interface ArticleMapper {
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.LinkedList;
 
-    Article articleDtoToArticle(ArticleDto articleDto);
-    ArticleDto articleToArticleDto(Article article);
+@Component
+public class ArticleMapper {
+
+    public Article articleDtoToArticle(ArticleDto articleDto, String pathFile) {
+        return Article
+                .builder()
+                .title(articleDto.getTitle())
+                .comments(new HashSet<>(articleDto.getComments()))
+                .publishedAt(articleDto.getPublishedAt())
+                .content(articleDto.getContent())
+                .pathFile(pathFile)
+                .build();
+    }
+
+    public ArticleDto articleToFullArticleDto(Article article) throws IOException {
+        return ArticleDto
+                .builder()
+                .title(article.getTitle())
+                .content(article.getContent())
+                .publishedAt(article.getPublishedAt())
+                .comments(new LinkedList<>(article.getComments()))
+                .pictureBase64(FileUtil.convertFileToBase64(article.getPathFile()))
+                .build();
+    }
+
+    public ArticleDto articleToPartArticleDto(Article article) throws IOException {
+        return ArticleDto
+                .builder()
+                .title(article.getTitle())
+                .pictureBase64(FileUtil.convertFileToBase64(article.getPathFile()))
+                .build();
+    }
 }

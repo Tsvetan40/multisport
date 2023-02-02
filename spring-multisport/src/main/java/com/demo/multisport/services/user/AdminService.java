@@ -9,8 +9,10 @@ import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.services.page.AdminPageServiceImpl;
 import com.demo.multisport.services.plan.PlanService;
+import com.demo.multisport.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -29,8 +31,8 @@ public class AdminService {
         this.adminPageService = adminPageService;
     }
 
-    public List<String> getAllArticlesTitle() {
-        return adminPageService.getAllArticlesTitles();
+    public List<ArticleDto> getAllArticlesTitlesAndImages() {
+        return adminPageService.getAllArticlesTitlesAndImages();
     }
 
     public void deleteArticle(String title) {
@@ -41,13 +43,16 @@ public class AdminService {
         }
     }
 
-    public ArticleDto addArticle(ArticleDto articleDto) {
+    public ArticleDto addArticle(ArticleDto articleDto, MultipartFile picture) {
         articleDto.setPublishedAt(LocalDateTime.now());
+
         if (adminPageService.countArticlesByTitle(articleDto.getTitle()) > 0) {
             throw new ArticleDuplicateException("Article Already exists! Change Title");
         }
 
-        return adminPageService.addArticle(articleDto);
+        String pathFile = FileUtil.saveArticleImage(picture);
+
+        return adminPageService.addArticle(articleDto, pathFile);
     }
 
     public void addCenter(CenterDto centerDto) {

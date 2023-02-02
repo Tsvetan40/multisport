@@ -52,7 +52,7 @@ public class FileUtil {
         return byteArray;
     }
 
-    public static String fileToString(String pathFile) throws IOException {
+    public static String convertFileToBase64(String pathFile) throws IOException {
         String fileContent = Base64.encodeBase64String(getFileBytes(pathFile));
         String type = getType(pathFile);
 
