@@ -7,6 +7,7 @@ import { PlanComponent } from './admin/plan/plan.component';
 import { UserComponent } from './admin/user/user.component';
 import { AdminGuard } from './guards/admin.guard';
 import { HomeComponent } from './home/home.component';
+import { ArticleInfoComponent } from './public/articles/article-info/article-info.component';
 import { PublicArticlesComponent } from './public/articles/public-articles.component';
 import { PublicRelaxCentersComponent } from './public/centers/relax/public-relax-centers.component';
 import { PublicSportCentersComponent } from './public/centers/sport/public-sport-centers.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: "multisport", children: [
       { path: "", component: HomeComponent },
       { path: "articles", component: PublicArticlesComponent },
+      { path: "articles/:title", component: ArticleInfoComponent },
       { path: "sport-centers", component: PublicSportCentersComponent },
       { path: "relax-centers", component: PublicRelaxCentersComponent },
       { path: "plans", component: PublicPlansComponent },

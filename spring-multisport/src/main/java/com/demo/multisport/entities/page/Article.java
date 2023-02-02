@@ -1,9 +1,7 @@
 package com.demo.multisport.entities.page;
 
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +15,8 @@ import java.util.Set;
 @Table(name = "articles")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,6 +34,11 @@ public class Article {
     @NonNull
     @Column(name = "published_at", columnDefinition = "DATETIME DEFAULT NOW() NOT NULL")
     private LocalDateTime publishedAt;
+
+    @NotBlank
+    @NonNull
+    @Column(name = "path_file")
+    private String pathFile;
 
     @OneToMany(mappedBy = "article")
     private Set<Comment> comments;

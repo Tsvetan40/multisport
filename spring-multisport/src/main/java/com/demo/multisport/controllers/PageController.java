@@ -6,8 +6,6 @@ import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
-import com.demo.multisport.services.MultipartService;
-import com.demo.multisport.services.impl.PlanMultipart;
 import com.demo.multisport.services.page.PageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,13 +41,21 @@ public class PageController {
             return new ResponseEntity<>(articleDto, HttpStatus.OK);
         } catch (NoSuchArticleException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     //get the titles and then navigate to them
     @GetMapping("/articles")
-    public ResponseEntity<List<String>> getAllArticlesTitles() {
-        return new ResponseEntity<>(pageService.getAllArticlesTitles(), HttpStatus.OK);
+    public ResponseEntity<List<ArticleDto>> getAllArticlesTitles() {
+        try {
+            return new ResponseEntity<>(pageService.getAllArticlesTitlesAndImages(), HttpStatus.OK);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(List.of(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/plans/{name}")

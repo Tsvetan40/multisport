@@ -3,8 +3,6 @@ package com.demo.multisport.services.page;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.page.CommentDto;
-import com.demo.multisport.entities.center.RelaxCenter;
-import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.services.article.AdminArticleService;
 import com.demo.multisport.services.center.CenterService;
 import com.demo.multisport.services.comment.CommentServiceAdminImpl;
@@ -21,8 +19,8 @@ public class AdminPageServiceImpl implements PageService {
     private final CommentServiceAdminImpl commentServiceAdmin;
 
     @Override
-    public List<String> getAllArticlesTitles() {
-        return adminArticleService.getAllTitles();
+    public List<ArticleDto> getAllArticlesTitlesAndImages() {
+        return adminArticleService.getAllTitlesAndImages();
     }
 
     public void addSportCenter(CenterDto centerDto) {
@@ -45,8 +43,8 @@ public class AdminPageServiceImpl implements PageService {
         adminArticleService.deleteArticleByTitle(title);
     }
 
-    public ArticleDto addArticle(ArticleDto articleDto) {
-        return adminArticleService.addArticle(articleDto);
+    public ArticleDto addArticle(ArticleDto articleDto, String pathFile) {
+        return adminArticleService.addArticle(articleDto, pathFile);
     }
 
     public long countArticlesByTitle(String title) {

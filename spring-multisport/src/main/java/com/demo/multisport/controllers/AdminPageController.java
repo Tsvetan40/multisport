@@ -4,7 +4,6 @@ package com.demo.multisport.controllers;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.user.UserDto;
-import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.ArticleDuplicateException;
@@ -15,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -25,7 +25,7 @@ import java.util.Optional;
 @RequestMapping("multisport/admin")
 @RequiredArgsConstructor
 @Slf4j
-public class PageControllerAdmin {
+public class AdminPageController {
 
     private final AdminService adminService;
 
@@ -44,7 +44,7 @@ public class PageControllerAdmin {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<List<String>> getArticlesAdmin(HttpSession session) {
+    public ResponseEntity<List<ArticleDto>> getArticlesAdmin(HttpSession session) {
         UserDto admin = (UserDto) session.getAttribute("user");
 
         log.info("@GetMapping articles");
@@ -52,25 +52,38 @@ public class PageControllerAdmin {
         log.info("admin= " + admin);
 
         if (admin == null) {
-            return new ResponseEntity<>( List.of(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(List.of(), HttpStatus.UNAUTHORIZED);
         }
 
-        return new ResponseEntity<>( adminService.getAllArticlesTitle(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(adminService.getAllArticlesTitlesAndImages(), HttpStatus.OK);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(List.of(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @PostMapping("/articles/newarticle")
-    public ResponseEntity<Optional<ArticleDto>> postArticle(@RequestBody @Valid ArticleDto articleDto,
+    public ResponseEntity<Optional<ArticleDto>> postArticle(@RequestPart String title,
+                                                            @RequestPart String content,
+                                                            @RequestPart MultipartFile picture,
                                                             HttpSession session) {
+
         if (session.getAttribute("user") == null) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
         }
 
         log.info("PostMapping " + session.getId());
+        ArticleDto articleDto = null;
+
         try {
-            adminService.addArticle(articleDto);
+            articleDto = new ArticleDto(title, content);
+            adminService.addArticle(articleDto, picture);
             return new ResponseEntity<>(Optional.of(articleDto), HttpStatus.OK);
         } catch (ArticleDuplicateException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

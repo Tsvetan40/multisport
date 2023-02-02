@@ -12,6 +12,7 @@ import { PublicPlansComponent } from './public/plan/public-plans.component';
 import { PublicArticlesComponent } from './public/articles/public-articles.component';
 import { PublicService } from './services/public.service';
 import { PlanInfoComponent } from './public/plan/plan-info/plan-info.component';
+import { ArticleInfoComponent } from './public/articles/article-info/article-info.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PlanInfoComponent } from './public/plan/plan-info/plan-info.component';
     PublicPlansComponent,
     PublicArticlesComponent,
     PlanInfoComponent,
+    ArticleInfoComponent,
   ],
   imports: [
     BrowserModule,

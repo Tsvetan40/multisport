@@ -1,0 +1,22 @@
+<app-navigation></app-navigation>
+
+<header>
+    <h1>
+        <span>You are reading:</span>
+        <span>{{ article['title'] }}</span>
+    </h1>
+</header>
+
+<main id="main">
+    <p id="date"> {{this.dateToString()}} </p>
+    <section class="content">
+        <img [src]="this.article.pictureBase64" alt="No image">
+    </section>
+
+    <section class="content">
+        <div *ngFor="let paragraph of paragraphs">
+            <p> {{paragraph}} </p>
+        </div>
+    </section>
+
+</main>
