@@ -1,1 +1,18 @@
-<p>public-articles works!</p>
+<app-navigation></app-navigation>
+
+<h1>
+    <p>All articles</p>
+    <p>Enjoy reading</p>
+</h1>
+
+<div class="container" *ngFor="let article of allArticles">
+
+    <div class="container-inner">
+        <img [src]="article['pictureBase64']" alt="Sorry no image">
+    </div>
+
+    <div class="container-inner">
+        <p>{{article['title']}}</p>
+    </div>
+    
+</div>

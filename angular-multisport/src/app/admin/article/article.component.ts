@@ -37,7 +37,10 @@ export class ArticleComponent {
 
   submitArticle(): void {
   
-    this.adminService.saveArticle(new Article(this.title, this.text), this.picture).subscribe(
+    this.adminService.saveArticle(new Article()
+                                    .withTitle(this.title)
+                                    .withContent(this.text),
+                                  this.picture).subscribe(
       (data) => {
         //to do
         this.errorMessage = ''
