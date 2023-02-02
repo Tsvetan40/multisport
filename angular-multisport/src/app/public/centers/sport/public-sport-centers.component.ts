@@ -19,7 +19,6 @@ export class PublicSportCentersComponent implements OnInit{
     this.publicService.getAllSportCenters().subscribe(
       data =>  {
           data.forEach(sportCenter => {
-            debugger
             this.sportCenters.push(sportCenter)
           })
       }
