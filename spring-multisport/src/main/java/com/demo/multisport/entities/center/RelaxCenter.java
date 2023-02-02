@@ -65,4 +65,9 @@ public class RelaxCenter extends Center implements Serializable {
         this.services = services;
         return this;
     }
+
+    public RelaxCenter withId(Long id) {
+        this.setId(id);
+        return this;
+    }
 }

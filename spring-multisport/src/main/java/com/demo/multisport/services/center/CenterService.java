@@ -47,19 +47,19 @@ public class CenterService {
         return centerRepository.countCentersByAddress(address);
     }
 
-    public Optional<CenterDto> sportCenterToCenterDto(String address) {
-        Optional<SportCenter> sportCenter = centerRepository.getSportCenterByAddress(address);
+    public Optional<CenterDto> sportCenterToCenterDto(Long id ) {
+        Optional<SportCenter> sportCenter = centerRepository.getSportCenterByAddress(id);
         if (sportCenter.isEmpty()) {
-            throw new CenterNotFoundException("Center with address" + address + " not found");
+            throw new CenterNotFoundException("Center with id" + id + " not found");
         }
 
         return Optional.of(centerMapperImpl.sportCenterToCenterDtoExtractRecord(sportCenter.get()));
     }
 
-    public Optional<CenterDto> relaxCenterToCenterDto(String address) {
-        Optional<RelaxCenter> relaxCenter = centerRepository.getRelaxCenterByAddress(address);
+    public Optional<CenterDto> relaxCenterToCenterDto(Long id) {
+        Optional<RelaxCenter> relaxCenter = centerRepository.getRelaxCenterByAddress(id);
         if (relaxCenter.isEmpty()) {
-            throw new CenterNotFoundException("Center with address" + address + " not found");
+            throw new CenterNotFoundException("Center with id" + id + " not found");
         }
 
         return Optional.of(centerMapperImpl.relaxCenterToCenterDtoExtractRecord(relaxCenter.get()));

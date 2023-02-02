@@ -13,23 +13,29 @@ export class PublicService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllPlans(): Observable<Plan[]> {
-    return this.http.get<Plan[]>(`${this.url}/plans`, { withCredentials: true })
-  }
+public getSingleSportCenter(id: number): Observable<SportCenter> {
+  return this.http.get<SportCenter>(`${this.url}/sport-centers/${id}`, { withCredentials: true })
+}
 
-  public getSingleArticle(title: string): Observable<Article> {
-    return this.http.get<Article>(`${this.url}/articles/${title}`, { withCredentials: true })
-  }
+public getSingleArticle(title: string): Observable<Article> {
+  return this.http.get<Article>(`${this.url}/articles/${title}`, { withCredentials: true })
+}
 
-  public getAllArticle(): Observable<Article[]> {
-    return this.http.get<Article[]>(`${this.url}/articles`, { withCredentials: true })
-  }
+public getSinglePlan(name: string): Observable<Plan> {
+  return this.http.get<Plan>(`${this.url}/plans/${name}`, {withCredentials: true} )
+}
 
-  public getSinglePlan(name: string): Observable<Plan> {
-    return this.http.get<Plan>(`${this.url}/plans/${name}`, {withCredentials: true} )
-  }
+public getAllPlans(): Observable<Plan[]> {
+  return this.http.get<Plan[]>(`${this.url}/plans`, { withCredentials: true })
+ }
 
-  public getAllSportCenters(): Observable<SportCenter[]> {
-    return this.http.get<SportCenter[]>(`${this.url}/sport-centers`, { withCredentials: true })
-  }
+public getAllArticle(): Observable<Article[]> {
+  return this.http.get<Article[]>(`${this.url}/articles`, { withCredentials: true })
+}
+
+
+public getAllSportCenters(): Observable<SportCenter[]> {
+  return this.http.get<SportCenter[]>(`${this.url}/sport-centers`, { withCredentials: true })
+}
+
 }

@@ -53,4 +53,9 @@ public class SportCenter extends Center implements Serializable {
         this.setRating(rating);
         return this;
     }
+
+    public SportCenter withId(Long id) {
+        this.setId(id);
+        return this;
+    }
 }

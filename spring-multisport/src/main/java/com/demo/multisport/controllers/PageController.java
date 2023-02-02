@@ -77,19 +77,19 @@ public class PageController {
         }
     }
 
-    @GetMapping("/sport-centers/{address}")
-    public ResponseEntity<Optional<CenterDto>> getSportCenter(@PathVariable(value = "address", required = true) String address) {
+    @GetMapping("/sport-centers/{id}")
+    public ResponseEntity<Optional<CenterDto>> getSportCenter(@PathVariable(value = "id", required = true) Long id) {
         try {
-            return new ResponseEntity<>(pageService.getCenterDtoByAddress(address, SPORT_CENTER_TYPE), HttpStatus.OK);
+            return new ResponseEntity<>(pageService.getCenterDtoById(id, SPORT_CENTER_TYPE), HttpStatus.OK);
         } catch (CenterNotFoundException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
         }
     }
 
-    @GetMapping("/relax-centers/{address}")
-    public ResponseEntity<Optional<CenterDto>> getRelaxCenter(@PathVariable(value = "address", required = true) String address) {
+    @GetMapping("/relax-centers/{id}")
+    public ResponseEntity<Optional<CenterDto>> getRelaxCenter(@PathVariable(value = "id", required = true) Long id) {
         try {
-           return new ResponseEntity<>(pageService.getCenterDtoByAddress(address, RELAX_CENTER_TYPE), HttpStatus.OK);
+           return new ResponseEntity<>(pageService.getCenterDtoById(id, RELAX_CENTER_TYPE), HttpStatus.OK);
         } catch (CenterNotFoundException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
 

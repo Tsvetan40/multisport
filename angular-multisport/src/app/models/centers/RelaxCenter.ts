@@ -4,14 +4,17 @@ import { CenterType } from "./typecenter/CenterType";
 export class RelaxCenter extends Center {
     private services: string[];
     
-    constructor(name: string,
+    constructor(
+        id: number,
+        name: string,
         address: string,
         pictures: string[],
         description: string,
         centerType: CenterType,
-        services: string[]) {
+        services: string[],
+        rating: number) {
         
-            super(name, address, description, pictures, centerType)
+            super(id, name, address, description, pictures, centerType, rating)
             this.services = services
     
     }

@@ -22,12 +22,12 @@ public interface CenterRepository extends JpaRepository<Center, Long> {
     Optional<Center> deleteCenterByAddress(String address);
 
     @Query(nativeQuery = true,
-           value = "SELECT * FROM centers WHERE address=:address AND center_type='SportCenter';")
-    Optional<SportCenter> getSportCenterByAddress(@Param("address") String address);
+           value = "SELECT * FROM centers WHERE id=:id AND center_type='SportCenter';")
+    Optional<SportCenter> getSportCenterByAddress(@Param("id") Long id);
 
     @Query(nativeQuery = true,
-            value = "SELECT * FROM centers WHERE address=:address AND center_type='RelaxCenter';")
-    Optional<RelaxCenter> getRelaxCenterByAddress(@Param("address") String address);
+            value = "SELECT * FROM centers WHERE id=:id AND center_type='RelaxCenter';")
+    Optional<RelaxCenter> getRelaxCenterByAddress(@Param("id") Long id);
 
     @Query(nativeQuery = true,
             value = "select ratings.id, ratings.rate\n" +

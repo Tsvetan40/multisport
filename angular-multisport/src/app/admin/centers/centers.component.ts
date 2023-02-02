@@ -41,21 +41,25 @@ export class CentersComponent {
 
   submit(): void {
     if (this.typeCenter == 'Sport Center') {
-        const sportCenetr = new SportCenter(this.name, 
-                                            this.address,
-                                            this.pictures,
-                                            this.description,
-                                            CenterType.SPORT_CENTER)
-          this.adminService.saveSportCenter(sportCenetr).subscribe()
-      
+
+        const sportCenter = {
+                              'name': this.name, 
+                              'address': this.address,
+                              'pictures': this.pictures,
+                              'description': this.description,
+                              'centerType': 'RELAX_CENTER',
+                              'services': this.services
+                            } 
+      this.adminService.saveSportCenter(sportCenter).subscribe()
     } else {
-      const relaxCenter = new RelaxCenter(this.name,
-                                          this.address,
-                                          this.pictures,
-                                          this.description, 
-                                          CenterType.RELAX_CENTER,
-                                          this.getServices())
-        debugger
+      const relaxCenter = {
+                            'name': this.name, 
+                            'address': this.address,
+                            'pictures': this.pictures,
+                            'description': this.description,
+                            'centerType': 'RELAX_CENTER',
+                            'services': this.services
+                          }
         this.adminService.saveRelaxCenter(relaxCenter).subscribe()
     }
   

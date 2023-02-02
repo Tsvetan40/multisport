@@ -13,6 +13,7 @@ import { PublicArticlesComponent } from './public/articles/public-articles.compo
 import { PublicService } from './services/public.service';
 import { PlanInfoComponent } from './public/plan/plan-info/plan-info.component';
 import { ArticleInfoComponent } from './public/articles/article-info/article-info.component';
+import { SingleSportCenterComponent } from './public/centers/sport/single-sport-center/single-sport-center.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ArticleInfoComponent } from './public/articles/article-info/article-inf
     PublicArticlesComponent,
     PlanInfoComponent,
     ArticleInfoComponent,
+    SingleSportCenterComponent,
   ],
   imports: [
     BrowserModule,

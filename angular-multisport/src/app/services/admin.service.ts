@@ -39,11 +39,11 @@ export class AdminService {
     return this.http.post<Article>(`${this.url}/articles/newarticle`, formAttributes, { withCredentials: true })
   }
 
-  saveSportCenter(sportCenetr: SportCenter): Observable<SportCenter> {
+  saveSportCenter(sportCenetr: Object): Observable<SportCenter> {
     return this.http.post<SportCenter>(`${this.url}/centers/newcenter`, sportCenetr, { withCredentials: true } )
   }
 
-  saveRelaxCenter(relaxCenter: RelaxCenter): Observable<RelaxCenter> {
+  saveRelaxCenter(relaxCenter: Object): Observable<RelaxCenter> {
     return this.http.post<RelaxCenter>(`${this.url}/centers/newcenter`, relaxCenter, { withCredentials: true })
   }
 

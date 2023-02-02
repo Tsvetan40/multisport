@@ -26,6 +26,7 @@ public class CenterMapperImpl implements CenterMapper {
     public CenterDto sportCenterToCenterDtoExtractRecord(SportCenter sportCenter) {
         return CenterDto
                 .builder()
+                .id(sportCenter.getId())
                 .centerType(TypeCenter.SPORT_CENTER)
                 .name(sportCenter.getName())
                 .description(sportCenter.getDescription())
@@ -40,6 +41,7 @@ public class CenterMapperImpl implements CenterMapper {
     public CenterDto relaxCenterToCenterDtoExtractRecord(RelaxCenter relaxCenter) {
         return CenterDto
                 .builder()
+                .id(relaxCenter.getId())
                 .centerType(TypeCenter.RELAX_CENTER)
                 .name(relaxCenter.getName())
                 .description(relaxCenter.getDescription())

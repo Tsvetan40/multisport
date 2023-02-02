@@ -21,6 +21,7 @@ public class AdminCenterMapperImpl implements AdminCenterMapper {
     public CenterDto sportCenterToCenterDtoExtractRecord(SportCenter sportCenter) {
         return CenterDto
                 .builder()
+                .id(sportCenter.getId())
                 .name(sportCenter.getName())
                 .address(sportCenter.getAddress())
                 .description(sportCenter.getDescription())
@@ -35,6 +36,7 @@ public class AdminCenterMapperImpl implements AdminCenterMapper {
     public CenterDto relaxCenterToCenterDtoExtractRecord(RelaxCenter relaxCenter) {
         return CenterDto
                 .builder()
+                .id(relaxCenter.getId())
                 .name(relaxCenter.getName())
                 .address(relaxCenter.getAddress())
                 .description(relaxCenter.getDescription())
@@ -50,6 +52,7 @@ public class AdminCenterMapperImpl implements AdminCenterMapper {
     @Override
     public SportCenter centerDtoToSportCenterCreateRecord(CenterDto centerDto) {
         return new SportCenter()
+                .withId(centerDto.getId())
                 .withName(centerDto.getName())
                 .withDescription(centerDto.getDescription())
                 .withAddress(centerDto.getAddress())
@@ -60,6 +63,7 @@ public class AdminCenterMapperImpl implements AdminCenterMapper {
     @Override
     public RelaxCenter centerDtoToRelaxCenterCreateRecord(CenterDto centerDto) {
         return new RelaxCenter()
+                .withId(centerDto.getId())
                 .withName(centerDto.getName())
                 .withDescription(centerDto.getDescription())
                 .withAddress(centerDto.getAddress())

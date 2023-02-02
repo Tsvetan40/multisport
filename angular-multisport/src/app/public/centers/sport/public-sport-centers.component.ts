@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SportCenter } from 'src/app/models/centers/SportCenter';
 import { PublicService } from 'src/app/services/public.service';
 
@@ -9,9 +10,10 @@ import { PublicService } from 'src/app/services/public.service';
 })
 export class PublicSportCentersComponent implements OnInit{
 
+  private url: string = 'multisport/sport-centers'
   sportCenters: SportCenter[]
   
-  constructor(private publicService: PublicService) {
+  constructor(private publicService: PublicService, private router: Router) {
     this.sportCenters = []
    }
 
@@ -23,5 +25,12 @@ export class PublicSportCentersComponent implements OnInit{
           })
       }
     )
+  }
+
+  goToSportCenter(i: number): void {
+      const id =  this.sportCenters[i].id
+
+      console.log('name=' + id)
+      this.router.navigateByUrl(`${this.url}/${id}`)
   }
 }

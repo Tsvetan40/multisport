@@ -31,11 +31,11 @@ public class PageServiceImpl implements PageService {
         return articleService.getAllTitlesAndImages();
     }
 
-    public Optional<CenterDto> getCenterDtoByAddress(String address, String type) {
+    public Optional<CenterDto> getCenterDtoById(Long id, String type) {
         if (type.equals(SPORT_CENTER_TYPE)) {
-            return centerService.sportCenterToCenterDto(address);
+            return centerService.sportCenterToCenterDto(id);
         }
-        return centerService.relaxCenterToCenterDto(address);
+        return centerService.relaxCenterToCenterDto(id);
     }
 
     public Optional<ArticleDto> getArticleByTitle(String title) {

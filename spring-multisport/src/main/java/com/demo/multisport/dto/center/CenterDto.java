@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -24,6 +25,11 @@ import java.util.Set;
 //        @JsonSubTypes.TypeCenter(value = SportCenter.class, name = "sportCenter")})
 @Builder
 public class CenterDto {
+
+    @NonNull
+    @JsonProperty(required = false)
+    @Positive
+    private Long id;
 
     @NonNull
     @JsonProperty(required = true)
