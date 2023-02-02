@@ -14,6 +14,7 @@ export class ArticleComponent {
   errorMessage!: string 
   showAddArticle: boolean
   showAllArticles: boolean
+  picture!: File
 
   constructor(private adminService: AdminService, private router: Router) {
     this.showAddArticle = true
@@ -30,16 +31,20 @@ export class ArticleComponent {
     this.showAddArticle = true
   }
 
+  loadImage(event: any) {
+    this.picture = event.target.files[0]
+  }
+
   submitArticle(): void {
   
-    this.adminService.saveArticle(new Article(this.title, this.text)).subscribe(
+    this.adminService.saveArticle(new Article(this.title, this.text), this.picture).subscribe(
       (data) => {
         //to do
         this.errorMessage = ''
         alert('saved article!')
       },
       (error) => {
-        if (error['status'] == 400) {
+        if (error['status'] == 400 || error['status'] == 500) { //to do
           this.errorMessage = "Article title already exists"
         } else if (error['status'] == 401) {
           this.router.navigate(['/multisport'])

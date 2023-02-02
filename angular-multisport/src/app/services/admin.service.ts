@@ -30,8 +30,13 @@ export class AdminService {
     this.user = user
   }
 
-  saveArticle(article: Article): Observable<Article> {
-    return this.http.post<Article>(`${this.url}/articles/newarticle`, article, { withCredentials: true })
+  saveArticle(article: Article, picture: File): Observable<Article> {
+    const formAttributes = new FormData();
+    formAttributes.append('title', article.getTitle())
+    formAttributes.append('content', article.getContent())
+    formAttributes.append('picture', picture)
+
+    return this.http.post<Article>(`${this.url}/articles/newarticle`, formAttributes, { withCredentials: true })
   }
 
   saveSportCenter(sportCenetr: SportCenter): Observable<SportCenter> {
@@ -51,7 +56,6 @@ export class AdminService {
     plan.getCentersAddresses().forEach(centersAdddress => {
       centersAdddressesString += centersAdddress;
     })
-
 
     formParams.append('centersAddresses', centersAdddressesString)
     formParams.append('file', picture)

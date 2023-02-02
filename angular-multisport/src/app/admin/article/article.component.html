@@ -17,6 +17,11 @@
                 class="error">Title must be between 4 and 50 charecters</span>
             </div>
         </div>
+        <div class="wrapper">
+            <div class="wrapper-inner">
+                <input type="file" name="picture" id="picture" (change)="loadImage($event)" required>
+            </div>
+        </div>
         <div class="wrapper wrapper-area">
             <textarea name="text" id="text" cols="100" rows="30" placeholder="Content of article"
             required ngModel #ftext="ngModel" [(ngModel)]="text"
