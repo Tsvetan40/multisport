@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#main {
+    padding: 10px 50px;
+    border: 1px solid black;
+}
+
+.container {
+    
+}
+
+.content {
+    
+}
+
+.content.section {
+    
+}
+
+.content.section > p{
+    
+}
+
+
+.images.section {
+    
+}
+
+.images.section > img{
+    
+}

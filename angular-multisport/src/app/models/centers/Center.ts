@@ -1,37 +1,37 @@
 import { CenterType } from "./typecenter/CenterType"
 
 export abstract class Center {
-    private readonly centerType: CenterType
-    private name: string
-    private address: string
-    private description: string
-    private pictures: string[] = []
+    private readonly _centerType: CenterType
+    private _name: string
+    private _address: string
+    private _description: string
+    private _pictures: string[] = []
 
     constructor (name: string, address: string, description: string, pictures: string[], centerType: CenterType ) {
-        this.name = name
-        this.address = address
-        this.description = description
-        this.pictures = pictures
-        this.centerType = centerType
+        this._name = name
+        this._address = address
+        this._description = description
+        this._pictures = pictures
+        this._centerType = centerType
     }
 
-    public getCenterType(): CenterType {
+    public get centerType(): CenterType {
         return this.centerType
     }
 
-    public getPictures(): string[] {
-        return this.pictures
+    public get pictures(): string[] {
+        return this._pictures
     }
 
-    public getName(): string {
-        return this.name
+    public get name(): string {
+        return this._name
     }
 
-    public getAddress(): string {
-        return this.address
+    public get address(): string {
+        return this._address
     }
 
-    public getDescription(): string {
-        return this.description
+    public get description(): string {
+        return this._description
     }
 }

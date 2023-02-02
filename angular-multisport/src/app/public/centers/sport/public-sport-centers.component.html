@@ -1,1 +1,20 @@
-<p>public-sport-centers works!</p>
+<app-navigation></app-navigation>
+
+
+<main id="main">
+    
+    <div class="container" *ngFor="let sportCenter of sportCenters">
+        
+        <section class="images section">
+            <div class="image-container">
+                <img [src]="sportCenter.pictures[0]" alt="no picture">
+            </div>
+        </section>
+
+        <section class="content section">
+            <p>Name {{ sportCenter.name }}</p>
+        </section>
+
+    </div>
+
+</main>
