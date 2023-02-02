@@ -38,6 +38,7 @@ public class ArticleMapper {
         return ArticleDto
                 .builder()
                 .title(article.getTitle())
+                .publishedAt(article.getPublishedAt())
                 .pictureBase64(FileUtil.convertFileToBase64(article.getPathFile()))
                 .build();
     }

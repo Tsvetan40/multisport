@@ -25,7 +25,7 @@ import java.util.Optional;
 @RequestMapping("multisport/admin")
 @RequiredArgsConstructor
 @Slf4j
-public class PageControllerAdmin {
+public class AdminPageController {
 
     private final AdminService adminService;
 
