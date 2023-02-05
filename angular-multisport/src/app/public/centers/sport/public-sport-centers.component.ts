@@ -10,7 +10,7 @@ import { PublicService } from 'src/app/services/public.service';
 })
 export class PublicSportCentersComponent implements OnInit{
 
-  private url: string = 'multisport/sport-centers'
+  private readonly url: string = 'multisport/sport-centers'
   sportCenters: SportCenter[]
   
   constructor(private publicService: PublicService, private router: Router) {
@@ -30,7 +30,6 @@ export class PublicSportCentersComponent implements OnInit{
   goToSportCenter(i: number): void {
       const id =  this.sportCenters[i].id
 
-      console.log('name=' + id)
       this.router.navigateByUrl(`${this.url}/${id}`)
   }
 }
