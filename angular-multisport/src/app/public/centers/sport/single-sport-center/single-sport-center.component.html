@@ -1,0 +1,51 @@
+<app-navigation></app-navigation>
+
+<header>
+    <h1>
+        <span>Sport Center: </span>
+        <span> {{this.name}} </span>
+    </h1>
+</header>
+
+
+<main id="main">
+
+    <section class="section info">
+        <h2 class="container">
+            <span>Information about </span>
+            <span>{{this.name}}</span>
+        </h2>
+    
+
+        <div class="container">
+            <span>
+                Address:
+            </span>
+            <span>
+                {{this.address}}
+            </span>
+        </div>
+    </section>
+
+    <section class="section description">
+        <div class="container">
+            <div class="container-inner" *ngFor="let paragraph of description">
+                <p>{{paragraph}}</p>
+                <br>
+            </div>
+        </div>
+    </section>
+
+    <section class="section carosel">
+        <div class="container image">
+            <img [src]="this.pictures[0]" alt="no image">
+        </div>
+    </section>
+
+    <section class="section rating">
+        <div class="container">
+            <span>Rating: </span>
+            <span>{{this.rating}}</span>
+        </div>
+    </section>
+</main>
