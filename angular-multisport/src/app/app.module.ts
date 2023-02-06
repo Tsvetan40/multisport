@@ -15,6 +15,7 @@ import { PlanInfoComponent } from './public/plan/plan-info/plan-info.component';
 import { ArticleInfoComponent } from './public/articles/article-info/article-info.component';
 import { SingleSportCenterComponent } from './public/centers/sport/single-sport-center/single-sport-center.component';
 import { SingleRelaxCenterComponent } from './public/centers/relax/single-relax-center/single-relax-center.component';
+import { CommentsComponent } from './public/comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SingleRelaxCenterComponent } from './public/centers/relax/single-relax-
     ArticleInfoComponent,
     SingleSportCenterComponent,
     SingleRelaxCenterComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,
