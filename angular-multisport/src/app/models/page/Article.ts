@@ -1,16 +1,18 @@
-import { withDisabledInitialNavigation } from "@angular/router"
+import { Comment } from "./Comment"
 
 export class Article {
     private _title: string
     private _content: string
     private _pictureBase64: string
     private _publishedAt: Date
+    private _comments: Comment[]
 
     constructor() {
         this._title = ''
         this._content = ''
         this._pictureBase64 = ''
         this._publishedAt = new Date()
+        this._comments = []
     }
 
     withTitle(title: string): Article {
@@ -34,6 +36,11 @@ export class Article {
         return this
     }
 
+    withComments(comments: Comment[]): Article {
+        this._comments = comments
+        return this
+    }
+
     get title(): string {
         return this._title
     }
@@ -48,5 +55,9 @@ export class Article {
 
     get publishedAt(): Date {
         return this._publishedAt
+    }
+
+    get comments(): Comment[] {
+        return this._comments
     }
 }

@@ -62,7 +62,7 @@ export class Comment {
         return this._firstName
     }
 
-    get lastname(): string {
+    get lastName(): string {
         return this._lastName
     }
 
@@ -72,6 +72,10 @@ export class Comment {
 
     get centerAddress(): string | null {
         return this._centerAddress
+    }
+
+    get publishedAt(): Date {
+        return this._publishedAt
     }
 
     get typeCenter(): string | null {

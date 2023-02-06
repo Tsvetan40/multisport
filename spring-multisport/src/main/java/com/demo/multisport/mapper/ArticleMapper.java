@@ -3,20 +3,26 @@ package com.demo.multisport.mapper;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.entities.page.Article;
 import com.demo.multisport.utils.FileUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class ArticleMapper {
+
+    private final CommentMapper commentMapper;
 
     public Article articleDtoToArticle(ArticleDto articleDto, String pathFile) {
         return Article
                 .builder()
                 .title(articleDto.getTitle())
-                .comments(new HashSet<>(articleDto.getComments()))
+                .comments(articleDto.getComments()
+                        .stream()
+                        .map(commentMapper::commentDtoToComment)
+                        .collect(Collectors.toSet()))
                 .publishedAt(articleDto.getPublishedAt())
                 .content(articleDto.getContent())
                 .pathFile(pathFile)
@@ -29,7 +35,10 @@ public class ArticleMapper {
                 .title(article.getTitle())
                 .content(article.getContent())
                 .publishedAt(article.getPublishedAt())
-                .comments(new LinkedList<>(article.getComments()))
+                .comments(article.getComments()
+                        .stream()
+                        .map(commentMapper::commentToCommentDto)
+                        .collect(Collectors.toList()))
                 .pictureBase64(FileUtil.convertFileToBase64(article.getPathFile()))
                 .build();
     }

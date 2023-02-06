@@ -1,3 +1,4 @@
+import { Comment } from '@angular/compiler';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/models/page/Article';
@@ -33,7 +34,9 @@ export class ArticleInfoComponent implements OnInit{
           .withTitle(data['title'])
           .withPictureBase64(data['pictureBase64'])
           .withPublishedAt(new Date(data['publishedAt']))
-        
+          .withComments(data['comments'])
+          this.article.comments.forEach(comment => console.log(comment))
+          
         this.initParagraphs(this.article.content)
       }
     )

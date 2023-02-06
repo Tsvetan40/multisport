@@ -30,3 +30,31 @@ textarea {
     resize: none;
     padding: 3px;
 }
+
+#comment-start {
+    color: #111;
+    font-size: 1.1rem;
+    background-color: #9fd3c7;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.all-comments {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 30px;
+    gap: 10px;
+}
+
+.comment-info {
+    display: flex;
+    gap: 5px;
+}
+
+.all-comments-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}

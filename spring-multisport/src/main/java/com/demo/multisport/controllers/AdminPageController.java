@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,7 +81,7 @@ public class AdminPageController {
             articleDto = new ArticleDto(title, content);
             adminService.addArticle(articleDto, picture);
             return new ResponseEntity<>(Optional.of(articleDto), HttpStatus.OK);
-        } catch (ArticleDuplicateException e) {
+        } catch (ArticleDuplicateException | InvalidParameterException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
