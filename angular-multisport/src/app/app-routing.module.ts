@@ -11,6 +11,7 @@ import { SportCenter } from './models/centers/SportCenter';
 import { ArticleInfoComponent } from './public/articles/article-info/article-info.component';
 import { PublicArticlesComponent } from './public/articles/public-articles.component';
 import { PublicRelaxCentersComponent } from './public/centers/relax/public-relax-centers.component';
+import { SingleRelaxCenterComponent } from './public/centers/relax/single-relax-center/single-relax-center.component';
 import { PublicSportCentersComponent } from './public/centers/sport/public-sport-centers.component';
 import { SingleSportCenterComponent } from './public/centers/sport/single-sport-center/single-sport-center.component';
 import { PlanInfoComponent } from './public/plan/plan-info/plan-info.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: "sport-centers", component: PublicSportCentersComponent },
       { path: "sport-centers/:id", component: SingleSportCenterComponent },
       { path: "relax-centers", component: PublicRelaxCentersComponent },
+      { path: "relax-centers/:id", component: SingleRelaxCenterComponent },
       { path: "plans", component: PublicPlansComponent },
       { path: "plans/:name", component: PlanInfoComponent },
   ] },

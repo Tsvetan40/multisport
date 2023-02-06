@@ -1,1 +1,16 @@
-<p>public-relax-centers works!</p>
+<app-navigation></app-navigation>
+
+<main id="main">
+    <div class="container" *ngFor="let center of this.relaxCenters; index as i">
+
+        <section class="images section">
+            <div class="image-container">
+                <img [src]="center.pictures[0]" alt="No image">
+            </div>
+        </section>
+
+        <section class="content section">
+            <p (click)="goToRelaxCenter(i)">Name: {{center.name}}</p>
+        </section>
+    </div>
+</main>
