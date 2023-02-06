@@ -46,4 +46,7 @@ export class PublicService {
     return this.http.get<RelaxCenter[]>(`${this.url}/relax-centers`, { withCredentials: true })
   }
 
+  public addCommentArticle(comment: any, title: string): Observable<Comment> {
+    return this.http.post<Comment>(`${this.url}/news/${title}`, comment, { withCredentials: true })
+  }
 }

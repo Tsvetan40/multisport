@@ -1,5 +1,6 @@
 package com.demo.multisport.dto.page;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -23,26 +24,26 @@ public class CommentDto {
 
     @NonNull
     @Size(min = 4, max = 20)
-    @JsonProperty(required = true)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime publishedAt;
 
     @NonNull
     @Size(min = 4, max = 20)
-    @JsonProperty(required = true)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String firstName;
 
     @NonNull
-    @JsonProperty(required = true)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String lastName;
 
     @NonNull
     @Email
     @Size(min = 10, max = 40)
-    @JsonProperty
+    @JsonIgnore
     private String email;
 
     //may be at article, may be comment on center
-    @JsonProperty(required = false)
+    @JsonProperty(required = false, access = JsonProperty.Access.WRITE_ONLY)
     private String articleTitle;
 
     @JsonProperty(required = false)

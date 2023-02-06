@@ -3,8 +3,10 @@ package com.demo.multisport.services.page;
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
+import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.services.article.ArticleServiceImpl;
 import com.demo.multisport.services.center.CenterService;
+import com.demo.multisport.services.comment.CommentService;
 import com.demo.multisport.services.plan.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class PageServiceImpl implements PageService {
     private final ArticleServiceImpl articleService;
     private final CenterService centerService;
     private final PlanService planService;
+    private final CommentService commentService;
     private final String SPORT_CENTER_TYPE = "SportCenter";
     private final String RELAX_CENTER_TYPE = "RelaxCenter";
 
@@ -60,5 +63,10 @@ public class PageServiceImpl implements PageService {
 
     public Optional<PlanDto> getPlanByName(String planName) throws IOException {
         return planService.getPlanByName(planName);
+    }
+
+    public void addCommentArticle(CommentDto comment) {
+        commentService.addCommentArticle(comment);
+
     }
 }

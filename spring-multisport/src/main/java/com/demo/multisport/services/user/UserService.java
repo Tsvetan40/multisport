@@ -66,10 +66,6 @@ public class UserService {
         return Optional.of(userRepository.save(user));
     }
 
-    public void deleteAllUsers() {
-        userRepository.deleteAll();
-    }
-
     public User getUserByEmail(String email) {
         try {
             return userRepository.findUserByEmail(email).get();

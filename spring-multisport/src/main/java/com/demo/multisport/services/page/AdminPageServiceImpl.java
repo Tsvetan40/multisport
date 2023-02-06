@@ -2,10 +2,8 @@ package com.demo.multisport.services.page;
 
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
-import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.services.article.AdminArticleService;
 import com.demo.multisport.services.center.CenterService;
-import com.demo.multisport.services.comment.CommentServiceAdminImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,6 @@ import java.util.List;
 public class AdminPageServiceImpl implements PageService {
     private final CenterService centerService;
     private final AdminArticleService adminArticleService;
-    private final CommentServiceAdminImpl commentServiceAdmin;
 
     @Override
     public List<ArticleDto> getAllArticlesTitlesAndImages() {
@@ -51,11 +48,4 @@ public class AdminPageServiceImpl implements PageService {
         return adminArticleService.countArticlesByTitle(title);
     }
 
-    public CommentDto addComment(CommentDto commentDto) {
-        return commentServiceAdmin.addComment(commentDto);
-    }
-
-    public CommentDto deleteComment(CommentDto commentDto) {
-        return commentServiceAdmin.deleteComment(commentDto);
-    }
 }

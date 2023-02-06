@@ -48,6 +48,11 @@ export class ArticleInfoComponent implements OnInit{
   }
 
   addCommentRequest(event: string) {
-      
+  
+      const comment = {
+        'content': event,
+        'articleTitle': this.article.title
+      }
+      this.publicService.addCommentArticle(comment, this.article.title).subscribe()
   }
 }

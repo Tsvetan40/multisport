@@ -3,7 +3,6 @@ package com.demo.multisport.services.user;
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
-import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.exceptions.article.ArticleDuplicateException;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
@@ -70,14 +69,6 @@ public class AdminService {
 
     public void deleteCenter(String address) {
         adminPageService.deleteCenter(address);
-    }
-
-    public CommentDto addComment(CommentDto commentDto) {
-        return adminPageService.addComment(commentDto);
-    }
-
-    public CommentDto deleteComment(CommentDto commentDto) {
-        return adminPageService.deleteComment(commentDto);
     }
 
     public void addPlan(PlanDto planDto, String filePath) {

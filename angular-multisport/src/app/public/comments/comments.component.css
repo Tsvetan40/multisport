@@ -28,4 +28,5 @@ button:hover {
 
 textarea {
     resize: none;
+    padding: 3px;
 }

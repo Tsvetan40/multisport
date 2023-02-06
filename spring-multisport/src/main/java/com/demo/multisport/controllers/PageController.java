@@ -3,16 +3,24 @@ package com.demo.multisport.controllers;
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
+import com.demo.multisport.dto.page.CommentDto;
+import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.services.page.PageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -104,5 +112,26 @@ public class PageController {
     @GetMapping("/relax-centers")
     public ResponseEntity<Set<CenterDto>> getAllRelaxCenters() {
         return new ResponseEntity<>(pageService.getAllRelaxCenters(), HttpStatus.OK);
+    }
+
+    @PostMapping("news/{title}")
+    public ResponseEntity<CommentDto> addCommentArticle(@PathVariable("title") String title,
+                                                        @RequestBody CommentDto comment,
+                                                        HttpSession session) {
+
+        UserDto user = (UserDto) session.getAttribute("user");
+        if (user == null) {
+            return new ResponseEntity<>(comment, HttpStatus.UNAUTHORIZED);
+        }
+
+        comment.setPublishedAt(LocalDateTime.now());
+        comment.setEmail(user.getEmail());
+        try {
+            pageService.addCommentArticle(comment);
+            return new ResponseEntity<>(comment, HttpStatus.CREATED);
+        } catch (InvalidParameterException e) {
+            return new ResponseEntity<>(comment, HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

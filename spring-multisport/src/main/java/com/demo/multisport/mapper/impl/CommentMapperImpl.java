@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.security.InvalidParameterException;
 
 @Component
-public class CommentMapperImpl implements CommentMapper {
+public class CommentMapperImpl  implements CommentMapper {
     private final UserService userService;
     private final ArticleRepository articleRepository;
     private final CenterRepository centerRepository;
