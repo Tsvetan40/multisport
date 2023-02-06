@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SportCenter } from 'src/app/models/centers/SportCenter';
 import { PublicService } from 'src/app/services/public.service';
-
+import { Comment } from 'src/app/models/page/Comment';
 
 @Component({
   selector: 'app-single-sport-center',
@@ -17,6 +16,7 @@ export class SingleSportCenterComponent implements OnInit{
   pictures: string[] = []
   description: string[] = []
   rating: number = 5
+  comments: Comment[] = []
 
   constructor(private route: ActivatedRoute, private publicService: PublicService) {  }
 
@@ -36,6 +36,7 @@ export class SingleSportCenterComponent implements OnInit{
             this.description = this.splitDescriptionResponse(center['description']) 
             this.pictures = center['pictures']
             this.rating = center['rating']
+            this.comments = center['comments']
           }
         )
       } 

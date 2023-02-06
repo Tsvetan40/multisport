@@ -1,3 +1,4 @@
+import { Comment } from "../page/Comment";
 import { Center } from "./Center";
 import { CenterType } from "./typecenter/CenterType";
 
@@ -12,9 +13,10 @@ export class RelaxCenter extends Center {
         description: string,
         centerType: CenterType,
         services: string[],
-        rating: number) {
+        rating: number,
+        comments: Comment[]) {
         
-            super(id, name, address, description, pictures, centerType, rating)
+            super(id, name, address, description, pictures, centerType, rating, comments)
             this.services = services
     
     }

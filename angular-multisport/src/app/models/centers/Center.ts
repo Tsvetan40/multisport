@@ -1,5 +1,5 @@
 import { CenterType } from "./typecenter/CenterType"
-
+import { Comment } from "../page/Comment"
 export abstract class Center {
     private readonly _centerType: CenterType
     private _id: number
@@ -8,8 +8,9 @@ export abstract class Center {
     private _description: string
     private _pictures: string[] = []
     private _rating: number
+    private _comments: Comment[]
 
-    constructor (id: number, name: string, address: string, description: string, pictures: string[], centerType: CenterType, rating: number ) {
+    constructor (id: number, name: string, address: string, description: string, pictures: string[], centerType: CenterType, rating: number, comments: Comment[] ) {
         this._id = id
         this._name = name
         this._address = address
@@ -17,6 +18,7 @@ export abstract class Center {
         this._pictures = pictures
         this._centerType = centerType
         this._rating = rating
+        this._comments = comments
     }
 
     public get rating(): number {
@@ -45,5 +47,9 @@ export abstract class Center {
 
     public get description(): string {
         return this._description
+    }
+    
+    public get comments(): Comment[] {
+        return this._comments
     }
 }

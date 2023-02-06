@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Comment } from 'src/app/models/page/Comment';
 import { PublicService } from 'src/app/services/public.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class SingleRelaxCenterComponent implements OnInit{
   description: string[] = []
   rating: number = 5
   services: string[] = []
+  comments: Comment[] = []
 
   constructor(private route: ActivatedRoute, private publicService: PublicService) {  }
 
@@ -35,6 +37,7 @@ export class SingleRelaxCenterComponent implements OnInit{
             this.pictures = center['pictures']
             this.rating = center['rating']
             this.services = center['services']
+            this.comments = center['comments']
           }
         )
       }
