@@ -1,5 +1,7 @@
 <section class="comment-container">
     <p>Leave a comment:</p>
-    <textarea name="comment" id="comment" cols="50" rows="5"></textarea>
-    <button>Public Comment</button>
+    <textarea name="comment" id="comment" cols="100" rows="5" ngModel #comment="ngModel" [(ngModel)]="this.commentContent">
+
+    </textarea>
+    <button (click)="addComment()">Public Comment</button>
 </section>

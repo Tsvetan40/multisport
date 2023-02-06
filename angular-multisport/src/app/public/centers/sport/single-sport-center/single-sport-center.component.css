@@ -11,6 +11,8 @@ header {
 h1 {
     display: flex;
     gap: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 h1 > span {
@@ -82,4 +84,8 @@ h2 > span {
 .section.rating > .container > span {
     font-family: sans-serif;
     font-size: 1.2rem;
+}
+
+.comments {
+    padding: 10px 50px;
 }

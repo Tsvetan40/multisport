@@ -41,4 +41,8 @@ export class SingleSportCenterComponent implements OnInit{
       } 
     )
   }
+
+  addCommentRequest($event: string) {
+
+  }
 }

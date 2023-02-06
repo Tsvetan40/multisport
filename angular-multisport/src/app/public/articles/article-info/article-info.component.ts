@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/models/page/Article';
 import { PublicService } from 'src/app/services/public.service';
@@ -45,5 +45,9 @@ export class ArticleInfoComponent implements OnInit{
 
   public dateToString() {
     return this.article.publishedAt.toDateString()
+  }
+
+  addCommentRequest(event: string) {
+      
   }
 }

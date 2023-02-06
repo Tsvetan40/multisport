@@ -40,4 +40,8 @@ export class SingleRelaxCenterComponent implements OnInit{
       }
     )
   }
+
+  addCommentRequest($event: string) {
+
+  }
 }

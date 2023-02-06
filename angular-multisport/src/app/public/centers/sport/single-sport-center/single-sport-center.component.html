@@ -12,8 +12,8 @@
 
     <section class="section info">
         <h2 class="container">
-            <span>Information about: </span>
-            <span>{{this.name}}</span>
+            <span>Information about</span>
+            <span>{{this.name}}:</span>
         </h2>
     
 
@@ -49,3 +49,7 @@
         </div>
     </section>
 </main>
+
+<footer class="comments">
+    <app-comments (addCommentEventEmitter)="addCommentRequest($event)"></app-comments>
+</footer>
