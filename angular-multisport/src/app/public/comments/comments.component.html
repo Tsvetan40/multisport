@@ -5,3 +5,17 @@
     </textarea>
     <button (click)="addComment()">Public Comment</button>
 </section>
+
+<section class="all-comments">
+    <p id="comment-start">Comments:</p>
+    <div class="all-comments-container" *ngFor="let comment of comments">
+        <p class="comment-info">
+            <!-- <span> {{ dateToString(comment.publishedAt) }}</span> -->
+            <span>{{ comment.firstName }}</span>
+            <span>{{ comment.lastName }}</span>
+        </p>
+        <p class="comment-content">
+            {{comment.content}}
+        </p>
+    </div>
+</section>

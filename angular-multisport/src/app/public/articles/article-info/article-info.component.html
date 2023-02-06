@@ -20,6 +20,6 @@
     </section>
 
     <footer class="content comments">
-        <app-comments (addCommentEventEmitter)="addCommentRequest($event)"></app-comments>
+        <app-comments (addCommentEventEmitter)="addCommentRequest($event)" [comments]="this.article.comments"></app-comments>
     </footer>
 </main>

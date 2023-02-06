@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Comment } from 'src/app/models/page/Comment';
 
 @Component({
   selector: 'app-comments',
@@ -8,6 +9,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class CommentsComponent {
   commentContent: string = ''
   @Output() addCommentEventEmitter = new EventEmitter<string>()
+  @Input() comments: Comment[]
+
+  constructor() {
+    this.comments = []
+  }
 
 
   addComment() {
