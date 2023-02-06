@@ -114,6 +114,12 @@ public class PageController {
         return new ResponseEntity<>(pageService.getAllRelaxCenters(), HttpStatus.OK);
     }
 
+    private CommentDto addInfoCommentDto(CommentDto commentDto, String email) {
+        commentDto.setPublishedAt(LocalDateTime.now());
+        commentDto.setEmail(email);
+        return commentDto;
+    }
+
     @PostMapping("news/{title}")
     public ResponseEntity<CommentDto> addCommentArticle(@PathVariable("title") String title,
                                                         @RequestBody CommentDto comment,
@@ -124,8 +130,7 @@ public class PageController {
             return new ResponseEntity<>(comment, HttpStatus.UNAUTHORIZED);
         }
 
-        comment.setPublishedAt(LocalDateTime.now());
-        comment.setEmail(user.getEmail());
+        comment = addInfoCommentDto(comment, user.getEmail());
         try {
             pageService.addCommentArticle(comment);
             return new ResponseEntity<>(comment, HttpStatus.CREATED);
@@ -133,5 +138,43 @@ public class PageController {
             return new ResponseEntity<>(comment, HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @PostMapping("relax-centers/{id}")
+    public ResponseEntity<CommentDto> addCommentRelaxCenter(@PathVariable("id") Long id,
+                                                            @RequestBody CommentDto comment,
+                                                            HttpSession session) {
+        UserDto user = (UserDto) session.getAttribute("user");
+        if (user == null) {
+            return new ResponseEntity<>(comment, HttpStatus.UNAUTHORIZED);
+        }
+
+        comment = addInfoCommentDto(comment, user.getEmail());
+
+        try {
+            pageService.addCommentRelaxCenter(comment);
+            return new ResponseEntity<>(comment, HttpStatus.CREATED);
+        } catch (InvalidParameterException e) {
+            return new ResponseEntity<>(comment, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("sport-centers/{id}")
+    public ResponseEntity<CommentDto> addCommentSportCenter(@PathVariable("id") Long id,
+                                                            @RequestBody CommentDto comment,
+                                                            HttpSession session) {
+        UserDto user = (UserDto) session.getAttribute("user");
+        if (user == null) {
+            return new ResponseEntity<>(comment, HttpStatus.UNAUTHORIZED);
+        }
+
+        comment = addInfoCommentDto(comment, user.getEmail());
+
+        try {
+            pageService.addCommentSportCenter(comment);
+            return new ResponseEntity<>(comment, HttpStatus.CREATED);
+        } catch (InvalidParameterException e) {
+            return new ResponseEntity<>(comment, HttpStatus.BAD_REQUEST);
+        }
     }
 }

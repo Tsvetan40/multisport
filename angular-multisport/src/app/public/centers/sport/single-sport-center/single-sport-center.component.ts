@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PublicService } from 'src/app/services/public.service';
 import { Comment } from 'src/app/models/page/Comment';
+import { CenterType } from 'src/app/models/centers/typecenter/CenterType';
 
 @Component({
   selector: 'app-single-sport-center',
@@ -43,7 +44,13 @@ export class SingleSportCenterComponent implements OnInit{
     )
   }
 
-  addCommentRequest($event: string) {
+  addCommentRequest(event: string) {
+    const comment = {
+      'content': event,
+      'centerAddress': this.address,
+      'typeCenter': CenterType.SPORT_CENTER
+    }
 
+    this.publicService.addCommentSportCenter(comment, this.id).subscribe()
   }
 }

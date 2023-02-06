@@ -66,7 +66,15 @@ public class PageServiceImpl implements PageService {
     }
 
     public void addCommentArticle(CommentDto comment) {
-        commentService.addCommentArticle(comment);
+        commentService.addComment(comment);
 
+    }
+
+    public void addCommentRelaxCenter(CommentDto comment) {
+        commentService.addComment(comment);
+    }
+
+    public void addCommentSportCenter(CommentDto comment) {
+        commentService.addComment(comment);
     }
 }

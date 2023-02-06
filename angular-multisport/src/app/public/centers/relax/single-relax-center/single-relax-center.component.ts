@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CenterType } from 'src/app/models/centers/typecenter/CenterType';
 import { Comment } from 'src/app/models/page/Comment';
 import { PublicService } from 'src/app/services/public.service';
 
@@ -44,7 +45,13 @@ export class SingleRelaxCenterComponent implements OnInit{
     )
   }
 
-  addCommentRequest($event: string) {
+  addCommentRequest(event: string) {
+      const comment = {
+        'content': event,
+        'centerAddress': this.address,
+        'typeCenter': CenterType.RELAX_CENTER
+      }
 
+      this.publicService.addCommentRelaxCenter(comment, this.id).subscribe()
   }
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { RelaxCenter } from '../models/centers/RelaxCenter';
 import { SportCenter } from '../models/centers/SportCenter';
 import { Article } from '../models/page/Article';
+import { Comment } from '../models/page/Comment';
 import { Plan } from '../models/Plan';
 
 @Injectable({
@@ -48,5 +49,13 @@ export class PublicService {
 
   public addCommentArticle(comment: any, title: string): Observable<Comment> {
     return this.http.post<Comment>(`${this.url}/news/${title}`, comment, { withCredentials: true })
+  }
+
+  public addCommentRelaxCenter(comment: any, id: number): Observable<Comment> {
+    return this.http.post<Comment>(`${this.url}/relax-centers/${id}`, comment, { withCredentials: true })
+  }
+
+  public addCommentSportCenter(comment: any, id: number): Observable<Comment> {
+    return this.http.post<Comment>(`${this.url}/sport-centers/${id}`, comment, { withCredentials: true })
   }
 }
