@@ -1,22 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SportCenter } from 'src/app/models/centers/SportCenter';
 import { PublicService } from 'src/app/services/public.service';
 
-
 @Component({
-  selector: 'app-single-sport-center',
-  templateUrl: './single-sport-center.component.html',
-  styleUrls: ['./single-sport-center.component.css']
+  selector: 'app-single-relax-center',
+  templateUrl: './single-relax-center.component.html',
+  styleUrls: ['./single-relax-center.component.css']
 })
-export class SingleSportCenterComponent implements OnInit{
-
+export class SingleRelaxCenterComponent implements OnInit{
   id: number = 1
   name: string = ''
   address: string = ''
   pictures: string[] = []
   description: string[] = []
   rating: number = 5
+  services: string[] = []
 
   constructor(private route: ActivatedRoute, private publicService: PublicService) {  }
 
@@ -28,7 +26,7 @@ export class SingleSportCenterComponent implements OnInit{
     this.route.params.subscribe(
       data => {
         const id: number = data['id']
-        this.publicService.getSingleSportCenter(id).subscribe(
+        this.publicService.getSingleRelaxCenter(id).subscribe(
           center => {
             this.id = center['id']
             this.name = center['name']
@@ -36,9 +34,10 @@ export class SingleSportCenterComponent implements OnInit{
             this.description = this.splitDescriptionResponse(center['description']) 
             this.pictures = center['pictures']
             this.rating = center['rating']
+            this.services = center['services']
           }
         )
-      } 
+      }
     )
   }
 }

@@ -14,6 +14,9 @@ export class PublicService {
   private readonly url: string = "http://localhost:8080/multisport"
 
   constructor(private http: HttpClient) { }
+  public getSingleRelaxCenter(id: number): Observable<RelaxCenter> {
+    return this.http.get<RelaxCenter>(`${this.url}/relax-centers/${id}`, { withCredentials: true })
+  }
 
   public getSingleSportCenter(id: number): Observable<SportCenter> {
     return this.http.get<SportCenter>(`${this.url}/sport-centers/${id}`, { withCredentials: true })
