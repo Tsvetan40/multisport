@@ -10,7 +10,7 @@ import { CenterType } from 'src/app/models/centers/typecenter/CenterType';
   styleUrls: ['./single-sport-center.component.css']
 })
 export class SingleSportCenterComponent implements OnInit{
-
+  currImageIndex: number = 0
   id: number = 1
   name: string = ''
   address: string = ''
@@ -37,7 +37,6 @@ export class SingleSportCenterComponent implements OnInit{
             this.description = this.splitDescriptionResponse(center['description']) 
             this.pictures = center['pictures']
             this.rating = center['rating']
-            debugger
             this.comments = center['comments']
           }
         )
@@ -53,5 +52,22 @@ export class SingleSportCenterComponent implements OnInit{
     }
 
     this.publicService.addCommentSportCenter(comment, this.id).subscribe()
+  }
+
+  moveLeft() {
+
+    this.currImageIndex--
+
+    if (this.currImageIndex < 0) {
+      this.currImageIndex = this.pictures.length -1
+    }
+  }
+
+  moveRight() {
+    this.currImageIndex++
+
+    if (this.currImageIndex == this.pictures.length) {
+      this.currImageIndex = 0
+    }
   }
 }
