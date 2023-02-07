@@ -39,7 +39,7 @@
     <section class="section carosel">
         <button class="carousel-btn prev" (click)="moveLeft()">&#8678;</button>
         <button class="carousel-btn next" (click)="moveRight()">&#8680;</button>
-        <div class="container image" aria-label="" *ngFor="let picture of pictures; index as i">
+        <div class="container image" *ngFor="let picture of pictures; index as i">
             <ul>
                 <li class="slide" [ngClass]="i == currImageIndex ? 'active' : 'non-active'">
                     <img [src]="picture" alt="no image">

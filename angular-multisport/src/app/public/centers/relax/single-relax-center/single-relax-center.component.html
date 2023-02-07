@@ -37,8 +37,15 @@
     </section>
 
     <section class="section carosel">
-        <div class="container image">
-            <img [src]="this.pictures[0]" alt="no image">
+        <button class="carousel-btn prev" (click)="moveLeft()">&#8678;</button>
+        <button class="carousel-btn next" (click)="moveRight()">&#8680;</button>
+        <div class="container image" *ngFor="let picture of pictures; index as i">
+            <ul>
+                <li class="slide" [ngClass]="i == currentImageIndex ? 'active' : 'non-active'">
+                    <img [src]="picture" alt="no image">
+                </li>
+            </ul>
+
         </div>
     </section>
 

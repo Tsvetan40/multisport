@@ -83,15 +83,10 @@ h2 > span {
 
 .carousel-btn:hover {
     background-color: rgba(0, 0, 0, .2);
-
 }
 
 .carousel-btn.next {
     right: 0%;
-}
-
-.carousel-btn.prev {
-
 }
 
 ul {
@@ -109,10 +104,6 @@ ul {
 
 .active {
     transition: 0.5s;
-    opacity: 1;
-}
-
-.slide[data-active] {
     opacity: 1;
 }
 

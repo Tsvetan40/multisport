@@ -10,6 +10,7 @@ import { PublicService } from 'src/app/services/public.service';
   styleUrls: ['./single-relax-center.component.css']
 })
 export class SingleRelaxCenterComponent implements OnInit{
+  currentImageIndex: number = 0
   id: number = 1
   name: string = ''
   address: string = ''
@@ -54,5 +55,19 @@ export class SingleRelaxCenterComponent implements OnInit{
       }
 
       this.publicService.addCommentRelaxCenter(comment, this.id).subscribe()
+  }
+
+  moveLeft() {
+    this.currentImageIndex--
+    if (this.currentImageIndex < 0) {
+      this.currentImageIndex = this.pictures.length - 1
+    }
+  }
+
+  moveRight() {
+    this.currentImageIndex++
+    if (this.currentImageIndex == this.pictures.length) {
+      this.currentImageIndex = 0
+    }
   }
 }
