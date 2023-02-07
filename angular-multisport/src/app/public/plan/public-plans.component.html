@@ -3,7 +3,7 @@
 <h1>All plans</h1>
 
 <main class="container">
-    <div class="container-wrapper" *ngFor="let plan of this.plans">
+    <div class="container-wrapper" (click)="goToPlan(i)" *ngFor="let plan of this.plans; index as i">
         
         <div class="plan-inner">
             <p class="plan-description">Name:</p>  

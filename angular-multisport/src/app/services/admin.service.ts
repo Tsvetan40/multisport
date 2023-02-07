@@ -49,11 +49,11 @@ export class AdminService {
 
   savePlan(plan: Plan, picture: File): Observable<Plan> {
     const formParams = new FormData()
-    formParams.append('name', plan.getName())
-    formParams.append('price', plan.getPrice().toString())
+    formParams.append('name', plan.name)
+    formParams.append('price', plan.price.toString())
     
     let centersAdddressesString = ''
-    plan.getCentersAddresses().forEach(centersAdddress => {
+    plan.centersAddresses.forEach(centersAdddress => {
       centersAdddressesString += centersAdddress;
     })
 
