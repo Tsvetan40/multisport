@@ -2,10 +2,7 @@ package com.demo.multisport.entities.user;
 
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

@@ -35,7 +35,7 @@ public interface CenterRepository extends JpaRepository<Center, Long> {
                     "inner join centers on ratings.id = centers.rating_id where centers.address=:address ;")
     Rating getRating(@Param("address") String address);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM centers WHERE address=:address AND center_type=:type;")
+    @Query(nativeQuery = true, value = "SELECT * FROM centers WHERE address=:address AND center_type=:type")
     Optional<Center> getCenterByAddressAndType(@Param("address") String address,
                                                @Param("type") String type);
 

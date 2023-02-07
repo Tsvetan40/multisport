@@ -5,10 +5,11 @@ import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.user.UserDuplicateException;
 import com.demo.multisport.exceptions.user.UserNotFoundException;
-import com.demo.multisport.mapper.UserMapper;
+import com.demo.multisport.mapper.impl.UserMapperImpl;
 import com.demo.multisport.services.impl.PasswordHashService;
 import com.demo.multisport.services.impl.SaltGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,13 +20,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final SaltGeneratorService saltService;
     private final PasswordHashService hashService;
-    private final UserMapper userMapper;
+    private final UserMapperImpl userMapper;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        SaltGeneratorService saltService,
                        PasswordHashService hashService,
-                       UserMapper userMapper) {
+                       @Qualifier("myUserMapper") UserMapperImpl userMapper) {
         this.userRepository = userRepository;
         this.saltService = saltService;
         this.hashService = hashService;

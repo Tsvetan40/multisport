@@ -2,12 +2,13 @@ package com.demo.multisport.mapper.impl;
 
 import com.demo.multisport.dao.ArticleRepository;
 import com.demo.multisport.dao.CenterRepository;
+import com.demo.multisport.dao.UserRepository;
 import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.entities.page.Comment;
 import com.demo.multisport.entities.user.User;
+import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.mapper.CommentMapper;
-import com.demo.multisport.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,15 +16,15 @@ import java.security.InvalidParameterException;
 
 @Component
 public class CommentMapperImpl  implements CommentMapper {
-    private final UserService userService;
+    private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
     private final CenterRepository centerRepository;
     private final static String SPORT_CENTER_TYPE = "SportCenter";
     private final static String RELAX_CENTER_TYPE = "RelaxCenter";
 
     @Autowired
-    public CommentMapperImpl(UserService userService, ArticleRepository articleRepository, CenterRepository centerRepository) {
-        this.userService = userService;
+    public CommentMapperImpl(UserRepository userRepository, ArticleRepository articleRepository, CenterRepository centerRepository) {
+        this.userRepository = userRepository;
         this.articleRepository = articleRepository;
         this.centerRepository = centerRepository;
     }
@@ -35,7 +36,8 @@ public class CommentMapperImpl  implements CommentMapper {
                   .builder()
                   .content(commentDto.getContent())
                   .publishedAt(commentDto.getPublishedAt())
-                  .user(userService.getUserByEmail(commentDto.getEmail()))
+                  .user(userRepository.findUserByEmail(commentDto.getEmail())
+                          .orElseThrow(() -> new UserNotFoundException("Cannot map commentDto to Comment due to user")))
                   .build();
         if (commentDto.getArticleTitle() != null && commentDto.getCenterAddress() == null) {
             try {
@@ -45,6 +47,7 @@ public class CommentMapperImpl  implements CommentMapper {
             }
         } else if (commentDto.getArticleTitle() == null && commentDto.getCenterAddress() != null) {
             try {
+                System.out.println("type=" + commentDto.getTypeCenter());
                 comment.setCenter(centerRepository.getCenterByAddressAndType(commentDto.getCenterAddress(), commentDto.getTypeCenter()).get());
             } catch (Exception e) {
                 throw new InvalidParameterException("Comment doesn't have center " + commentDto);

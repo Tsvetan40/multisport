@@ -10,6 +10,7 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -24,7 +25,7 @@ import java.util.Set;
 //        @JsonSubTypes.TypeCenter(value = RelaxCenter.class, name = "relaxCenter"),
 //        @JsonSubTypes.TypeCenter(value = SportCenter.class, name = "sportCenter")})
 @Builder
-public class CenterDto {
+public class CenterDto implements Serializable {
 
     @NonNull
     @JsonProperty(required = false)

@@ -38,6 +38,7 @@ export class SingleRelaxCenterComponent implements OnInit{
             this.pictures = center['pictures']
             this.rating = center['rating']
             this.services = center['services']
+            debugger
             this.comments = center['comments']
           }
         )
@@ -49,7 +50,7 @@ export class SingleRelaxCenterComponent implements OnInit{
       const comment = {
         'content': event,
         'centerAddress': this.address,
-        'typeCenter': CenterType.RELAX_CENTER
+        'typeCenter': 'RelaxCenter'
       }
 
       this.publicService.addCommentRelaxCenter(comment, this.id).subscribe()

@@ -37,6 +37,7 @@ export class SingleSportCenterComponent implements OnInit{
             this.description = this.splitDescriptionResponse(center['description']) 
             this.pictures = center['pictures']
             this.rating = center['rating']
+            debugger
             this.comments = center['comments']
           }
         )
@@ -48,7 +49,7 @@ export class SingleSportCenterComponent implements OnInit{
     const comment = {
       'content': event,
       'centerAddress': this.address,
-      'typeCenter': CenterType.SPORT_CENTER
+      'typeCenter': 'SportCenter'
     }
 
     this.publicService.addCommentSportCenter(comment, this.id).subscribe()

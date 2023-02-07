@@ -1,5 +1,6 @@
 package com.demo.multisport.dto.user;
 
+import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+@Builder
 public class UserDto {
 
     @NonNull
@@ -45,7 +47,7 @@ public class UserDto {
     private Integer age;
 
     @JsonProperty(required = false)
-    private List<Comment> comments;
+    private List<CommentDto> comments;
 
     @JsonProperty(required = false)
     private Plan plan;
