@@ -1,27 +1,20 @@
 package com.demo.multisport.controllers;
 
-import com.demo.multisport.dto.PlanDto;
+
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
-import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.services.page.PageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -66,24 +59,6 @@ public class PageController {
 
     }
 
-    @GetMapping("/plans/{name}")
-    public ResponseEntity<Optional<PlanDto>> getPlan(@PathVariable(name = "name") String planName) {
-        try{
-            return new ResponseEntity<>(pageService.getPlanByName(planName), HttpStatus.OK);
-        } catch (NoSuchPlanException | IOException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
-        }
-    }
-
-    @GetMapping("/plans")
-    public ResponseEntity<Set<PlanDto>> getAllPlans() {
-        System.out.println("Hit plans");
-        try {
-            return new ResponseEntity<>(pageService.getAllPlans(), HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity<>(new HashSet<>(), HttpStatus.OK);
-        }
-    }
 
     @GetMapping("/sport-centers/{id}")
     public ResponseEntity<Optional<CenterDto>> getSportCenter(@PathVariable(value = "id", required = true) Long id) {

@@ -2,7 +2,6 @@ package com.demo.multisport.mapper;
 
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.entities.Plan;
-
 import java.io.IOException;
 
 

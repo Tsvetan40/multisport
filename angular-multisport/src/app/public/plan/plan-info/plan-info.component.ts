@@ -28,7 +28,10 @@ export class PlanInfoComponent implements OnInit{
           })
       }
     
+  subscribePlan() {
 
+    this.publicService.subscribeToPlan(this.plan) 
+  }
  }
 
   

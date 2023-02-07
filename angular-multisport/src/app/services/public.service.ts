@@ -58,4 +58,8 @@ export class PublicService {
   public addCommentSportCenter(comment: any, id: number): Observable<Comment> {
     return this.http.post<Comment>(`${this.url}/sport-centers/${id}`, comment, { withCredentials: true })
   }
+
+  public subscribeToPlan(plan: Plan): Observable<Plan> {
+    return this.http.post<Plan>(`${this.url}/plans/${plan.name}`, plan, { withCredentials: true })
+  }
 }

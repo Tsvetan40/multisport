@@ -4,6 +4,7 @@ import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.page.CommentDto;
+import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.services.article.ArticleServiceImpl;
 import com.demo.multisport.services.center.CenterService;
 import com.demo.multisport.services.comment.CommentService;
@@ -67,7 +68,6 @@ public class PageServiceImpl implements PageService {
 
     public void addCommentArticle(CommentDto comment) {
         commentService.addComment(comment);
-
     }
 
     public void addCommentRelaxCenter(CommentDto comment) {

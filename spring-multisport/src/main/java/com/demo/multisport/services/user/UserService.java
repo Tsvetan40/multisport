@@ -1,10 +1,15 @@
 package com.demo.multisport.services.user;
 
+import com.demo.multisport.dao.PlanRepository;
 import com.demo.multisport.dao.UserRepository;
+import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.user.UserDto;
+import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.user.User;
+import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.exceptions.user.UserDuplicateException;
 import com.demo.multisport.exceptions.user.UserNotFoundException;
+import com.demo.multisport.mapper.PlanMapper;
 import com.demo.multisport.mapper.impl.UserMapperImpl;
 import com.demo.multisport.services.impl.PasswordHashService;
 import com.demo.multisport.services.impl.SaltGeneratorService;
@@ -21,16 +26,19 @@ public class UserService {
     private final SaltGeneratorService saltService;
     private final PasswordHashService hashService;
     private final UserMapperImpl userMapper;
+    private final PlanRepository planRepository;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        SaltGeneratorService saltService,
                        PasswordHashService hashService,
-                       @Qualifier("myUserMapper") UserMapperImpl userMapper) {
+                       @Qualifier("myUserMapper") UserMapperImpl userMapper,
+                       PlanRepository planRepository) {
         this.userRepository = userRepository;
         this.saltService = saltService;
         this.hashService = hashService;
         this.userMapper = userMapper;
+        this.planRepository = planRepository;
     }
 
     public UserDto loginUser(String email, String password) {
@@ -77,5 +85,14 @@ public class UserService {
 
     private boolean hasUser(String email) {
         return this.userRepository.countUserByEmail(email) > 0;
+    }
+
+    public void enrollPlan(UserDto user, String planName) {
+        User planUser = userMapper.userDtoToUser(user);
+        Plan dbPlan = planRepository.getPlanByName(planName)
+                .orElseThrow(() -> new NoSuchPlanException("No such plan " + planName));
+
+        planUser.setPlan(dbPlan);
+        userRepository.save(planUser);
     }
 }
