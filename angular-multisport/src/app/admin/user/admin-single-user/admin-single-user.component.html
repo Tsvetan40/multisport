@@ -26,10 +26,18 @@
             <span>Age:</span>
             <span> {{age}} </span>
         </p>
+        <p>
+            <span>Status:</span>
+            <span> {{status}} </span>
+        </p>
+        <p>
+            <span>Role:</span>
+            <span> {{role}} </span>
+        </p>
     </div>
     <div class="section-inner">
-        <button class="btn" id="block">Block</button>
-        <button class="btn" id="restore">Restore</button>
+        <button class="btn" id="block" (click)="blockUser()">Block</button>
+        <button class="btn" id="restore" (click)="restoreUser()">Restore</button>
     </div>
 </section>
 

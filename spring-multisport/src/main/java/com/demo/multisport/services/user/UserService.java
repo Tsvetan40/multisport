@@ -4,6 +4,7 @@ import com.demo.multisport.dao.PlanRepository;
 import com.demo.multisport.dao.UserRepository;
 import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.Plan;
+import com.demo.multisport.entities.user.Status;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.exceptions.user.UserDuplicateException;
@@ -89,5 +90,23 @@ public class UserService {
     public User getUserById(Long id) {
         return this.userRepository.findUserById(id)
                 .orElseThrow(() -> new UserNotFoundException("User with id " + id + "not found"));
+    }
+
+    private Optional<UserDto> changeStatusUser(Long id, Status status) {
+        User user = userRepository.findUserById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with id " + id + "not found"));
+
+        user.setStatus(status);
+        userRepository.save(user);
+
+        return Optional.of(userMapper.userToUserDto(user));
+    }
+
+    public Optional<UserDto> blockUser(Long id) {
+        return changeStatusUser(id, Status.BLOCKED);
+    }
+
+    public Optional<UserDto> restoreUserRights(Long id) {
+        return changeStatusUser(id, Status.ACTIVE);
     }
 }

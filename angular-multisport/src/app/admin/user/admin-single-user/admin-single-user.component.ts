@@ -5,6 +5,8 @@ import { Comment } from 'src/app/models/page/Comment';
 import { ActivatedRoute } from '@angular/router';
 import { CenterType } from 'src/app/models/centers/typecenter/CenterType';
 import { AdminComment } from 'src/app/models/page/AdminComment';
+import { Status } from 'src/app/models/user/Status';
+import { Role } from 'src/app/models/user/Role';
 
 @Component({
   selector: 'app-admin-single-user',
@@ -20,6 +22,8 @@ export class AdminSingleUserComponent implements OnInit{
   firstName: string
   secondName: string
   age: number
+  status: Status
+  role: Role
   plan: Plan | null
   comments: AdminComment[]
 
@@ -33,6 +37,8 @@ export class AdminSingleUserComponent implements OnInit{
     this.age = 0
     this.plan = null
     this.comments = []
+    this.status = Status.ACTIVE
+    this.role = Role.USER
   }
 
 
@@ -44,7 +50,6 @@ export class AdminSingleUserComponent implements OnInit{
         
         this.adminService.getUserById(this.id).subscribe(
           user => {
-            console.log(user)
             this.id = user.id
             this.email = user.email
             this.password = user.password
@@ -52,18 +57,31 @@ export class AdminSingleUserComponent implements OnInit{
             this.firstName = user.firstName
             this.secondName = user.secondName
             this.age = user.age
+            this.role = user.role
+            this.status = user.status
             
             user.comments.forEach(comment => {
-              const cmnt = comment
-              debugger
-              this.comments.push(cmnt)
+              this.comments.push(comment)
             })
-            console.log(user.comments)
-          
           }
-        )
+        )})
+
+  }
+
+  blockUser() {
+
+    this.adminService.blockUser(this.id).subscribe(
+      data => {
+        data['status'] == Status.BLOCKED ? this.status = Status.BLOCKED : this.status = Status.ACTIVE
       }
     )
+  }
 
+  restoreUser() {
+    this.adminService.restoreUserRights(this.id).subscribe(
+      data => {
+        data['status'] == Status.BLOCKED ? this.status = Status.BLOCKED : this.status = Status.ACTIVE
+      }
+    )
   }
 }

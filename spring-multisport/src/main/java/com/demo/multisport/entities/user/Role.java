@@ -1,7 +1,8 @@
 package com.demo.multisport.entities.user;
 
 public enum Role {
-    ADMIN("ADMIN"), USER("USER");
+    ADMIN("ADMIN"),
+    USER("USER");
 
     private String role;
 

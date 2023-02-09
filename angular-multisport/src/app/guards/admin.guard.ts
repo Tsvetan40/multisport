@@ -25,7 +25,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
   private checkAdminAccess(): Observable<boolean>  {
     return this.adminService.admin().pipe(
       map((data) => {
-        debugger
+       
         if (data == null) {
           this.router.navigate(['/multisport'])
           return false

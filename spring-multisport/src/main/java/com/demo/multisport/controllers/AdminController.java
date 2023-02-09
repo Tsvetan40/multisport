@@ -53,4 +53,13 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/users/blocking/{id}")
+    public ResponseEntity<Optional<UserDto>> blockUser(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(adminService.blockUser(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/users/unblocking/{id}")
+    public ResponseEntity<Optional<UserDto>> restoreUserRights(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(adminService.restoreUser(id), HttpStatus.OK);
+    }
 }

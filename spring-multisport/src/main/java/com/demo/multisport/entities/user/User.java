@@ -9,6 +9,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -56,11 +57,11 @@ public class User implements Serializable {
     @Positive
     private int age;
 
-    @NotBlank
+    @NotNull
     @Enumerated(value = EnumType.STRING)
     private Status  status;
 
-    @NotBlank
+    @NotNull
     @Enumerated(value = EnumType.STRING)
     private Role role;
 

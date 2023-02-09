@@ -76,4 +76,11 @@ export class AdminService {
     return this.http.get<User>(`${this.url}/users/${id}`, { withCredentials: true })
   }
 
+  blockUser(id: number): Observable<User> {
+    return this.http.post<User>(`${this.url}/users/blocking/${id}`, { }, { withCredentials: true })
+  }
+
+  restoreUserRights(id: number): Observable<User> {
+    return this.http.post<User>(`${this.url}/users/unblocking/${id}`, { }, { withCredentials: true })
+  }
 }

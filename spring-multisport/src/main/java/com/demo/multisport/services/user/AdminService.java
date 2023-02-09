@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 
 //goes to controllers only
@@ -86,5 +86,13 @@ public class AdminService {
 
     public User getUserById(Long id) {
         return userService.getUserById(id);
+    }
+
+    public Optional<UserDto> blockUser(Long id) {
+      return userService.blockUser(id);
+    }
+
+    public Optional<UserDto> restoreUser(Long id) {
+        return userService.restoreUserRights(id);
     }
 }

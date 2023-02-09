@@ -24,7 +24,6 @@ export class NavigationComponent implements OnInit{
     this.authService.checkSession().subscribe(
 
       (data) => {
-        debugger
         if (data == null) {
           this.isAdmin = false
         } else if (data['role'] == Role.ADMIN){
