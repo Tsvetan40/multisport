@@ -1,6 +1,7 @@
 <div class="wrapper">
-    <div id="content" *ngFor="let title of titles; let i = index">
-        <span class="title">{{title}}</span>
+    <p class="status-deleted" [ngClass]="{'deleted-ok' : (isDeleted == 1), 'deleted-error': (isDeleted == 2), 'deleted-none': (isDeleted == 0)}">{{this.message}}</p>
+    <div id="content" *ngFor="let article of articles; let i = index">
+        <span class="title">{{article.title}}</span>
         <button class="delete" (click)="deleteArticle(i)">Delete</button>
     </div>
 </div>

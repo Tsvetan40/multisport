@@ -6,6 +6,26 @@
     padding-right: 50px;
 }
 
+.status-deleted {
+    font-family: sans-serif;
+    font-size: 1rem;
+    padding: 5px;
+}
+
+.deleted-none {
+    display: none;
+}
+
+.deleted-error {
+    display: block;
+    color: #F50537;
+}
+
+.deleted-ok {
+    display: block;
+    color: #4ef037;
+}
+
 #content {
     display: flex;
     justify-content: space-between;

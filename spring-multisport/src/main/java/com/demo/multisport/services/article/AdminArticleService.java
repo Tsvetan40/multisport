@@ -7,9 +7,7 @@ import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.mapper.ArticleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,7 +42,7 @@ public class AdminArticleService implements ArticleService {
 
     @Override
     public List<ArticleDto> getAllTitlesAndImages() {
-        List<ArticleDto> collect = articleRepository
+        return articleRepository
                 .findAll()
                 .stream()
                 .map( article -> {
@@ -55,7 +53,6 @@ public class AdminArticleService implements ArticleService {
                     }
                 })
                 .collect(Collectors.toList());
-        return collect;
 
     }
 

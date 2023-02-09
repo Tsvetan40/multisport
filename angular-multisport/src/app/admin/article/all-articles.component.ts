@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Article } from 'src/app/models/page/Article';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
@@ -8,32 +9,50 @@ import { AdminService } from 'src/app/services/admin.service';
   styleUrls: ['./all-articles.component.css']
 })
 export class AllArticlesComponent implements OnInit{
-  
-  titles: string[] = []
+  isDeleted: number = 0
+  message: string = ''
+  articles: Article[] = []
 
   constructor(private adminService: AdminService, private router: Router) {}
 
   ngOnInit(): void {
     this.adminService.getAllArticlesTitle().subscribe(
       (data) => {
-        data.forEach(title => {
-          this.titles.push(title)
+        debugger
+        data.forEach(article => {
+          this.articles.push(article)
         })
       },
       (error) => {
-        this.router.navigate(['/multisport'])
+        if (error['status'] == 403) {
+          this.router.navigate(['/multisport'])
+        } else {
+
+        }
+
       }
     )
   }
 
   deleteArticle(i: number): void {
-    const title = this.titles[i]
+    const title = this.articles[i].title
+  
     this.adminService.deleteArticleByTitile(title).subscribe(
-      data => {
-        this.titles.splice(i, 1)
+       (data) => {
+        debugger
+        this.articles.splice(i, 1)
+        this.message = 'Article deleted successfylly!'
+        this.isDeleted = 1
       }, 
-      error => {
-        this.router.navigate(['/multisport'])
+      (error) => {
+        debugger
+        this.isDeleted = 2
+        if (error['status'] == 403) {
+          this.router.navigate(['/multisport'])
+        } else {
+          this.message = 'Cannot delete article'
+        }
+
       }
     )
   }
