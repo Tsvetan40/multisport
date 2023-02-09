@@ -1,12 +1,10 @@
 package com.demo.multisport.dto.user;
 
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-
 import javax.validation.constraints.Size;
 
 @RequiredArgsConstructor
@@ -18,9 +16,8 @@ public class LoggedUserDto {
     @JsonProperty(required = true)
     private final String email;
 
-
     @NonNull
-    @Size(min = 10, max = 26)
+    @Size(min = 10, max = 16)
     @JsonProperty(required = true)
     private final String password;
 }

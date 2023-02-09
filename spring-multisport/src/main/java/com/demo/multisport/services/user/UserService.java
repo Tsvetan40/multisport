@@ -51,8 +51,8 @@ public class UserService {
         }
 
         String salt = userRepository.getSaltByEmail(email);
-
         Optional<User> loggedUser = userRepository.findUserByEmailAndPassword(email, hashService.hash(password, salt));
+
         if (loggedUser.isEmpty()) {
             throw new UserNotFoundException(String.format("User with email %s and password %s not found", email, password));
         }

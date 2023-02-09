@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PatternService } from 'src/app/services/pattern.service';
 import { LoggedUser } from 'src/app/models/user/LoggedUser';
+import { Role } from 'src/app/models/user/Role';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent {
   password!: string;
   email!: string;
   errMessage: string  = '';
-  constructor(private patternService: PatternService, private LoginService: AuthenticationService) {}
+  constructor(private patternService: PatternService, private loginService: AuthenticationService) {}
 
   close(): void {
     this.btnLoginPopup = ''
@@ -32,19 +33,18 @@ export class LoginComponent {
   onSubmit():void {
     const loggedUser = new LoggedUser(this.email, this.password)
 
-    this.LoginService.login(loggedUser).subscribe(
+    this.loginService.login(loggedUser).subscribe(
       data => {
-        if (data == null) {
-          this.hasLoginError = true
-          return
-        }
-        if (data['email'].includes('@multisport.com')) {
+        if (data['role'] == Role.ADMIN) {
           this.isAdminEventEmitter.emit(true)
         } else {
           this.isAdminEventEmitter.emit(false)
         }
         this.hasLoginError = false
         this.close()
+      },
+      err => {
+        this.hasLoginError = true
       }
     )
     

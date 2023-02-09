@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
@@ -21,14 +20,13 @@ import java.util.Optional;
 @RequestMapping("/multisport")
 @Slf4j
 public class AuthenticationController {
-    private static final int MAX_INACTIVE_INTERVAL  = 60*10*10;
-    private UserService userService;
+    private static final int MAX_INACTIVE_INTERVAL = 60*10;
+    private final UserService userService;
 
     @Autowired
     public AuthenticationController(UserService userService) {
         this.userService = userService;
     }
-
 
     @PostMapping("/login")
     public ResponseEntity<Optional<UserDto>> login(@RequestBody @Valid LoggedUserDto loggedUser,
@@ -40,7 +38,7 @@ public class AuthenticationController {
         }
 
         log.info(session.getId());
-        log.info("session= " + ((UserDto)session.getAttribute("user")));
+        log.info("user= " + ((UserDto)session.getAttribute("user")));
 
         UserDto user;
         try {
@@ -54,7 +52,7 @@ public class AuthenticationController {
             return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             Optional<UserDto> emptyUser = Optional.empty();
-            return new ResponseEntity<>(emptyUser, HttpStatus.OK);
+            return new ResponseEntity<>(emptyUser, HttpStatus.UNAUTHORIZED);
         }
     }
 
