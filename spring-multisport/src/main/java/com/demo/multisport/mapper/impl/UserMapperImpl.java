@@ -27,6 +27,8 @@ public class UserMapperImpl {
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .age(user.getAge())
+                .role(user.getRole())
+                .status(user.getStatus())
                 .comments(user.getComments()
                         .stream()
                         .map(commentMapper::commentToCommentDto)
@@ -37,9 +39,6 @@ public class UserMapperImpl {
     }
 
     public User userDtoToUser(UserDto userDto) {
-//        Optional<User> user =  userRepository.findUserByEmail(userDto.getEmail());
-//
-//        return user.isEmpty() ? null : user.get();
         return userRepository.findUserByEmail(userDto.getEmail())
                 .orElseThrow(() -> new UserNotFoundException("Mapping user unsuccessfully"));
     }

@@ -3,6 +3,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PatternService } from 'src/app/services/pattern.service';
 import { NgForm  } from '@angular/forms';
 import { RegisteredUser } from 'src/app/models/user/RegisteredUser';
+import { Status } from 'src/app/models/user/Status';
+import { Role } from 'src/app/models/user/Role';
 
 @Component({
   selector: 'app-registration',
@@ -45,7 +47,7 @@ export class RegistrationComponent {
   }
 
   onSubmit() {
-    const user  = new RegisteredUser(this.email, this.password, this.firstName, this.secondName, this.age)
+    const user  = new RegisteredUser(this.email, this.password, this.firstName, this.secondName, this.age, Status.ACTIVE, Role.USER)
     
     this.authService.registartion(user).subscribe(
       data => {

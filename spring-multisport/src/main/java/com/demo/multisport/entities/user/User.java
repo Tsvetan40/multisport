@@ -56,6 +56,14 @@ public class User implements Serializable {
     @Positive
     private int age;
 
+    @NotBlank
+    @Enumerated(value = EnumType.STRING)
+    private Status  status;
+
+    @NotBlank
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "plan_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_USER_PLAN"))
     private Plan plan;

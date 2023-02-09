@@ -3,6 +3,8 @@ package com.demo.multisport.dto.user;
 import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
+import com.demo.multisport.entities.user.Role;
+import com.demo.multisport.entities.user.Status;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -45,6 +47,14 @@ public class UserDto {
     @Positive
     @JsonProperty(required = true)
     private Integer age;
+
+    @NonNull
+    @JsonProperty(required = true)
+    private Status status;
+
+    @NonNull
+    @JsonProperty(required = true)
+    private Role role;
 
     @JsonProperty(required = false)
     private List<CommentDto> comments;

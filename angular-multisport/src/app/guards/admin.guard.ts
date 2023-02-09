@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { map, Observable } from 'rxjs';
+import { Role } from '../models/user/Role';
 import { AdminService } from '../services/admin.service';
 
 @Injectable({
@@ -24,10 +25,11 @@ export class AdminGuard implements CanActivate, CanActivateChild {
   private checkAdminAccess(): Observable<boolean>  {
     return this.adminService.admin().pipe(
       map((data) => {
+        debugger
         if (data == null) {
           this.router.navigate(['/multisport'])
           return false
-        } else if (data['email'] != null && data['email'].includes('@multisport.com')) {
+        } else if (data['role'] != null && data['role'] == Role.ADMIN) {
           this.adminService.setUser(data)
           return true
         }

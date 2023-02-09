@@ -1,4 +1,5 @@
 import { Component, HostListener, Input, OnInit} from '@angular/core';
+import { Role } from '../models/user/Role';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -23,9 +24,10 @@ export class NavigationComponent implements OnInit{
     this.authService.checkSession().subscribe(
 
       (data) => {
+        debugger
         if (data == null) {
           this.isAdmin = false
-        } else if (data['email'].includes("@multisport.com")){
+        } else if (data['role'] == Role.ADMIN){
           this.isAdmin = true
         } else {
           this.isAdmin = false

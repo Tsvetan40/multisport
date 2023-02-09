@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable,  } from 'rxjs';
 import { LoggedUser } from '../models/user/LoggedUser';
 import { RegisteredUser } from '../models/user/RegisteredUser';
+import { User } from '../models/user/User';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class AuthenticationService {
     return this.http.post<RegisteredUser>(`${this.url}/logout`, {}, { withCredentials:true })
   }
 
-  public checkSession(): Observable<RegisteredUser> {
-    return this.http.post<RegisteredUser>(this.url, {}, { withCredentials: true })
+  public checkSession(): Observable<User> {
+    return this.http.post<User>(this.url, {}, { withCredentials: true })
   }
 }

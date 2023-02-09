@@ -1,7 +1,8 @@
 import { RegisteredUser } from "./RegisteredUser";
 import { Plan } from "../Plan";
-import { Comment } from "../page/Comment";
 import { AdminComment } from "../page/AdminComment";
+import { Status } from "./Status";
+import { Role } from "./Role";
 
 export class User extends RegisteredUser{
     private _id: number
@@ -9,8 +10,19 @@ export class User extends RegisteredUser{
     private _plan: Plan
     private _comments: AdminComment[]
 
-    constructor(email: string, password: string, firstName: string, secondName: string, age: number, id: number, salt: string, plan: Plan, comments: AdminComment[]) {
-        super(email, password, firstName, secondName, age)
+    constructor(email: string,
+                password: string,
+                firstName: string,
+                secondName: string,
+                age: number,
+                id: number,
+                salt: string,
+                plan: Plan,
+                comments: AdminComment[],
+                status: Status,
+                role: Role) {
+
+        super(email, password, firstName, secondName, age, status, role)
         this._id = id
         this._salt = salt
         this._plan = plan
