@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Article } from 'src/app/models/page/Article';
 import { AdminService } from 'src/app/services/admin.service';
@@ -15,6 +16,7 @@ export class ArticleComponent {
   showAddArticle: boolean
   showAllArticles: boolean
   picture!: File
+  @ViewChild('articleForm') formArticle!: NgForm
 
   constructor(private adminService: AdminService, private router: Router) {
     this.showAddArticle = true
@@ -35,6 +37,13 @@ export class ArticleComponent {
     this.picture = event.target.files[0]
   }
 
+  private normaliseForm(): void {
+    this.title = ''
+    this.text = ''
+    this.errorMessage = ''
+    this.formArticle.control.reset()
+  }
+
   submitArticle(): void {
   
     this.adminService.saveArticle(new Article()
@@ -42,15 +51,17 @@ export class ArticleComponent {
                                     .withContent(this.text),
                                   this.picture).subscribe(
       (data) => {
-        //to do
         this.errorMessage = ''
+        this.normaliseForm()
         alert('saved article!')
       },
       (error) => {
-        if (error['status'] == 400 || error['status'] == 500) {
-          this.errorMessage = "Article title already exists"
+        if (error['status'] == 400) {
+          this.errorMessage = 'Incorect article information'
         } else if (error['status'] == 401) {
           this.router.navigate(['/multisport'])
+        } else if (error['status'] == 500) {
+          this.errorMessage = 'Internal server error'
         }
       }
       )
