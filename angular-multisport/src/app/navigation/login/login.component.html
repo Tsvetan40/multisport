@@ -1,3 +1,6 @@
+<div  [ngClass]="{'overlay-open' : (btnLoginPopup == 'Login'), 'overlay-closed' : (btnLoginPopup == '') }" >
+</div>
+    
 <dialog class="popup" [ngClass]="{'dialog-open': (btnLoginPopup == 'Login'), 'dialog-closed': (btnLoginPopup == '')}">
     <header>
         <h2 id="title">Login</h2>
