@@ -1,4 +1,7 @@
-<dialog class="popup" [ngClass]="{'dialog-open': (btnRegistrationPopup == 'singin'), 'dialog-closed': btnRegistrationPopup == ''}">
+<div  [ngClass]="{'overlay-open' : (btnRegistrationPopup == 'Sing in'), 'overlay-closed' : (btnRegistrationPopup == '') }" >
+</div>
+
+<dialog class="popup" [ngClass]="{'dialog-open': (btnRegistrationPopup == 'Sing in'), 'dialog-closed': btnRegistrationPopup == ''}">
     <header>
         <h2 id="title">Registration</h2>
         <button id="close" (click)="close()">&times;</button>
