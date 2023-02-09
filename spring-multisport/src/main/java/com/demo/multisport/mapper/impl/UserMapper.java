@@ -1,23 +1,18 @@
 package com.demo.multisport.mapper.impl;
 
-import com.demo.multisport.dao.UserRepository;
 import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.user.User;
-import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.mapper.CommentMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-
 import java.util.stream.Collectors;
 
+
+
 @Component
-@Qualifier("myUserMapper")
 @RequiredArgsConstructor
-public class UserMapperImpl {
+public class UserMapper {
     private final CommentMapper commentMapper;
-    private final UserRepository userRepository;
 
     public UserDto userToUserDto(User user) {
         return UserDto
@@ -39,7 +34,21 @@ public class UserMapperImpl {
     }
 
     public User userDtoToUser(UserDto userDto) {
-        return userRepository.findUserByEmail(userDto.getEmail())
-                .orElseThrow(() -> new UserNotFoundException("Mapping user unsuccessfully"));
+        return  User.builder()
+                .firstName(userDto.getFirstName())
+                .secondName(userDto.getSecondName())
+                .password(userDto.getPassword())
+                .email(userDto.getEmail())
+                .age(userDto.getAge())
+                .status(userDto.getStatus())
+                .role(userDto.getRole())
+                .plan(userDto.getPlan())//this should be fixed later
+                .comments(userDto.getComments() != null ?
+                                                        userDto.getComments()
+                                                        .stream()
+                                                        .map(commentMapper::commentDtoToComment)
+                                                        .collect(Collectors.toSet())
+                                                : null)
+                .build();
     }
 }

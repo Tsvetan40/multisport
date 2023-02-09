@@ -21,8 +21,16 @@ export class AuthenticationService {
   }
 
   public registartion(user: RegisteredUser): Observable<RegisteredUser> {
-    
-    return this.http.post<RegisteredUser>(`${this.url}/newuser`, user, { withCredentials: true })
+    const regUserJSON = {'firstName': user.firstName,
+      'secondName': user.secondName,
+      'age': user.age,
+      'email': user.email,
+      'password': user.password,
+      'status': user.status,
+      'role': user.role 
+    }
+
+    return this.http.post<RegisteredUser>(`${this.url}/newuser`, regUserJSON, { withCredentials: true })
   }
 
   public logout(): Observable<RegisteredUser> {

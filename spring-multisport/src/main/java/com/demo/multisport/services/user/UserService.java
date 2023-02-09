@@ -9,17 +9,13 @@ import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.exceptions.user.UserDuplicateException;
 import com.demo.multisport.exceptions.user.UserNotFoundException;
-import com.demo.multisport.mapper.impl.UserMapperImpl;
+import com.demo.multisport.mapper.impl.UserMapper;
 import com.demo.multisport.services.impl.PasswordHashService;
 import com.demo.multisport.services.impl.SaltGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -28,14 +24,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final SaltGeneratorService saltService;
     private final PasswordHashService hashService;
-    private final UserMapperImpl userMapper;
+    private final UserMapper userMapper;
     private final PlanRepository planRepository;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        SaltGeneratorService saltService,
                        PasswordHashService hashService,
-                       @Qualifier("myUserMapper") UserMapperImpl userMapper,
+                       UserMapper userMapper,
                        PlanRepository planRepository) {
         this.userRepository = userRepository;
         this.saltService = saltService;
@@ -67,7 +63,6 @@ public class UserService {
         }
 
         User user = userMapper.userDtoToUser(userDto);
-
         user.setSalt(saltService.generate());
         user.setPassword(hashService.hash(user.getPassword(), user.getSalt()));
 

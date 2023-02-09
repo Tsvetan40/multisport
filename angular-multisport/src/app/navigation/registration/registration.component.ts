@@ -51,11 +51,7 @@ export class RegistrationComponent {
     
     this.authService.registartion(user).subscribe(
       data => {
-        
-        if (data == null) {
-          this.hasAuthenticationError = true
-          return
-        } else if (data['email'].includes('@multisport.com')) {
+        if (data['role'] == Role.ADMIN) {
           this.isAdminEventEmitter.emit(true)
         } else {
           this.isAdminEventEmitter.emit(false)
@@ -63,6 +59,9 @@ export class RegistrationComponent {
 
         this.hasAuthenticationError = false
         this.close()
+      }, 
+      err => {
+        this.hasAuthenticationError = true
       }
     );
     

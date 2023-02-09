@@ -36,23 +36,18 @@ public class AuthenticationController {
             Optional<UserDto> emptyUser = Optional.empty();
             return new ResponseEntity<>(emptyUser, HttpStatus.OK);
         }
+        log.info("user= " + session.getAttribute("user"));
 
-        log.info(session.getId());
-        log.info("user= " + ((UserDto)session.getAttribute("user")));
-
-        UserDto user;
         try {
-            user = userService.loginUser(loggedUser.getEmail(), loggedUser.getPassword());
-            if (session.getAttribute("user") == null) {
-                session.setAttribute("user", user);
-            }
+            UserDto user = userService.loginUser(loggedUser.getEmail(), loggedUser.getPassword());
+            session.setAttribute("user", user);
 
             log.info("Logged info successfully");
             session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
-            return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
+
+            return new ResponseEntity<>(Optional.of(user), HttpStatus.CREATED);
         } catch (UserNotFoundException e) {
-            Optional<UserDto> emptyUser = Optional.empty();
-            return new ResponseEntity<>(emptyUser, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -61,19 +56,19 @@ public class AuthenticationController {
                                                               HttpSession session) {
         if (error.hasErrors()) {
             Optional<UserDto> emptyUser = Optional.empty();
-            return new ResponseEntity<>(emptyUser, HttpStatus.OK);
+            return new ResponseEntity<>(emptyUser, HttpStatus.UNAUTHORIZED);
         }
 
         try {
             userService.registerUser(userDto);
             log.info("Logged info successfully");
+
             session.setAttribute("user", userDto);
-            log.info(session.getId());
             session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
+
             return new ResponseEntity<>(Optional.of(userDto), HttpStatus.OK);
         } catch (UserDuplicateException e) {
-            Optional<UserDto> emptyUser = Optional.empty();
-            return new ResponseEntity<>(emptyUser, HttpStatus.OK);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
         }
 
     }

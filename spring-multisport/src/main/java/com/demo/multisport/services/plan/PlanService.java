@@ -2,13 +2,10 @@ package com.demo.multisport.services.plan;
 
 import com.demo.multisport.dao.PlanRepository;
 import com.demo.multisport.dto.PlanDto;
-import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.Plan;
-import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.plan.DuplicatePlanException;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.mapper.PlanMapper;
-import com.demo.multisport.mapper.impl.UserMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

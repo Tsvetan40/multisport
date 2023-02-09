@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,36 +21,44 @@ import java.util.List;
 public class UserDto {
 
     @NonNull
-    @Size(min = 4, max = 20)
+    @NotNull
+    @Size(min = 4, max = 16)
     @JsonProperty(required = true)
     private String firstName;
 
     @NonNull
-    @Size(min = 4, max = 20)
+    @NotNull
+    @Size(min = 4, max = 16)
     @JsonProperty(required = true)
     private String secondName;
 
     @NonNull
+    @NotNull
     @Email
     @Size(min = 10, max = 40)
     @JsonProperty(required = true)
     private String email;
 
     @NonNull
-    @Size(min = 10, max = 26)
+    @NotNull
+    @Size(min = 10, max = 16)
     @JsonProperty(required = true)
     private String password;
 
     @NonNull
-    @Positive
+    @NotNull
+    @Min(value = 16)
+    @Max(value = 100)
     @JsonProperty(required = true)
     private Integer age;
 
     @NonNull
+    @NotNull
     @JsonProperty(required = true)
     private Status status;
 
     @NonNull
+    @NotNull
     @JsonProperty(required = true)
     private Role role;
 
