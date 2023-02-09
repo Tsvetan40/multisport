@@ -13,7 +13,10 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   public login(user: LoggedUser): Observable<LoggedUser> {
-    return this.http.post<LoggedUser>(`${this.url}/login`, user, {withCredentials: true});
+    
+    const logedUserJSON = {'email': user.email, 'password': user.password }
+
+    return this.http.post<LoggedUser>(`${this.url}/login`, logedUserJSON, {withCredentials: true});
   }
 
   public registartion(user: RegisteredUser): Observable<RegisteredUser> {

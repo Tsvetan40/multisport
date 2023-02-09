@@ -1,1 +1,21 @@
-<p>user works!</p>
+<div class="container">
+    <div class="inner">
+        <div class="info">
+            <label for="user_id">Search user by id</label>
+        </div>
+        <div class="search">
+            <input type="number" name="id" id="user_id" placeholder="Search..." ngModel #iid="ngModel" [(ngModel)]="id">    
+            <button class="search-btn" id="id-btn" (click)="searchById()">Search!</button>
+        </div>
+    </div>
+
+    <div class="inner">
+        <div class="info">
+            <label for="user_emial">Search user by email</label>
+        </div>
+        <div class="search">
+            <input type="email" name="id" id="user_email" placeholder="Search..." ngModel #iemail="ngModel" [(ngModel)]="email">
+            <button class="search-btn" id="email-btn" (click)="searchByEmail()">Search!</button>    
+        </div>
+    </div>
+</div>

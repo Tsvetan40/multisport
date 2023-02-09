@@ -3,6 +3,8 @@ package com.demo.multisport.services.user;
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
+import com.demo.multisport.dto.user.UserDto;
+import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.article.ArticleDuplicateException;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
@@ -12,10 +14,11 @@ import com.demo.multisport.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+
 
 //goes to controllers only
 @Service
@@ -23,11 +26,13 @@ public class AdminService {
 
     private final AdminPageServiceImpl adminPageService;
     private final PlanService adminPlanService;
+    private final UserService userService;
 
     @Autowired
-    public AdminService(AdminPageServiceImpl adminPageService, PlanService adminPlanService) {
+    public AdminService(AdminPageServiceImpl adminPageService, PlanService adminPlanService, UserService userService) {
         this.adminPlanService = adminPlanService;
         this.adminPageService = adminPageService;
+        this.userService = userService;
     }
 
     public List<ArticleDto> getAllArticlesTitlesAndImages() {
@@ -77,5 +82,9 @@ public class AdminService {
 
     public List<PlanDto> getAllPlans() throws IOException {
         return adminPlanService.getAllPlansAdmin();
+    }
+
+    public User getUserById(Long id) {
+        return userService.getUserById(id);
     }
 }

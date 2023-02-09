@@ -2,6 +2,8 @@ package com.demo.multisport.controllers;
 
 
 import com.demo.multisport.dto.user.UserDto;
+import com.demo.multisport.entities.user.User;
+import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.services.user.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
+import java.util.Set;
 
 
 @RestController
@@ -38,15 +41,17 @@ public class AdminController {
         return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
     }
 
+    @GetMapping("/users/{id}")
+    public ResponseEntity<Optional<User>> allUsers(@PathVariable("id") Long id, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
+        }
 
-//    @GetMapping("/centers")
-//    public ResponseEntity<List<CenterDto>> adminGetAllCenters(HttpSession session) {
-//        // to do validate session
-//
-//        System.out.println("HIT GetMapping centers");
-//
-//        return new ResponseEntity<>(adminService.getAllCenters(), HttpStatus.OK);
-//    }
-
+        try {
+            return new ResponseEntity<>(Optional.of(this.adminService.getUserById(id)), HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

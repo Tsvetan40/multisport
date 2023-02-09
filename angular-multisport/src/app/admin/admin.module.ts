@@ -7,6 +7,7 @@ import { PlanComponent } from './plan/plan.component';
 import { UserComponent } from './user/user.component';
 import { NavigationModule } from '../navigation/navigation.module';
 import { AllArticlesComponent } from './article/all-articles.component';
+import { AdminSingleUserComponent } from './user/admin-single-user/admin-single-user.component';
 
 
 
@@ -18,7 +19,8 @@ import { AllArticlesComponent } from './article/all-articles.component';
     CentersComponent,
     PlanComponent,
     UserComponent,
-    AllArticlesComponent
+    AllArticlesComponent,
+    AdminSingleUserComponent
   ],
   imports: [
     NavigationModule

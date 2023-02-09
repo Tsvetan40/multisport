@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
+  
+  private readonly url = '/multisport/admin'
+  id!: number
+  email!: string
 
+  constructor(private route: Router) { }
+
+
+  searchById() {
+    this.route.navigateByUrl(`${this.url}/users/${this.id}`)
+  }
+
+  searchByEmail() {
+
+  }
 }

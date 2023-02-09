@@ -35,7 +35,6 @@ export class CentersComponent {
 
   private getServices(): string[] {
     const servicesList = this.services.split(',')
-    debugger
     return servicesList
   }
 

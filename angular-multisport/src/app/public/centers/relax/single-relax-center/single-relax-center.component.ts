@@ -27,6 +27,7 @@ export class SingleRelaxCenterComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    debugger
     this.route.params.subscribe(
       data => {
         const id: number = data['id']

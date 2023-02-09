@@ -41,7 +41,6 @@ export class PlanComponent {
   submitPlan():void {
     this.isSubmitTouched = true
     const plan = new Plan(this.name, this.price, this.centersAddresses)
-    debugger
     this.adminService.savePlan(plan, this.picture).subscribe() 
     this.centersAddresses = []
     this.planForm.control.reset()

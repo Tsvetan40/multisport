@@ -4,6 +4,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ArticleComponent } from './admin/article/article.component';
 import { CentersComponent } from './admin/centers/centers.component';
 import { PlanComponent } from './admin/plan/plan.component';
+import { AdminSingleUserComponent } from './admin/user/admin-single-user/admin-single-user.component';
 import { UserComponent } from './admin/user/user.component';
 import { AdminGuard } from './guards/admin.guard';
 import { HomeComponent } from './home/home.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: "multisport/admin", component: AdminComponent , canActivate: [AdminGuard], canActivateChild: [AdminGuard], children : [
     { path: "articles", component: ArticleComponent },
     { path: "users", component: UserComponent },
+    { path: "users/:id", component: AdminSingleUserComponent },
     { path: "plans", component: PlanComponent },
     { path: "centers", component: CentersComponent }
   ]}

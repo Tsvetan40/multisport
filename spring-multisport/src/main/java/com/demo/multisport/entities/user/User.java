@@ -2,12 +2,16 @@ package com.demo.multisport.entities.user;
 
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +20,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class User {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,  property = "id")
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -56,10 +61,8 @@ public class User {
     private Plan plan;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Set<Comment> comments;
-
-//    @OneToMany(mappedBy = "author")
-//    private Set<Article> articles;
 
     public User(@NonNull String firstName, @NonNull String secondName,@NonNull String email,@NonNull String password, int age) {
         this.firstName = firstName;

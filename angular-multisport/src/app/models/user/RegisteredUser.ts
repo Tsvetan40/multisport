@@ -1,39 +1,38 @@
-import { first } from "rxjs";
 import { LoggedUser } from "./LoggedUser";
 
 export class RegisteredUser extends LoggedUser {
-    private firstName: string
-    private secondName: string
-    private age: number
+    private _firstName: string
+    private _secondName: string
+    private _age: number
 
     constructor(email: string, password: string, firstName: string, secondName: string, age: number) {
         super(email, password)
-        this.firstName = firstName
-        this.secondName = secondName
-        this.age = age
+        this._firstName = firstName
+        this._secondName = secondName
+        this._age = age
     }
 
     setFirstName(firstName: string): void {
-        this.firstName = firstName
+        this._firstName = firstName
     }
 
-    getFirstName(): string {
-        return this.firstName
+    get firstName(): string {
+        return this._firstName
     }
 
     setSecondName(secondName: string): void {
-        this.secondName = secondName
+        this._secondName = secondName
     }
 
-    getSecondName(): string {
-        return this.secondName
+    get secondName(): string {
+        return this._secondName
     }
 
     setAge(age: number): void {
-        this.age = age
+        this._age = age
     }
 
-    getAge(): number {
-        return this.age
+    get age(): number {
+        return this._age
     }
 }

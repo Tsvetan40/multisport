@@ -2,14 +2,12 @@ package com.demo.multisport.services.user;
 
 import com.demo.multisport.dao.PlanRepository;
 import com.demo.multisport.dao.UserRepository;
-import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.user.User;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.exceptions.user.UserDuplicateException;
 import com.demo.multisport.exceptions.user.UserNotFoundException;
-import com.demo.multisport.mapper.PlanMapper;
 import com.demo.multisport.mapper.impl.UserMapperImpl;
 import com.demo.multisport.services.impl.PasswordHashService;
 import com.demo.multisport.services.impl.SaltGeneratorService;
@@ -17,7 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Service
 public class UserService {
@@ -71,18 +73,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    private Optional<User> saveUser(User user) {
-        return Optional.of(userRepository.save(user));
-    }
-
-    public User getUserByEmail(String email) {
-        try {
-            return userRepository.findUserByEmail(email).get();
-        } catch (Exception e) {
-            throw new UserNotFoundException("User with email " + email + " not found");
-        }
-    }
-
     private boolean hasUser(String email) {
         return this.userRepository.countUserByEmail(email) > 0;
     }
@@ -94,5 +84,10 @@ public class UserService {
 
         planUser.setPlan(dbPlan);
         userRepository.save(planUser);
+    }
+
+    public User getUserById(Long id) {
+        return this.userRepository.findUserById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with id " + id + "not found"));
     }
 }

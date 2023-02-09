@@ -6,6 +6,7 @@ import { SportCenter } from '../models/centers/SportCenter';
 import { Article } from '../models/page/Article';
 import { RegisteredUser } from '../models/user/RegisteredUser';
 import { Plan } from '../models/Plan';
+import { User } from '../models/user/User';
 
 @Injectable({
   providedIn: 'root'
@@ -70,4 +71,9 @@ export class AdminService {
   deleteArticleByTitile(title: string): Observable<Article> {
     return this.http.delete<Article>(`${this.url}/articles/?title=${title}`, { withCredentials: true })
   }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.url}/users/${id}`, { withCredentials: true })
+  }
+
 }

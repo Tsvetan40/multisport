@@ -1,0 +1,59 @@
+<h1>User info</h1>
+
+<section class="section user">
+    <div class="section-inner">
+        <p>
+            <span>Id:</span>
+            <span> {{id}} </span>
+        </p>
+        <p>
+            <span>First name:</span>
+            <span> {{firstName}} </span>
+        </p>
+        <p>
+            <span>Second name:</span>
+            <span> {{secondName}} </span>
+        </p>
+        <p>
+            <span>Password:</span>
+            <span> {{password}} </span>
+        </p>
+        <p>
+            <span>Password salt:</span>
+            <span> {{password_salt}} </span>
+        </p>
+        <p>
+            <span>Age:</span>
+            <span> {{age}} </span>
+        </p>
+    </div>
+    <div class="section-inner">
+        <button class="btn" id="block">Block</button>
+        <button class="btn" id="restore">Restore</button>
+    </div>
+</section>
+
+<section class="section plan">
+    <span>Plan:</span>
+    <span *ngIf="this.plan == null">No plans for this user</span>
+    <div class="plan-inner" *ngIf="this.plan != null">
+        <p>
+            <span>Plan name:</span>
+            <span>{{plan.name}}</span>    
+        </p>
+    </div>
+</section>
+
+<section class="section comments">
+    <span>Comments:</span>
+    <p *ngIf="this.comments.length == 0">No comments for this user</p>
+    <div class="comment-inner" *ngFor="let comment of comments">
+        <p>
+            <span>Comment content: {{comment.content}}</span>
+            <span>Published at: {{comment.publishedAt}}</span>
+            <span *ngIf="comment.article != null">Article title {{comment.article.title}}</span>
+            <span *ngIf="comment.center != null">Center id: {{comment.center.id}}</span>
+            <span *ngIf="comment.center != null">Center name: {{comment.center.name}}</span>
+        </p>
+    </div>
+</section>

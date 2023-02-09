@@ -1,17 +1,17 @@
 export class LoggedUser {
-    private email: string
-    private password: string
+    private _email: string
+    private _password: string
 
     constructor(email: string, password: string) {
-        this.email = email
-        this.password = password
+        this._email = email
+        this._password = password
     }
 
-    public getEmail(): string {
-        return this.email;
+    public get email(): string {
+        return this._email;
     }
 
-    public getPassword(): string {
-        return this.password;
+    public get password(): string {
+        return this._password;
     }
 }

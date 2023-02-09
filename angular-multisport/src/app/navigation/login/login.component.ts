@@ -31,6 +31,7 @@ export class LoginComponent {
 
   onSubmit():void {
     const loggedUser = new LoggedUser(this.email, this.password)
+
     this.LoginService.login(loggedUser).subscribe(
       data => {
         if (data == null) {
