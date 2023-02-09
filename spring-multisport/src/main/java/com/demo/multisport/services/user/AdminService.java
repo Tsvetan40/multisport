@@ -48,7 +48,6 @@ public class AdminService {
     }
 
     public ArticleDto addArticle(ArticleDto articleDto, MultipartFile picture) {
-        articleDto.setPublishedAt(LocalDateTime.now());
 
         if (adminPageService.countArticlesByTitle(articleDto.getTitle()) > 0) {
             throw new ArticleDuplicateException("Article Already exists! Change Title");

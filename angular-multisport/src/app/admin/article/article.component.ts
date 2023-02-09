@@ -47,7 +47,7 @@ export class ArticleComponent {
         alert('saved article!')
       },
       (error) => {
-        if (error['status'] == 400 || error['status'] == 500) { //to do
+        if (error['status'] == 400 || error['status'] == 500) {
           this.errorMessage = "Article title already exists"
         } else if (error['status'] == 401) {
           this.router.navigate(['/multisport'])

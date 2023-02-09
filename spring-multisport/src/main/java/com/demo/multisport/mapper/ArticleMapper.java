@@ -19,10 +19,12 @@ public class ArticleMapper {
         return Article
                 .builder()
                 .title(articleDto.getTitle())
-                .comments(articleDto.getComments()
-                        .stream()
-                        .map(commentMapper::commentDtoToComment)
-                        .collect(Collectors.toSet()))
+                .comments(articleDto.getComments() != null ?
+                                                            articleDto.getComments()
+                                                            .stream()
+                                                            .map(commentMapper::commentDtoToComment)
+                                                            .collect(Collectors.toSet())
+                                                    : null)
                 .publishedAt(articleDto.getPublishedAt())
                 .content(articleDto.getContent())
                 .pathFile(pathFile)

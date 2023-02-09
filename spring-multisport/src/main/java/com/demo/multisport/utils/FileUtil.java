@@ -16,7 +16,7 @@ public class FileUtil {
 
     private static String save(MultipartFile file, File dir) {
 
-        String path = dir.getAbsolutePath() + "/" + file.getOriginalFilename();
+        String path = dir.getPath() + "/" + file.getOriginalFilename();
         File newFile = new File(path);
         try {
             FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(newFile));
@@ -36,7 +36,7 @@ public class FileUtil {
     }
 
     public static String saveArticleImage(MultipartFile file){
-        File dir = new File(DIR_PLAN);
+        File dir = new File(DIR_ARTICLE);
         if (!dir.exists()) {
             dir.mkdirs();
         }

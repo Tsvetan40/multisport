@@ -33,8 +33,8 @@ public class AdminArticleService implements ArticleService {
 
     public ArticleDto addArticle(ArticleDto articleDto, String pathFile) {
         Article article = articleMapper.articleDtoToArticle(articleDto, pathFile);
-        article.setPublishedAt(LocalDateTime.now());
         articleRepository.save(article);
+
         return articleDto;
     }
 

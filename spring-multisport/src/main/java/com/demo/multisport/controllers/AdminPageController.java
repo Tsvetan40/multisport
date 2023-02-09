@@ -74,13 +74,14 @@ public class AdminPageController {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
         }
 
-        log.info("PostMapping " + session.getId());
-        ArticleDto articleDto = null;
-
+        if (title.length() > 50 || title.length() < 4) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+        }
         try {
-            articleDto = new ArticleDto(title, content);
+            ArticleDto articleDto = new ArticleDto(title, content);
             adminService.addArticle(articleDto, picture);
-            return new ResponseEntity<>(Optional.of(articleDto), HttpStatus.OK);
+
+            return new ResponseEntity<>(Optional.of(articleDto), HttpStatus.CREATED);
         } catch (ArticleDuplicateException | InvalidParameterException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
