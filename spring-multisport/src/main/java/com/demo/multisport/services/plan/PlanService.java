@@ -31,13 +31,13 @@ public class PlanService {
     }
 
     public void addPlanAdmin(PlanDto planDto, String filePath) {
+        if (planRepository.getPlanByName(planDto.getName()).isPresent()) {
+            throw new DuplicatePlanException("Duplicate plan with name" + planDto.getName());
+        }
+
         Plan plan = planAdminMapper.planDtoToPlan(planDto, filePath);
         plan.setPathFile(filePath);
-        try {
-            planRepository.save(plan);
-        } catch (Exception e) {
-            throw new DuplicatePlanException("Duplicate plan");
-        }
+        planRepository.save(plan);
     }
 
     public List<PlanDto> getAllPlans() throws IOException {

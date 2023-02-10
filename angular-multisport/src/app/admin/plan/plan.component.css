@@ -24,20 +24,12 @@ h2 {
     flex-grow: 1;
 }
 
-/* #form {
-
-} */
-
 .content-inner {
     display: flex;
     flex-direction: column;
     gap: 5px;
     padding-top: 10px;
 }
-
-/* .content-inner.content-centers {
-    
-} */
 
 .add-center-wrapper {
     display: flex;
@@ -103,13 +95,13 @@ h2 {
     padding: 3px;
 }
 
+#submit:hover,#add-center:hover {
+    opacity: 0.8;
+}
+
 #submit-error {
     display: flex;
     align-items: center;
-}
-
-#list-centers-inner {
-
 }
 
 .center-link {
@@ -122,8 +114,3 @@ h2 {
     font-family: sans-serif;
     color: #003333;
 }
-
-/*
-.add-center-wrapper {
-
-} */

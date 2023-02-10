@@ -55,12 +55,12 @@ export class AdminService {
     formParams.append('name', plan.name)
     formParams.append('price', plan.price.toString())
     
-    let centersAdddressesString = ''
+    let centersAddressesString = ''
     plan.centersAddresses.forEach(centersAdddress => {
-      centersAdddressesString += centersAdddress;
+      centersAddressesString += centersAdddress + ';';
     })
 
-    formParams.append('centersAddresses', centersAdddressesString)
+    formParams.append('centersAddresses', centersAddressesString)
     formParams.append('file', picture)
 
     return this.http.post<Plan>(`${this.url}/newplan`, formParams, { withCredentials: true })

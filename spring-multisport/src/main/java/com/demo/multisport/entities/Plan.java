@@ -2,9 +2,7 @@ package com.demo.multisport.entities;
 
 import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.entities.user.User;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;

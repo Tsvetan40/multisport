@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Plan } from 'src/app/models/Plan';
 import { AdminService } from 'src/app/services/admin.service';
 import { PatternService } from 'src/app/services/pattern.service';
@@ -18,7 +19,11 @@ export class PlanComponent {
   isSubmitTouched: boolean = false
   @ViewChild('planForm') planForm!: NgForm
 
-  constructor(private patternService: PatternService, private adminService: AdminService) {}
+  constructor(private patternService: PatternService,
+              private adminService: AdminService,
+              private router: Router) { 
+
+  }
 
   disableAddCenterBtn(): boolean {
     return this.patternService.disableAddCenterBtn(this.addressCenter, this.planForm)
@@ -41,8 +46,20 @@ export class PlanComponent {
   submitPlan():void {
     this.isSubmitTouched = true
     const plan = new Plan(this.name, this.price, this.centersAddresses)
-    this.adminService.savePlan(plan, this.picture).subscribe() 
-    this.centersAddresses = []
-    this.planForm.control.reset()
+    this.adminService.savePlan(plan, this.picture).subscribe(
+      data => {
+        this.isSubmitTouched = false
+        this.planForm.control.reset()
+        this.centersAddresses = []
+        alert("Plan Added!")
+      },
+      error => {
+        if (error['status'] == 403) {
+          this.router.navigate(["/multisport"])
+        } else {
+          alert("Failed Adding Plan")
+        }
+      }) 
   }
+
 }
