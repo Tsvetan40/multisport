@@ -3,6 +3,7 @@ package com.demo.multisport.controllers;
 
 import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.entities.user.User;
+import com.demo.multisport.exceptions.user.UserDuplicateException;
 import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.services.user.AdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.Optional;
 
 
@@ -61,5 +63,19 @@ public class AdminController {
     @PostMapping("/users/unblocking/{id}")
     public ResponseEntity<Optional<UserDto>> restoreUserRights(@PathVariable("id") Long id) {
         return new ResponseEntity<>(adminService.restoreUser(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/users/newadmin")
+    public ResponseEntity<Optional<UserDto>> newAdmin(@RequestBody @Valid UserDto user, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
+        }
+
+        try {
+            adminService.addAdmin(user);
+            return new ResponseEntity<>(Optional.of(user), HttpStatus.CREATED);
+        } catch (UserDuplicateException e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

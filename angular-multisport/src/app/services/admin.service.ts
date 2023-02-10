@@ -85,4 +85,17 @@ export class AdminService {
   restoreUserRights(id: number): Observable<User> {
     return this.http.post<User>(`${this.url}/users/unblocking/${id}`, { }, { withCredentials: true })
   }
+
+  addAdmin(admin: RegisteredUser): Observable<RegisteredUser> {
+    const user = {
+      'email': admin.email,
+      'password': admin.password,
+      'firstName': admin.firstName,
+      'secondName': admin.secondName,
+      'age': admin.age,
+      'status': admin.status,
+      'role': admin.role
+    }
+    return this.http.post<RegisteredUser>(`${this.url}/users/newadmin`, user, { withCredentials: true })
+  }
 }

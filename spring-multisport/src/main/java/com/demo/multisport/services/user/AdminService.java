@@ -88,4 +88,8 @@ public class AdminService {
     public Optional<UserDto> restoreUser(Long id) {
         return userService.restoreUserRights(id);
     }
+
+    public void addAdmin(UserDto userDto) {
+        this.userService.registerUser(userDto);
+    }
 }

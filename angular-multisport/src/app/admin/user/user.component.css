@@ -50,3 +50,33 @@ input {
 .search-btn:hover {
     opacity: 0.8;
 }
+
+.add-admin {
+    padding: 20px 50px;
+}
+
+
+#add-admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#submit {
+    padding: 5px;
+    font-size: 1.2rem;
+    border: none;
+    background-color: #e7eaf6;
+    color: 111;
+    font-family: sans-serif;
+    cursor: pointer;
+     border-radius: 5px;
+}
+
+#submit:hover {
+    opacity: 0.8;
+}
+
+button:hover {
+    opacity: 0.8;
+}

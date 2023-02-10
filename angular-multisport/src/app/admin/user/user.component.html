@@ -19,3 +19,57 @@
         </div>
     </div>
 </div>
+
+<div class="add-admin">
+    <form #addAdminForm="ngForm" id="add-admin-form">
+        <div>
+           
+            <input type="text" name="first-name" id="first-name" placeholder="First name" class="input" 
+            ngModel required #fname="ngModel" [(ngModel)]="firstName">
+            <span *ngIf="fname.dirty == true && (fname.value?.length < 4 || fname.value?.length > 16)" class="error">
+                First name must be from 4 to 16 letters
+            </span>
+            <span *ngIf="fname.dirty == true && hasErrorName()" class="error">
+               Letters only
+            </span>
+        </div>
+
+        <div>
+       
+            <input type="text" name="second-name" id="second-name" placeholder="Second name" class="input"
+              ngModel required #sname="ngModel" [(ngModel)]="secondName">
+            <span *ngIf="sname.dirty == true && (sname.value.length < 4 || sname.value.length > 16)" class="error">
+                Second name must be from 4 to 16 letters
+            </span>
+            <span *ngIf="sname.dirty && hasErrorSecondName()" class="error">Letters only</span>
+            
+        </div>
+
+        <div>
+            <input type="email" name="email" id="email" class="input" placeholder="Email" ngModel required email
+            #myemail="ngModel" [(ngModel)]="email">
+            <span *ngIf="myemail.touched && myemail.invalid" class="error">Invalid email</span>
+        </div>
+        
+        <div>
+            <input type="password" name="password" id="password" class="input" placeholder="Password" ngModel required
+            #mypassword="ngModel" [(ngModel)]="password">
+            <span *ngIf="mypassword.dirty == true && hasErrorPassword()" class="error">
+                Password must be 10-16 symbols, at least 2 numbers, at least one special symbol and a capital letter
+            </span>
+        </div>
+
+        <div>
+            <input type="text" name="age" id="age" class="input" placeholder="Age" ngModel required
+            #myage="ngModel" [(ngModel)]="age">
+            <span *ngIf="myage.dirty == true && myage?.value < 16 || myage?.value > 100" class="error">
+                Age must be between 16 and 100</span>
+        </div>
+        <div [ngStyle]="{'display': hasAuthenticationError ? 'block' : 'none'}">
+            <span class="error">Email already exists, please try another email</span>
+        </div>
+        <div id="last">
+            <input type="submit" (click)="addAdmin()" id="submit" [disabled]="!addAdminForm.valid">
+        </div>
+</form>
+</div>

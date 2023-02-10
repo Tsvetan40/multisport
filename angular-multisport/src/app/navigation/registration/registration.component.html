@@ -53,7 +53,7 @@
                     Age must be between 16 and 100</span>
             </div>
             <div [ngStyle]="{'display': hasAuthenticationError ? 'block' : 'none'}">
-                <span class="error">Email already persisted, please try another email</span>
+                <span class="error">Email already exists, please try another email</span>
             </div>
             <div id="last">
                 <input type="submit" [value]="btnRegistrationPopup" id="submit" [disabled]="!myForm.valid">
