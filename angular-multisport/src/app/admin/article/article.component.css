@@ -77,6 +77,10 @@ form {
     cursor: pointer;
 }
 
+#submit:hover {
+    opacity: 0.8;
+}
+
 form > div:last-child > .wrapper-inner{
     align-items: center;
     justify-content: center;
@@ -99,14 +103,6 @@ form > div:last-child > .wrapper-inner{
     cursor: pointer;
 }
 
-#show-add {
-
-}
-
-#show-all {
-
-}
-
-#section-all-articles {
-
+.nav-div > button:hover {
+    opacity: 0.8;
 }

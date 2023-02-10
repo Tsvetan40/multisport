@@ -3,6 +3,8 @@ package com.demo.multisport.dto.page;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 public class ArticleDto {
 
     @NonNull
+    @NotBlank
     @Size(min = 4, max = 50)
     @JsonProperty(required = true)
     private String title;

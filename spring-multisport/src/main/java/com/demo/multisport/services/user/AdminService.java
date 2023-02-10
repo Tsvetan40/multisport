@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +47,6 @@ public class AdminService {
     }
 
     public ArticleDto addArticle(ArticleDto articleDto, MultipartFile picture) {
-        articleDto.setPublishedAt(LocalDateTime.now());
 
         if (adminPageService.countArticlesByTitle(articleDto.getTitle()) > 0) {
             throw new ArticleDuplicateException("Article Already exists! Change Title");

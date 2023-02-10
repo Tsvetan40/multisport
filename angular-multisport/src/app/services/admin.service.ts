@@ -64,12 +64,12 @@ export class AdminService {
     return this.http.post<Plan>(`${this.url}/newplan`, formParams, { withCredentials: true })
   }
 
-  getAllArticlesTitle(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.url}/articles`, { withCredentials: true })
+  getAllArticlesTitle(): Observable<Article[]> {
+    return this.http.get<Article[]>(`${this.url}/articles`, { withCredentials: true })
   }
 
-  deleteArticleByTitile(title: string): Observable<Article> {
-    return this.http.delete<Article>(`${this.url}/articles/?title=${title}`, { withCredentials: true })
+  deleteArticleByTitile(title: string): Observable<any> {
+    return this.http.delete<any>(`${this.url}/articles/?title=${title}`, { withCredentials: true })
   }
 
   getUserById(id: number): Observable<User> {

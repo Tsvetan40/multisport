@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.InvalidParameterException;
@@ -31,16 +30,16 @@ public class AdminPageController {
     private final AdminService adminService;
 
     @DeleteMapping("/articles")
-    public ResponseEntity<String> deleteArticle(@RequestParam(required = true, name = "title") String title,
+    public ResponseEntity<HttpStatus> deleteArticle(@RequestParam(required = true, name = "title") String title,
                                                               HttpSession session) {
         if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>("Unauthorized user", HttpStatus.UNAUTHORIZED);
+               return ResponseEntity.status(403).build();
         }
         try {
             adminService.deleteArticle(title);
-            return new ResponseEntity<>("Article with title " + title + "deleted", HttpStatus.OK);
+            return ResponseEntity.ok().build();
         } catch (NoSuchArticleException e) {
-            return new ResponseEntity<>("Article with title " + title + " doesn't exist", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -48,12 +47,11 @@ public class AdminPageController {
     public ResponseEntity<List<ArticleDto>> getArticlesAdmin(HttpSession session) {
         UserDto admin = (UserDto) session.getAttribute("user");
 
-        log.info("@GetMapping articles");
-        log.info(session.getId());
-        log.info("admin= " + admin);
+        log.info("Display all articles admin");
+        log.info("user= " + admin);
 
         if (admin == null) {
-            return new ResponseEntity<>(List.of(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(List.of(), HttpStatus.FORBIDDEN);
         }
 
         try {
@@ -74,13 +72,14 @@ public class AdminPageController {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
         }
 
-        log.info("PostMapping " + session.getId());
-        ArticleDto articleDto = null;
-
+        if (title.length() > 50 || title.length() < 4) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+        }
         try {
-            articleDto = new ArticleDto(title, content);
+            ArticleDto articleDto = new ArticleDto(title, content);
             adminService.addArticle(articleDto, picture);
-            return new ResponseEntity<>(Optional.of(articleDto), HttpStatus.OK);
+
+            return new ResponseEntity<>(Optional.of(articleDto), HttpStatus.CREATED);
         } catch (ArticleDuplicateException | InvalidParameterException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
