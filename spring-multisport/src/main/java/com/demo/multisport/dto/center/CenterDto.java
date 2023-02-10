@@ -1,12 +1,11 @@
 package com.demo.multisport.dto.center;
 
+import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.entities.Plan;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
@@ -18,14 +17,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @JsonInclude(value = JsonInclude.Include.NON_ABSENT)
-//@JsonTypeInfo(
-//        use = JsonTypeInfo.Id.NAME,
-//        property = "type")
-//@JsonSubTypes({
-//        @JsonSubTypes.TypeCenter(value = RelaxCenter.class, name = "relaxCenter"),
-//        @JsonSubTypes.TypeCenter(value = SportCenter.class, name = "sportCenter")})
 @Builder
-public class CenterDto implements Serializable {
+public class CenterDto implements Serializable, ICenterDto {
 
     @NonNull
     @JsonProperty(required = false)
@@ -57,7 +50,7 @@ public class CenterDto implements Serializable {
     private Set<String> pictures;
 
     @JsonProperty(required = false)
-    private Set<Plan> plans;
+    private Set<PlanDto> plans;
 
     @JsonProperty(required = false)
     private Set<CommentDto> comments;

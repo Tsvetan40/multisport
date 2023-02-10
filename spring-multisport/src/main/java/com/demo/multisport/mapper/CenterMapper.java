@@ -1,12 +1,9 @@
 package com.demo.multisport.mapper;
 
-import com.demo.multisport.dto.center.CenterDto;
-import com.demo.multisport.entities.center.RelaxCenter;
-import com.demo.multisport.entities.center.SportCenter;
+import com.demo.multisport.dto.center.ICenterDto;
+import com.demo.multisport.entities.center.Center;
 
 
 public interface CenterMapper {
-    CenterDto sportCenterToCenterDtoExtractRecord(SportCenter sportCenter);
-    CenterDto relaxCenterToCenterDtoExtractRecord(RelaxCenter relaxCenter);
-
+    ICenterDto centerToCenterDtoExtractRecord(Center center);
 }

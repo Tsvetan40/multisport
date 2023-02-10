@@ -20,12 +20,8 @@ public class AdminPageServiceImpl implements PageService {
         return adminArticleService.getAllTitlesAndImages();
     }
 
-    public void addSportCenter(CenterDto centerDto) {
-        centerService.addSportCenterAdmin(centerDto);
-    }
-
-    public void addRelaxCenter(CenterDto centerDto) {
-        centerService.addRelaxCenterAdmin(centerDto);
+    public void addCenter(CenterDto centerDto) {
+        centerService.addCenterAdmin(centerDto);
     }
 
     public void deleteCenter(String address) {

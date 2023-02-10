@@ -2,9 +2,9 @@ package com.demo.multisport.services.page;
 
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.center.CenterDto;
+import com.demo.multisport.dto.center.ICenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.page.CommentDto;
-import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.services.article.ArticleServiceImpl;
 import com.demo.multisport.services.center.CenterService;
 import com.demo.multisport.services.comment.CommentService;
@@ -27,19 +27,14 @@ public class PageServiceImpl implements PageService {
     private final CenterService centerService;
     private final PlanService planService;
     private final CommentService commentService;
-    private final String SPORT_CENTER_TYPE = "SportCenter";
-    private final String RELAX_CENTER_TYPE = "RelaxCenter";
 
     @Override
     public List<ArticleDto> getAllArticlesTitlesAndImages() {
         return articleService.getAllTitlesAndImages();
     }
 
-    public Optional<CenterDto> getCenterDtoById(Long id, String type) {
-        if (type.equals(SPORT_CENTER_TYPE)) {
-            return centerService.sportCenterToCenterDto(id);
-        }
-        return centerService.relaxCenterToCenterDto(id);
+    public Optional<CenterDto> getCenterDtoById(Long id) {
+            return centerService.centerToCenterDto(id);
     }
 
     public Optional<ArticleDto> getArticleByTitle(String title) {
@@ -54,11 +49,11 @@ public class PageServiceImpl implements PageService {
         return new HashSet<>(planService.getAllPlans());
     }
 
-    public Set<CenterDto> getAllSportCenters() {
+    public Set<ICenterDto> getAllSportCenters() {
         return centerService.getAllSportCenters();
     }
 
-    public Set<CenterDto> getAllRelaxCenters() {
+    public Set<ICenterDto> getAllRelaxCenters() {
         return centerService.getAlRelaxCenters();
     }
 

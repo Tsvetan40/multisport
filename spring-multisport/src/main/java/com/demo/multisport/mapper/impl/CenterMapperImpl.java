@@ -1,18 +1,23 @@
 package com.demo.multisport.mapper.impl;
 
 import com.demo.multisport.dto.center.CenterDto;
+import com.demo.multisport.dto.center.ICenterDto;
 import com.demo.multisport.dto.center.TypeCenter;
+import com.demo.multisport.entities.center.Center;
+import com.demo.multisport.entities.center.ICenter;
 import com.demo.multisport.entities.center.RelaxCenter;
 import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.mapper.CenterMapper;
 import com.demo.multisport.mapper.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
 
 @Component
+@Qualifier("centerMapper")
 public class CenterMapperImpl implements CenterMapper {
 
     private final CommentMapper commentMapper;
@@ -22,8 +27,9 @@ public class CenterMapperImpl implements CenterMapper {
         this.commentMapper = commentMapper;
     }
 
-    @Override
-    public CenterDto sportCenterToCenterDtoExtractRecord(SportCenter sportCenter) {
+
+
+    private CenterDto sportCenterToCenterDtoExtractRecord(SportCenter sportCenter) {
         return CenterDto
                 .builder()
                 .id(sportCenter.getId())
@@ -37,8 +43,7 @@ public class CenterMapperImpl implements CenterMapper {
                 .build();
     }
 
-    @Override
-    public CenterDto relaxCenterToCenterDtoExtractRecord(RelaxCenter relaxCenter) {
+    private CenterDto relaxCenterToCenterDtoExtractRecord(RelaxCenter relaxCenter) {
         return CenterDto
                 .builder()
                 .id(relaxCenter.getId())
@@ -53,4 +58,12 @@ public class CenterMapperImpl implements CenterMapper {
                 .build();
     }
 
+    @Override
+    public ICenterDto centerToCenterDtoExtractRecord(Center center) {
+        if (center instanceof SportCenter) {
+            return this.sportCenterToCenterDtoExtractRecord((SportCenter) center);
+        }
+
+        return this.relaxCenterToCenterDtoExtractRecord((RelaxCenter) center);
+    }
 }

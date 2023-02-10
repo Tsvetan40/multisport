@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @DiscriminatorValue(value = "SportCenter")
-public class SportCenter extends Center implements Serializable {
+public class SportCenter extends Center implements Serializable, ICenter {
 
     public SportCenter (){
         super();

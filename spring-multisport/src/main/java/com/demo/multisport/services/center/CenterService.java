@@ -2,34 +2,45 @@ package com.demo.multisport.services.center;
 
 import com.demo.multisport.dao.CenterRepository;
 import com.demo.multisport.dto.center.CenterDto;
+import com.demo.multisport.dto.center.ICenterDto;
 import com.demo.multisport.entities.center.Center;
+import com.demo.multisport.entities.center.ICenter;
 import com.demo.multisport.entities.center.RelaxCenter;
 import com.demo.multisport.entities.center.SportCenter;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.mapper.AdminCenterMapper;
-import com.demo.multisport.mapper.impl.CenterMapperImpl;
-import lombok.RequiredArgsConstructor;
+import com.demo.multisport.mapper.CenterMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class CenterService {
     private final AdminCenterMapper adminCenterMapper;
+    private final CenterMapper centerMapper;
     private final CenterRepository centerRepository;
-    private final CenterMapperImpl centerMapperImpl;
 
-    public void addSportCenterAdmin(CenterDto centerDto) {
-        SportCenter newSportCenter =  adminCenterMapper.centerDtoToSportCenterCreateRecord(centerDto);
-        this.saveCenterAdmin(newSportCenter);
+    public CenterService(@Qualifier("adminCenterMapper")AdminCenterMapper adminCenterMapper,
+                         @Qualifier("centerMapper") CenterMapper centerMapper,
+                         CenterRepository centerRepository) {
+        this.adminCenterMapper = adminCenterMapper;
+        this.centerMapper = centerMapper;
+        this.centerRepository = centerRepository;
     }
 
-    public void addRelaxCenterAdmin(CenterDto centerDto) {
-        RelaxCenter newRelaxCenter =  adminCenterMapper.centerDtoToRelaxCenterCreateRecord(centerDto);
-        this.saveCenterAdmin(newRelaxCenter);
+    public void addCenterAdmin(CenterDto centerDto) {
+        ICenter center = adminCenterMapper.centerDtoToCenterCreateRecord(centerDto);
+
+        if (center instanceof SportCenter) {
+            this.saveCenterAdmin((SportCenter)center);
+            return;
+        }
+
+        this.saveCenterAdmin((RelaxCenter) center);
     }
 
     public void deleteCenterAdmin(String address) {
@@ -47,35 +58,26 @@ public class CenterService {
         return centerRepository.countCentersByAddress(address);
     }
 
-    public Optional<CenterDto> sportCenterToCenterDto(Long id ) {
-        Optional<SportCenter> sportCenter = centerRepository.getSportCenterByAddress(id);
-        if (sportCenter.isEmpty()) {
+    public Optional<CenterDto> centerToCenterDto(Long id) {
+        Optional<Center> center = centerRepository.findById(id);
+        if (center.isEmpty()) {
             throw new CenterNotFoundException("Center with id" + id + " not found");
         }
 
-        return Optional.of(centerMapperImpl.sportCenterToCenterDtoExtractRecord(sportCenter.get()));
+        return Optional.of((CenterDto) centerMapper.centerToCenterDtoExtractRecord(center.get()));
     }
 
-    public Optional<CenterDto> relaxCenterToCenterDto(Long id) {
-        Optional<RelaxCenter> relaxCenter = centerRepository.getRelaxCenterByAddress(id);
-        if (relaxCenter.isEmpty()) {
-            throw new CenterNotFoundException("Center with id" + id + " not found");
-        }
-
-        return Optional.of(centerMapperImpl.relaxCenterToCenterDtoExtractRecord(relaxCenter.get()));
-    }
-
-    public Set<CenterDto> getAllSportCenters() {
+    public Set<ICenterDto> getAllSportCenters() {
         return centerRepository.getAllSportCenters()
                 .stream()
-                .map(centerMapperImpl::sportCenterToCenterDtoExtractRecord)
+                .map(centerMapper::centerToCenterDtoExtractRecord)
                 .collect(Collectors.toSet());
     }
 
-    public Set<CenterDto> getAlRelaxCenters() {
+    public Set<ICenterDto> getAlRelaxCenters() {
         return centerRepository.getAllRelaxCenters()
                 .stream()
-                .map(centerMapperImpl::relaxCenterToCenterDtoExtractRecord)
+                .map(centerMapper::centerToCenterDtoExtractRecord)
                 .collect(Collectors.toSet());
     }
 }

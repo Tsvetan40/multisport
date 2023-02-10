@@ -62,12 +62,7 @@ public class AdminService {
             throw new CenterDuplicateException("Center already exists!" + centerDto.getName());
         }
 
-        if (centerDto.getServices() == null) {
-            adminPageService.addSportCenter(centerDto);
-        } else {
-            adminPageService.addRelaxCenter(centerDto);
-        }
-
+        adminPageService.addCenter(centerDto);
     }
 
     public void deleteCenter(String address) {

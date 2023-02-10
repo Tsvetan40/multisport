@@ -2,9 +2,11 @@ package com.demo.multisport.controllers;
 
 
 import com.demo.multisport.dto.center.CenterDto;
+import com.demo.multisport.dto.center.ICenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.dto.user.UserDto;
+import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.services.page.PageServiceImpl;
@@ -63,7 +65,7 @@ public class PageController {
     @GetMapping("/sport-centers/{id}")
     public ResponseEntity<Optional<CenterDto>> getSportCenter(@PathVariable(value = "id", required = true) Long id) {
         try {
-            return new ResponseEntity<>(pageService.getCenterDtoById(id, SPORT_CENTER_TYPE), HttpStatus.OK);
+            return new ResponseEntity<>(pageService.getCenterDtoById(id), HttpStatus.OK);
         } catch (CenterNotFoundException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
         }
@@ -72,7 +74,7 @@ public class PageController {
     @GetMapping("/relax-centers/{id}")
     public ResponseEntity<Optional<CenterDto>> getRelaxCenter(@PathVariable(value = "id", required = true) Long id) {
         try {
-           return new ResponseEntity<>(pageService.getCenterDtoById(id, RELAX_CENTER_TYPE), HttpStatus.OK);
+           return new ResponseEntity<>(pageService.getCenterDtoById(id), HttpStatus.OK);
         } catch (CenterNotFoundException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
 
@@ -80,12 +82,12 @@ public class PageController {
  }
 
     @GetMapping("/sport-centers")
-    public ResponseEntity<Set<CenterDto>> getAllSportCenters() {
+    public ResponseEntity<Set<ICenterDto>> getAllSportCenters() {
         return new ResponseEntity<>(pageService.getAllSportCenters(), HttpStatus.OK);
     }
 
     @GetMapping("/relax-centers")
-    public ResponseEntity<Set<CenterDto>> getAllRelaxCenters() {
+    public ResponseEntity<Set<ICenterDto>> getAllRelaxCenters() {
         return new ResponseEntity<>(pageService.getAllRelaxCenters(), HttpStatus.OK);
     }
 

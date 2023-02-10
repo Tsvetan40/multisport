@@ -15,7 +15,7 @@ import java.util.Set;
 @DiscriminatorValue(value = "RelaxCenter")
 @Getter
 @Setter
-public class RelaxCenter extends Center implements Serializable {
+public class RelaxCenter extends Center implements Serializable, ICenter {
 
     public RelaxCenter() {
         super();

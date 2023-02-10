@@ -57,7 +57,7 @@ export class CentersComponent {
                             'pictures': this.pictures,
                             'description': this.description,
                             'centerType': 'RELAX_CENTER',
-                            'services': this.services
+                            'services': this.getServices()
                           }
         this.adminService.saveRelaxCenter(relaxCenter).subscribe()
     }
@@ -69,7 +69,7 @@ export class CentersComponent {
     this.centerForm.control.reset()
     this.services = ''
     this.pictures = []
-    //this.centerForm.reset()
+    this.centerForm.reset()
   }
 
   deletePicture(i: number) {

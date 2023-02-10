@@ -104,8 +104,10 @@ public class AdminPageController {
     @PostMapping("/centers/newcenter")
     public ResponseEntity<Optional<CenterDto>> addCenter(@RequestBody @Valid CenterDto centerDto, HttpSession session) {
 
-        //to do session authorization
-        log.info("hit");
+        if (session.getAttribute("user") == null) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
+        }
+
         try {
             adminService.addCenter(centerDto);
             return new ResponseEntity<>(Optional.of(centerDto), HttpStatus.OK);
