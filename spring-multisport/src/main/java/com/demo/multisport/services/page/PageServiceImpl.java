@@ -18,7 +18,6 @@ import java.util.Optional;
 import java.util.Set;
 
 
-//goes to controller
 @Service
 @RequiredArgsConstructor
 public class PageServiceImpl implements PageService {
@@ -61,15 +60,7 @@ public class PageServiceImpl implements PageService {
         return planService.getPlanByName(planName);
     }
 
-    public void addCommentArticle(CommentDto comment) {
-        commentService.addComment(comment);
-    }
-
-    public void addCommentRelaxCenter(CommentDto comment) {
-        commentService.addComment(comment);
-    }
-
-    public void addCommentSportCenter(CommentDto comment) {
-        commentService.addComment(comment);
+    public CommentDto addComment(CommentDto commentDto) {
+        return commentService.addComment(commentDto);
     }
 }

@@ -51,7 +51,18 @@ export class SingleSportCenterComponent implements OnInit{
       'typeCenter': 'SportCenter'
     }
 
-    this.publicService.addCommentSportCenter(comment, this.id).subscribe()
+    this.publicService.addCommentSportCenter(comment, this.id).subscribe(
+      data => {
+        this.comments.push(data);
+      }, 
+      error => {
+        if (error['status'] == 403) {
+          alert("You must be logged in to post a comment")
+        } else {
+          alert("Not able to add comment")
+        }
+      }
+    )
   }
 
   moveLeft() {

@@ -57,6 +57,13 @@
     </section>
 </main>
 
+<section class="services">
+    <span>Services:</span>
+    <div class="service-inner" *ngFor="let service of services">
+        <span> {{service}} </span>
+    </div>
+</section>
+
 <footer class="comments">
     <app-comments (addCommentEventEmitter)="addCommentRequest($event)" [comments]="comments"></app-comments>
 </footer>

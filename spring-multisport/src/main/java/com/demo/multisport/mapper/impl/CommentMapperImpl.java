@@ -11,7 +11,6 @@ import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.mapper.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.security.InvalidParameterException;
 
 @Component
@@ -29,7 +28,6 @@ public class CommentMapperImpl  implements CommentMapper {
         this.centerRepository = centerRepository;
     }
 
-    //used in creating the comment
     @Override
     public Comment commentDtoToComment(CommentDto commentDto) {
          Comment comment = Comment

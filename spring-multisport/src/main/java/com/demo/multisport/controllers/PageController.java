@@ -6,7 +6,6 @@ import com.demo.multisport.dto.center.ICenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.dto.user.UserDto;
-import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.services.page.PageServiceImpl;
@@ -38,7 +37,6 @@ public class PageController {
     @GetMapping("/articles/{title}")
     public ResponseEntity<Optional<ArticleDto>> getSpecificArticle(@PathVariable(value = "title", required = true) String title) {
 
-        //can't find the article return error page in angular
         try {
             Optional<ArticleDto> articleDto = pageService.getArticleByTitle(title);
             return new ResponseEntity<>(articleDto, HttpStatus.OK);
@@ -50,7 +48,6 @@ public class PageController {
 
     }
 
-    //get the titles and then navigate to them
     @GetMapping("/articles")
     public ResponseEntity<List<ArticleDto>> getAllArticlesTitles() {
         try {
@@ -104,13 +101,12 @@ public class PageController {
 
         UserDto user = (UserDto) session.getAttribute("user");
         if (user == null) {
-            return new ResponseEntity<>(comment, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
         }
 
-        comment = addInfoCommentDto(comment, user.getEmail());
+        addInfoCommentDto(comment, user.getEmail());
         try {
-            pageService.addCommentArticle(comment);
-            return new ResponseEntity<>(comment, HttpStatus.CREATED);
+            return new ResponseEntity<>(pageService.addComment(comment), HttpStatus.CREATED);
         } catch (InvalidParameterException e) {
             return new ResponseEntity<>(comment, HttpStatus.BAD_REQUEST);
         }
@@ -123,14 +119,13 @@ public class PageController {
                                                             HttpSession session) {
         UserDto user = (UserDto) session.getAttribute("user");
         if (user == null) {
-            return new ResponseEntity<>(comment, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
         }
 
-        comment = addInfoCommentDto(comment, user.getEmail());
+        addInfoCommentDto(comment, user.getEmail());
 
         try {
-            pageService.addCommentRelaxCenter(comment);
-            return new ResponseEntity<>(comment, HttpStatus.CREATED);
+            return new ResponseEntity<>(pageService.addComment(comment), HttpStatus.CREATED);
         } catch (InvalidParameterException e) {
             return new ResponseEntity<>(comment, HttpStatus.BAD_REQUEST);
         }
@@ -142,14 +137,13 @@ public class PageController {
                                                             HttpSession session) {
         UserDto user = (UserDto) session.getAttribute("user");
         if (user == null) {
-            return new ResponseEntity<>(comment, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
         }
 
-        comment = addInfoCommentDto(comment, user.getEmail());
+        addInfoCommentDto(comment, user.getEmail());
 
         try {
-            pageService.addCommentSportCenter(comment);
-            return new ResponseEntity<>(comment, HttpStatus.CREATED);
+            return new ResponseEntity<>(pageService.addComment(comment), HttpStatus.CREATED);
         } catch (InvalidParameterException e) {
             return new ResponseEntity<>(comment, HttpStatus.BAD_REQUEST);
         }

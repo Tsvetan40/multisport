@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 public class CommentDto {
     @NonNull
+    @NotBlank
     @JsonProperty(required = true)
     @Size(max = 255)
     private String content;
@@ -42,7 +44,6 @@ public class CommentDto {
     @JsonIgnore
     private String email;
 
-    //may be at article, may be comment on center
     @JsonProperty(required = false, access = JsonProperty.Access.WRITE_ONLY)
     private String articleTitle;
 

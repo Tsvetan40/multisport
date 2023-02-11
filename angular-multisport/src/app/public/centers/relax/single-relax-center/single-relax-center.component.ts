@@ -27,7 +27,7 @@ export class SingleRelaxCenterComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    debugger
+
     this.route.params.subscribe(
       data => {
         const id: number = data['id']
@@ -40,7 +40,6 @@ export class SingleRelaxCenterComponent implements OnInit{
             this.pictures = center['pictures']
             this.rating = center['rating']
             this.services = center['services']
-            debugger
             this.comments = center['comments']
           }
         )
@@ -55,7 +54,19 @@ export class SingleRelaxCenterComponent implements OnInit{
         'typeCenter': 'RelaxCenter'
       }
 
-      this.publicService.addCommentRelaxCenter(comment, this.id).subscribe()
+      this.publicService.addCommentRelaxCenter(comment, this.id).subscribe(
+        data => {
+          this.comments.push(data);
+        }, 
+        error => {
+          if (error['status'] == 403) {
+            alert("You must be logged in to post a comment")
+          } else {
+            alert("Not able to add comment")
+          }
+        }
+  
+      )
   }
 
   moveLeft() {

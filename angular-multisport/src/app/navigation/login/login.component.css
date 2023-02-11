@@ -20,7 +20,7 @@
     border: none;
     border-radius: 1%;
     background-color: rgb(245, 249, 252);
-    z-index: 2;
+    z-index: 3;
 }
 
 .dialog-open {

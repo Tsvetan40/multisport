@@ -1,7 +1,7 @@
-import { Comment } from '@angular/compiler';
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/models/page/Article';
+import { Comment } from 'src/app/models/page/Comment';
 import { PublicService } from 'src/app/services/public.service';
 
 @Component({
@@ -35,11 +35,15 @@ export class ArticleInfoComponent implements OnInit{
           .withPictureBase64(data['pictureBase64'])
           .withPublishedAt(new Date(data['publishedAt']))
           .withComments(data['comments'])
-          this.article.comments.forEach(comment => console.log(comment))
-          
-        this.initParagraphs(this.article.content)
-      }
-    )
+          this.initParagraphs(this.article.content)
+      }, 
+      error => {
+        if (error['status'] == 403) {
+          alert("You must be logged in to post a comment")
+        } else {
+          alert("Not able to add comment")
+        }
+      })
   }
   
   private initParagraphs(content: string) {
@@ -56,6 +60,17 @@ export class ArticleInfoComponent implements OnInit{
         'content': event,
         'articleTitle': this.article.title
       }
-      this.publicService.addCommentArticle(comment, this.article.title).subscribe()
+      this.publicService.addCommentArticle(comment, this.article.title).subscribe(
+        data => {
+          this.article.comments.push(data)
+        }, 
+        error => {
+          if (error['status'] == 403) {
+            alert("You must be logged in to add a comemnt")
+          } else {
+            alert('can not add a comment')
+          }
+        }
+      )
   }
 }

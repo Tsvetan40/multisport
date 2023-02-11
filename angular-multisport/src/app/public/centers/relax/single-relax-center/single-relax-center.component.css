@@ -74,6 +74,10 @@ header > h1 {
     background-color: rgba(0, 0, 0, .2);
 }
 
+.carousel-btn.prev {
+    left: 0%;
+}
+
 .carousel-btn.next {
     right: 0%;
 }
@@ -136,4 +140,12 @@ ul {
 
 .comments {
     padding: 10px 50px;
+}
+
+.services {
+    display: flex;
+    padding: 20px 50px;
+    font-family: sans-serif;
+    gap: 10px;
+    font-size: 1.2rem;
 }
