@@ -59,12 +59,10 @@ public class CenterService {
     }
 
     public Optional<CenterDto> centerToCenterDto(Long id) {
-        Optional<Center> center = centerRepository.findById(id);
-        if (center.isEmpty()) {
-            throw new CenterNotFoundException("Center with id" + id + " not found");
-        }
+        Center center = centerRepository.findById(id)
+                                        .orElseThrow(() -> new CenterNotFoundException("Center with id" + id + " not found"));
 
-        return Optional.of((CenterDto) centerMapper.centerToCenterDtoExtractRecord(center.get()));
+        return Optional.of((CenterDto) centerMapper.centerToCenterDtoExtractRecord(center));
     }
 
     public Set<ICenterDto> getAllSportCenters() {

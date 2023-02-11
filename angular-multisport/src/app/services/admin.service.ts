@@ -41,12 +41,10 @@ export class AdminService {
   }
 
   saveSportCenter(sportCenetr: Object): Observable<SportCenter> {
-    debugger
     return this.http.post<SportCenter>(`${this.url}/centers/newcenter`, sportCenetr, { withCredentials: true } )
   }
 
   saveRelaxCenter(relaxCenter: Object): Observable<RelaxCenter> {
-    debugger
     return this.http.post<RelaxCenter>(`${this.url}/centers/newcenter`, relaxCenter, { withCredentials: true })
   }
 

@@ -26,12 +26,16 @@ export class PublicArticlesComponent implements OnInit{
 
    ngOnInit(): void {
     this.publicService.getAllArticle().subscribe(
-      (data) => {
+      data => {
         data.forEach(article => {
           this.allArticles.push(article);
         })
-
-      })
+      }, 
+      error => {
+        // to do redirect
+      }
+      
+      )
   
 
   }

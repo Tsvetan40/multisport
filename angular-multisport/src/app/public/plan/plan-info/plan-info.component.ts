@@ -19,14 +19,11 @@ export class PlanInfoComponent implements OnInit{
   
   
   ngOnInit(): void {
-    //when error occurs return to error page
-    
-        this.publicService.getSinglePlan(this.URLPlanName).subscribe(
-          (data) => {
-            this.plan = data
-            console.log(this.plan)
-          })
-      }
+      this.publicService.getSinglePlan(this.URLPlanName).subscribe(
+        (data) => {
+          this.plan = data
+        })
+    }
     
   subscribePlan() {
 

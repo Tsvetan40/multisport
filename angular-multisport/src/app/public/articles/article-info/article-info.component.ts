@@ -40,11 +40,7 @@ export class ArticleInfoComponent implements OnInit{
           this.initParagraphs(this.article.content)
       }, 
       error => {
-        if (error['status'] == 403) {
-          alert("You must be logged in to post a comment")
-        } else {
-          alert("Not able to add comment")
-        }
+        // to do redirect
       })
   }
   

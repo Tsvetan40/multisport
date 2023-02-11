@@ -23,15 +23,8 @@ export class CentersComponent {
   constructor (private adminService: AdminService, private router: Router) {} 
 
   addPictureList(picture: HTMLInputElement) {
-    if (!picture.value) {
-      console.log('display error message')
-      return
-    }
-
     this.pictures.push(picture.value)
-    
     picture.value = ''
-    
   }
 
   private getServices(): string[] {

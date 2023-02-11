@@ -32,7 +32,6 @@ export class Article {
 
     withPictureBase64(pictureBase64: string): Article {
         this._pictureBase64 = pictureBase64
-        console.log(typeof this.publishedAt, 'getter')
         return this
     }
 

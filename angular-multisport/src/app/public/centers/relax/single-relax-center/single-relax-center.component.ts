@@ -45,7 +45,10 @@ export class SingleRelaxCenterComponent implements OnInit{
             })
           }
         )
-      }
+      },
+       error => {
+        // to do return to not found
+       }
     )
   }
 

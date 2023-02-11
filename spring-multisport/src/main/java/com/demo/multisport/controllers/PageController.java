@@ -25,8 +25,6 @@ import java.util.Set;
 public class PageController {
 
     private final PageServiceImpl pageService;
-    private final String SPORT_CENTER_TYPE = "SportCenter";
-    private final String RELAX_CENTER_TYPE = "RelaxCenter";
 
     @Autowired
     public PageController(PageServiceImpl pageService) {
@@ -64,7 +62,7 @@ public class PageController {
         try {
             return new ResponseEntity<>(pageService.getCenterDtoById(id), HttpStatus.OK);
         } catch (CenterNotFoundException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -73,7 +71,7 @@ public class PageController {
         try {
            return new ResponseEntity<>(pageService.getCenterDtoById(id), HttpStatus.OK);
         } catch (CenterNotFoundException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
 
         }
  }
@@ -103,8 +101,8 @@ public class PageController {
         if (user == null) {
             return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
         }
-
         addInfoCommentDto(comment, user.getEmail());
+
         try {
             return new ResponseEntity<>(pageService.addComment(comment), HttpStatus.CREATED);
         } catch (InvalidParameterException e) {
@@ -121,7 +119,6 @@ public class PageController {
         if (user == null) {
             return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
         }
-
         addInfoCommentDto(comment, user.getEmail());
 
         try {
@@ -139,7 +136,6 @@ public class PageController {
         if (user == null) {
             return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
         }
-
         addInfoCommentDto(comment, user.getEmail());
 
         try {

@@ -42,6 +42,9 @@ export class SingleSportCenterComponent implements OnInit{
             })
           }
         )
+      },
+      error =>{
+        // to do redirect not found
       } 
     )
   }
