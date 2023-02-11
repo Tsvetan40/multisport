@@ -40,7 +40,9 @@ export class SingleRelaxCenterComponent implements OnInit{
             this.pictures = center['pictures']
             this.rating = center['rating']
             this.services = center['services']
-            this.comments = center['comments']
+            this.comments = center['comments'].sort((a, b) => {
+              return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
+            })
           }
         )
       }

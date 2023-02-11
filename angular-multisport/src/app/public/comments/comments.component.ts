@@ -6,17 +6,13 @@ import { Comment } from 'src/app/models/page/Comment';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css']
 })
-export class CommentsComponent implements OnInit{
+export class CommentsComponent {
   commentContent: string = ''
   @Output() addCommentEventEmitter = new EventEmitter<string>()
   @Input() comments: Comment[]
 
   constructor() {
     this.comments = []
-  }
-
-  ngOnInit(): void {
-    
   }
 
   public dateToString(comment: Comment) {

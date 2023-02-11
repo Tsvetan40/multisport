@@ -34,7 +34,9 @@ export class ArticleInfoComponent implements OnInit{
           .withTitle(data['title'])
           .withPictureBase64(data['pictureBase64'])
           .withPublishedAt(new Date(data['publishedAt']))
-          .withComments(data['comments'])
+          .withComments(data['comments'].sort((a, b ) => {
+            return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
+          }))
           this.initParagraphs(this.article.content)
       }, 
       error => {
