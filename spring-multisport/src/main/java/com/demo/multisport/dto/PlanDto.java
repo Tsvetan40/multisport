@@ -1,6 +1,6 @@
 package com.demo.multisport.dto;
 
-import com.demo.multisport.entities.user.User;
+import com.demo.multisport.dto.user.UserDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -29,7 +29,7 @@ public class PlanDto {
     private Double price;
 
     @JsonProperty(required = false)
-    private Set<User> users;
+    private Set<UserDto> users;
 
     @JsonProperty(required = true)
     @NonNull

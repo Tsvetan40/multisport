@@ -6,18 +6,18 @@
     <section id="main-info">
 
         <div class="container-main">
-            <span id="plan-name">Plan name: {{plan['name']}}</span>
+            <span id="plan-name">Plan name: {{plan.name}}</span>
         </div>        
         <div class="container-main">
             <span id="price">
-                Price: {{plan['price']}}
+                Price: {{plan.price}}
             </span>
         </div>
     </section>
     <section id="logo">
         
         <div class="container-picture">
-            <img [src]="plan['imageBase64']" alt="No picture">
+            <img [src]="plan.imageBase64" alt="No picture">
         </div>
         
     

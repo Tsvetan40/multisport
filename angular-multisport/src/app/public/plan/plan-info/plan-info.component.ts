@@ -15,6 +15,7 @@ export class PlanInfoComponent implements OnInit{
 
   constructor(private publicService: PublicService, private activatedRoute: ActivatedRoute) { 
     this.activatedRoute.params.subscribe(data => {this.URLPlanName = data['name']})
+    this.plan = new Plan('', 0, [])
   }
   
   
@@ -22,12 +23,27 @@ export class PlanInfoComponent implements OnInit{
       this.publicService.getSinglePlan(this.URLPlanName).subscribe(
         (data) => {
           this.plan = data
-        })
+        },
+        error => {
+          // to do return not found page
+        }
+        )
     }
     
   subscribePlan() {
 
-    this.publicService.subscribeToPlan(this.plan) 
+    this.publicService.subscribeToPlan(this.plan).subscribe(
+      data => {
+        alert('Congratulations! You have subscribed to this plam!')
+      },
+      error => {
+        if (error['status'] == 403) {
+          alert('You must be logged to subscribe to plan!')
+        } else {
+          //to do redirect
+        }
+      }
+    )
   }
  }
 

@@ -4,6 +4,7 @@ package com.demo.multisport.controllers;
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
+import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.services.page.PageServiceImpl;
 import com.demo.multisport.services.user.UserService;
 import org.springframework.http.HttpStatus;
@@ -37,9 +38,9 @@ public class PlanController {
         }
 
         try {
-            userService.enrollPlan(user, plan.getName());
+            userService.enrollPlan(user, planName);
             return new ResponseEntity<>(plan, HttpStatus.OK);
-        } catch (NoSuchPlanException e) {
+        } catch (NoSuchPlanException | UserNotFoundException e) {
             return new ResponseEntity<>(plan, HttpStatus.NOT_FOUND);
         }
 

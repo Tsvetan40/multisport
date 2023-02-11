@@ -6,7 +6,6 @@ import java.io.IOException;
 
 
 public interface PlanMapper {
-
     Plan planDtoToPlan(PlanDto planDto, String filePath);
     PlanDto planToPlanDto(Plan plan) throws IOException;
 }

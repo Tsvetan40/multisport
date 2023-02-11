@@ -74,7 +74,8 @@ public class UserService {
     }
 
     public void enrollPlan(UserDto user, String planName) {
-        User planUser = userMapper.userDtoToUser(user);
+        User planUser = userRepository.findUserByEmail(user.getEmail())
+                .orElseThrow(() -> new UserNotFoundException("No user for email" + user.getEmail()));
         Plan dbPlan = planRepository.getPlanByName(planName)
                 .orElseThrow(() -> new NoSuchPlanException("No such plan " + planName));
 
