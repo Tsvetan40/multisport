@@ -1,5 +1,6 @@
 package com.demo.multisport.dto.user;
 
+import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.user.Role;
@@ -65,5 +66,5 @@ public class UserDto {
     private List<CommentDto> comments;
 
     @JsonProperty(required = false)
-    private Plan plan;
+    private PlanDto plan;
 }

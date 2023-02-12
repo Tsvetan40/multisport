@@ -2,6 +2,7 @@ package com.demo.multisport.controllers;
 
 
 import com.demo.multisport.dto.PlanDto;
+import com.demo.multisport.exceptions.PlanMapperException;
 import com.demo.multisport.exceptions.plan.DuplicatePlanException;
 import com.demo.multisport.services.user.AdminService;
 import com.demo.multisport.utils.FileUtil;
@@ -70,8 +71,8 @@ public class AdminPlanController {
     public ResponseEntity<List<PlanDto>> getAllPlans() {
         try {
             return new ResponseEntity<>(adminService.getAllPlans(), HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity<>(new LinkedList<PlanDto>(), HttpStatus.OK);
+        } catch (IOException | PlanMapperException e) {
+            return new ResponseEntity<>(new LinkedList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

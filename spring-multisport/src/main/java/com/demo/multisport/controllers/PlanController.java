@@ -3,6 +3,7 @@ package com.demo.multisport.controllers;
 
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.user.UserDto;
+import com.demo.multisport.exceptions.PlanMapperException;
 import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.services.page.PageServiceImpl;
@@ -49,8 +50,8 @@ public class PlanController {
     public ResponseEntity<Optional<PlanDto>> getPlan(@PathVariable(name = "name") String planName) {
         try{
             return new ResponseEntity<>(pageService.getPlanByName(planName), HttpStatus.OK);
-        } catch (NoSuchPlanException | IOException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+        } catch (NoSuchPlanException | IOException | PlanMapperException e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -59,8 +60,8 @@ public class PlanController {
         System.out.println("Hit plans");
         try {
             return new ResponseEntity<>(pageService.getAllPlans(), HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity<>(new HashSet<>(), HttpStatus.OK);
+        } catch (IOException | PlanMapperException e) {
+            return new ResponseEntity<>(new HashSet<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

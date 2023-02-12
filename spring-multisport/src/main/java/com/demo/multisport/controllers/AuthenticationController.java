@@ -3,6 +3,7 @@ package com.demo.multisport.controllers;
 
 import com.demo.multisport.dto.user.LoggedUserDto;
 import com.demo.multisport.dto.user.UserDto;
+import com.demo.multisport.exceptions.PlanMapperException;
 import com.demo.multisport.exceptions.user.UserDuplicateException;
 import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.services.user.UserService;
@@ -46,7 +47,7 @@ public class AuthenticationController {
             session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
 
             return new ResponseEntity<>(Optional.of(user), HttpStatus.CREATED);
-        } catch (UserNotFoundException e) {
+        } catch (UserNotFoundException | PlanMapperException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
         }
     }
