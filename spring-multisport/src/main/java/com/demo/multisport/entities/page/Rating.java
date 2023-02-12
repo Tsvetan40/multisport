@@ -1,10 +1,7 @@
 package com.demo.multisport.entities.page;
 
 import com.demo.multisport.entities.center.Center;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +27,7 @@ public class Rating {
     @NonNull
     @OneToOne(mappedBy = "rating")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonBackReference
     private Center center;
 
     public Rating () {

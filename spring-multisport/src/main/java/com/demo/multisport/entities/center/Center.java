@@ -3,6 +3,8 @@ package com.demo.multisport.entities.center;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
 import com.demo.multisport.entities.page.Rating;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -43,23 +45,20 @@ public abstract class Center implements Serializable {
     @Column(columnDefinition = "VARCHAR(512) NOT NULL")
     private Set<String> pictures;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "centers")
     private Set<Plan> plans;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "center")
     private Set<Comment> comments;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "rating_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "FK_CENTER_RATING"))
+    @JsonManagedReference
     private Rating rating;
 
     protected Center() { }
 
-//    public Center(String name, String address, String description, Set<String> pictures) {
-//        this.name = name;
-//        this.address = address;
-//        this.description = description;
-//        this.pictures = pictures;
-//    }
 }

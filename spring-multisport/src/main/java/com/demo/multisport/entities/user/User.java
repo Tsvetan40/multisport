@@ -2,9 +2,7 @@ package com.demo.multisport.entities.user;
 
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,14 +11,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,  property = "id")
 @Builder
 public class User implements Serializable {
@@ -66,13 +65,14 @@ public class User implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "plan_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_USER_PLAN"))
     private Plan plan;
 
-    @OneToMany(mappedBy = "user")
     @JsonManagedReference
-    private Set<Comment> comments;
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
 
     public User(@NonNull String firstName, @NonNull String secondName,@NonNull String email,@NonNull String password, int age) {
         this.firstName = firstName;
@@ -81,7 +81,7 @@ public class User implements Serializable {
         this.password = password;
         this.age = age;
         this.plan = null;
-        this.comments = new HashSet<>();
+        this.comments = new LinkedList<>();
     }
 
     public User withEmail(String email) {

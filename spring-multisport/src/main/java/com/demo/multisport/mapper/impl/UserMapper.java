@@ -47,7 +47,7 @@ public class UserMapper {
                                                         userDto.getComments()
                                                         .stream()
                                                         .map(commentMapper::commentDtoToComment)
-                                                        .collect(Collectors.toSet())
+                                                        .collect(Collectors.toList())
                                                 : null)
                 .build();
     }

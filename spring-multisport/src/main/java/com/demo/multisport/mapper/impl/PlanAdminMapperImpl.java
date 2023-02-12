@@ -32,7 +32,7 @@ public class PlanAdminMapperImpl implements PlanMapper {
                 .subscribedUsers(planDto.getUsers()
                         .stream()
                         .map(userMapper::userDtoToUser)
-                        .collect(Collectors.toSet()))
+                        .collect(Collectors.toList()))
                 .centers(planDto
                         .getCentersAddresses()
                         .stream()

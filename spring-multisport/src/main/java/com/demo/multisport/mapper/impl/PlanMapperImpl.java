@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Qualifier("planMapper")
 public class PlanMapperImpl implements PlanMapper {
     private final CenterRepository centerRepository;
-    private final UserMapper userMapper;
+
 
     @Override
     public Plan planDtoToPlan(PlanDto planDto, String filePath) {
@@ -44,10 +44,10 @@ public class PlanMapperImpl implements PlanMapper {
                 .name(plan.getName())
                 .price(plan.getPrice())
                 .imageBase64(FileUtil.convertFileToBase64(plan.getPathFile()))
-                .users(plan.getSubscribedUsers()
-                        .stream()
-                        .map(userMapper::userToUserDto)
-                        .collect(Collectors.toSet()))
+//                .users(plan.getSubscribedUsers()
+//                        .stream()
+//                        .map(userMapper::userToUserDto)
+//                        .collect(Collectors.toSet()))
                 .centersAddresses(plan.getCenters()
                         .stream()
                         .map(Center::getAddress)

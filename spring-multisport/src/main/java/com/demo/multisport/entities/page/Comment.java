@@ -35,11 +35,11 @@ public class Comment implements Serializable {
     @Column(columnDefinition = "DATETIME DEFAULT NOW() NOT NULL")
     private LocalDateTime publishedAt;
 
+    @JsonBackReference
     @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false,
                 foreignKey = @ForeignKey(name = "FK_COMMENT_USER"))
-    @JsonBackReference
     private User user;
 
     //can be null because a comment can be either for article or center
@@ -48,6 +48,7 @@ public class Comment implements Serializable {
                 foreignKey = @ForeignKey(name = "FK_COMMENT_ARTICLE"))
     private Article article;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "center_address", referencedColumnName = "address",
                 foreignKey = @ForeignKey(name = "FK_COMMENT_CENTER"))
