@@ -37,13 +37,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     public Optional<ArticleDto> getArticleByTitle(String title) throws IOException {
-        Optional<Article> article = articleRepository.getArticleByTitle(title);
+        Article article = articleRepository.getArticleByTitle(title)
+                .orElseThrow(() -> new NoSuchArticleException("Can't find article with title " + title));
 
-        if (article.isEmpty()) {
-            throw new NoSuchArticleException("Can't find article with title " + title);
-        }
-
-        ArticleDto articleDto = articleMapper.articleToFullArticleDto(article.get());
+        ArticleDto articleDto = articleMapper.articleToFullArticleDto(article);
         return Optional.of(articleDto);
     }
 }

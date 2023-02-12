@@ -12,11 +12,10 @@ import com.demo.multisport.mapper.AdminCenterMapper;
 import com.demo.multisport.mapper.CenterMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 
 @Service
 public class CenterService {
@@ -59,12 +58,10 @@ public class CenterService {
     }
 
     public Optional<CenterDto> centerToCenterDto(Long id) {
-        Optional<Center> center = centerRepository.findById(id);
-        if (center.isEmpty()) {
-            throw new CenterNotFoundException("Center with id" + id + " not found");
-        }
+        Center center = centerRepository.findById(id)
+                .orElseThrow(() -> new CenterNotFoundException("Center with id" + id + " not found"));
 
-        return Optional.of((CenterDto) centerMapper.centerToCenterDtoExtractRecord(center.get()));
+        return Optional.of((CenterDto) centerMapper.centerToCenterDtoExtractRecord(center));
     }
 
     public Set<ICenterDto> getAllSportCenters() {

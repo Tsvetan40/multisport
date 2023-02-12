@@ -2,8 +2,8 @@ package com.demo.multisport.services.impl;
 
 import com.demo.multisport.services.Generator;
 import org.springframework.stereotype.Service;
-
 import java.security.SecureRandom;
+
 
 @Service
 public class SaltGeneratorService implements Generator {

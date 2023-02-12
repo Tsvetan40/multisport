@@ -7,11 +7,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+
 
 @Entity
 @Table(name = "comments")
@@ -42,7 +43,6 @@ public class Comment implements Serializable {
                 foreignKey = @ForeignKey(name = "FK_COMMENT_USER"))
     private User user;
 
-    //can be null because a comment can be either for article or center
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "article_id", referencedColumnName = "id",
                 foreignKey = @ForeignKey(name = "FK_COMMENT_ARTICLE"))
@@ -54,17 +54,4 @@ public class Comment implements Serializable {
                 foreignKey = @ForeignKey(name = "FK_COMMENT_CENTER"))
     private Center center;
 
-    public Comment (@NonNull String content, @NonNull LocalDateTime publishedAt, @NonNull User user, @NonNull Article article) {
-        this.content = content;
-        this.publishedAt = publishedAt;
-        this.user = user;
-        this.article = article;
-    }
-
-    public Comment (@NonNull String content, @NonNull LocalDateTime publishedAt, @NonNull User user, @NonNull Center center) {
-        this.content = content;
-        this.publishedAt = publishedAt;
-        this.user = user;
-        this.center = center;
-    }
 }

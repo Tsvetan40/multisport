@@ -2,7 +2,6 @@ package com.demo.multisport.entities.page;
 
 
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -10,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 
-//remove author for now
 @Entity
 @Table(name = "articles")
 @Data

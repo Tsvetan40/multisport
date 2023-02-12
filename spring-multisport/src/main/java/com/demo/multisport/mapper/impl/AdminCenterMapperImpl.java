@@ -28,7 +28,6 @@ public class AdminCenterMapperImpl implements AdminCenterMapper {
         this.planMapper = planMapper;
     }
 
-
     private CenterDto sportCenterToCenterDtoExtractRecord(SportCenter sportCenter) {
         return CenterDto
                 .builder()
@@ -78,7 +77,6 @@ public class AdminCenterMapperImpl implements AdminCenterMapper {
 
         return centerDtoToSportCenterCreateRecord(centerDto);
     }
-
 
     private SportCenter centerDtoToSportCenterCreateRecord(CenterDto centerDto) {
         return new SportCenter()

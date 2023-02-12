@@ -3,7 +3,6 @@ package com.demo.multisport.entities;
 import com.demo.multisport.entities.center.Center;
 import com.demo.multisport.entities.user.User;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
@@ -13,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "plans")

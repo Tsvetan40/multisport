@@ -14,7 +14,6 @@ import com.demo.multisport.services.impl.PasswordHashService;
 import com.demo.multisport.services.impl.SaltGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 
@@ -76,6 +75,7 @@ public class UserService {
     public void enrollPlan(UserDto user, String planName) {
         User planUser = userRepository.findUserByEmail(user.getEmail())
                 .orElseThrow(() -> new UserNotFoundException("No user for email" + user.getEmail()));
+
         Plan dbPlan = planRepository.getPlanByName(planName)
                 .orElseThrow(() -> new NoSuchPlanException("No such plan " + planName));
 

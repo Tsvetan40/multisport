@@ -5,11 +5,11 @@ package com.demo.multisport.entities.center;
 import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
 import com.demo.multisport.entities.page.Rating;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Set;
+
 
 @Entity
 @DiscriminatorValue(value = "SportCenter")

@@ -6,12 +6,12 @@ import com.demo.multisport.entities.page.Rating;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -39,7 +39,6 @@ public abstract class Center implements Serializable {
     @Column(columnDefinition = "TEXT NOT NULL")
     private String description;
 
-    // check length
     @NotNull
     @ElementCollection
     @Column(columnDefinition = "VARCHAR(512) NOT NULL")

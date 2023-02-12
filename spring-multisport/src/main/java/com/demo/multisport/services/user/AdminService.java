@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-//goes to controllers only
 @Service
 public class AdminService {
 

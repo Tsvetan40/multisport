@@ -37,18 +37,15 @@ public class User implements Serializable {
     @Column(name = "second_name", length = 20, nullable = false)
     private String secondName;
 
-
     @NotBlank
     @Size(min = 10, max = 40)
     @Column(length = 40, nullable = false, unique = true)
     private String email;
 
-
     @NotBlank
     @Size(min = 10, max = 26)
     @Column(columnDefinition = "CHAR(26) NOT NULL")
     private String password;
-
 
     @Size(min = 10, max = 10)
     @Column(columnDefinition = "CHAR(10) NOT NULL")

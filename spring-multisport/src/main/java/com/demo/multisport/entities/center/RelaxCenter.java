@@ -4,12 +4,12 @@ import com.demo.multisport.entities.Plan;
 import com.demo.multisport.entities.page.Comment;
 import com.demo.multisport.entities.page.Rating;
 import lombok.*;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Set;
+
 
 @Entity
 @DiscriminatorValue(value = "RelaxCenter")

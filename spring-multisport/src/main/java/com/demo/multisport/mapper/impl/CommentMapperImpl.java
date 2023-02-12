@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.security.InvalidParameterException;
 
+
 @Component
 public class CommentMapperImpl  implements CommentMapper {
     private final UserRepository userRepository;
@@ -37,19 +38,13 @@ public class CommentMapperImpl  implements CommentMapper {
                   .user(userRepository.findUserByEmail(commentDto.getEmail())
                           .orElseThrow(() -> new UserNotFoundException("Cannot map commentDto to Comment due to user")))
                   .build();
+
         if (commentDto.getArticleTitle() != null && commentDto.getCenterAddress() == null) {
-            try {
-                comment.setArticle(articleRepository.getArticleByTitle(commentDto.getArticleTitle()).get());
-            } catch (Exception e) {
-                throw new InvalidParameterException("Comment doesn't have article " + commentDto);
-            }
+            comment.setArticle(articleRepository.getArticleByTitle(commentDto.getArticleTitle())
+                    .orElseThrow(() -> new InvalidParameterException("Comment doesn't have article " + commentDto)));
         } else if (commentDto.getArticleTitle() == null && commentDto.getCenterAddress() != null) {
-            try {
-                System.out.println("type=" + commentDto.getTypeCenter());
-                comment.setCenter(centerRepository.getCenterByAddressAndType(commentDto.getCenterAddress(), commentDto.getTypeCenter()).get());
-            } catch (Exception e) {
-                throw new InvalidParameterException("Comment doesn't have center " + commentDto);
-            }
+            comment.setCenter(centerRepository.getCenterByAddressAndType(commentDto.getCenterAddress(), commentDto.getTypeCenter())
+                    .orElseThrow(() ->  new InvalidParameterException("Comment doesn't have center " + commentDto)));
         } else {
             throw new InvalidParameterException("Invalid parameter: " + commentDto);
         }

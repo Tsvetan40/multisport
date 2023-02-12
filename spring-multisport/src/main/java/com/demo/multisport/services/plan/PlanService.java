@@ -62,11 +62,9 @@ public class PlanService {
 
 
     public Optional<PlanDto> getPlanByName(String planName) throws IOException {
-        Optional<Plan> plan = planRepository.getPlanByName(planName);
-        if (plan.isEmpty()) {
-            throw new NoSuchPlanException("plan with name " + planName + "not found");
-        }
+        Plan plan = planRepository.getPlanByName(planName)
+                .orElseThrow(() ->new NoSuchPlanException("plan with name " + planName + "not found"));
 
-        return Optional.of(planMapper.planToPlanDto(plan.get()));
+        return Optional.of(planMapper.planToPlanDto(plan));
     }
 }

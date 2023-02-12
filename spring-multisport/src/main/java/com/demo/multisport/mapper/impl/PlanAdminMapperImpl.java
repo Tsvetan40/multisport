@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 
-//rename to plan mapper admin
 @Component
 @RequiredArgsConstructor
 @Qualifier("planAdminMapper")

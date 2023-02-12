@@ -3,10 +3,10 @@ package com.demo.multisport.entities.page;
 import com.demo.multisport.entities.center.Center;
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+
 
 @Entity
 @Table(name = "ratings")

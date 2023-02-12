@@ -2,7 +2,6 @@ package com.demo.multisport.dto.center;
 
 import com.demo.multisport.dto.PlanDto;
 import com.demo.multisport.dto.page.CommentDto;
-import com.demo.multisport.entities.Plan;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
