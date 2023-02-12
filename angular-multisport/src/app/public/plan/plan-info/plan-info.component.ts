@@ -9,16 +9,16 @@ import { Plan } from 'src/app/models/Plan';
   styleUrls: ['./plan-info.component.css']
 })
 export class PlanInfoComponent implements OnInit{
-  
+
   public URLPlanName!: string
   public plan!: Plan
 
-  constructor(private publicService: PublicService, private activatedRoute: ActivatedRoute) { 
+  constructor(private publicService: PublicService, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(data => {this.URLPlanName = data['name']})
     this.plan = new Plan('', 0, [])
   }
-  
-  
+
+
   ngOnInit(): void {
       this.publicService.getSinglePlan(this.URLPlanName).subscribe(
         (data) => {
@@ -29,7 +29,7 @@ export class PlanInfoComponent implements OnInit{
         }
         )
     }
-    
+
   subscribePlan() {
 
     this.publicService.subscribeToPlan(this.plan).subscribe(
@@ -47,5 +47,5 @@ export class PlanInfoComponent implements OnInit{
   }
  }
 
-  
+
 

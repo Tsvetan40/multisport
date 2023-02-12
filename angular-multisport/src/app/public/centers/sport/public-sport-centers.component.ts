@@ -29,6 +29,7 @@ export class PublicSportCentersComponent implements OnInit{
 
   goToSportCenter(i: number): void {
       const id =  this.sportCenters[i].id
+
       this.router.navigateByUrl(`${this.url}/${id}`)
   }
 }
