@@ -58,22 +58,31 @@ public class PageController {
 
     }
 
-
     @GetMapping("/sport-centers/{id}")
     public ResponseEntity<Optional<CenterDto>> getSportCenter(@PathVariable(value = "id", required = true) Long id) {
         try {
-            return new ResponseEntity<>(pageService.getCenterDtoById(id), HttpStatus.OK);
+            Optional<CenterDto> centerDto = pageService.getCenterDtoById(id);
+            if (!centerDto.get().getCenterType().equals(SPORT_CENTER_TYPE)) {
+                return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+            }
+
+            return new ResponseEntity<>(centerDto, HttpStatus.OK);
         } catch (CenterNotFoundException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/relax-centers/{id}")
     public ResponseEntity<Optional<CenterDto>> getRelaxCenter(@PathVariable(value = "id", required = true) Long id) {
         try {
-           return new ResponseEntity<>(pageService.getCenterDtoById(id), HttpStatus.OK);
+            Optional<CenterDto> centerDto = pageService.getCenterDtoById(id);
+            if (!centerDto.get().getCenterType().equals(RELAX_CENTER_TYPE)) {
+                return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+            }
+
+           return new ResponseEntity<>(centerDto, HttpStatus.OK);
         } catch (CenterNotFoundException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
 
         }
  }
