@@ -32,7 +32,7 @@ public class PageServiceImpl implements PageService {
         return articleService.getAllTitlesAndImages();
     }
 
-    public Optional<CenterDto> getCenterDtoById(Long id) {
+    public CenterDto getCenterDtoById(Long id) {
             return centerService.centerToCenterDto(id);
     }
 

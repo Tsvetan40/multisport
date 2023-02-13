@@ -4,6 +4,8 @@ import { Observable,  } from 'rxjs';
 import { LoggedUser } from '../models/user/LoggedUser';
 import { RegisteredUser } from '../models/user/RegisteredUser';
 import { User } from '../models/user/User';
+import { HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'

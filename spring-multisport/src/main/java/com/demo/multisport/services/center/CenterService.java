@@ -57,11 +57,11 @@ public class CenterService {
         return centerRepository.countCentersByAddress(address);
     }
 
-    public Optional<CenterDto> centerToCenterDto(Long id) {
+    public CenterDto centerToCenterDto(Long id) {
         Center center = centerRepository.findById(id)
                 .orElseThrow(() -> new CenterNotFoundException("Center with id" + id + " not found"));
 
-        return Optional.of((CenterDto) centerMapper.centerToCenterDtoExtractRecord(center));
+        return (CenterDto) centerMapper.centerToCenterDtoExtractRecord(center);
     }
 
     public Set<ICenterDto> getAllSportCenters() {
