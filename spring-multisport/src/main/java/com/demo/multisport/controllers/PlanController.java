@@ -34,12 +34,12 @@ public class PlanController {
                                               HttpSession session) {
         UserDto user = (UserDto) session.getAttribute("user");
         if (user == null) {
-            return new ResponseEntity<>(plan, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(plan, HttpStatus.FORBIDDEN);
         }
 
         try {
             userService.enrollPlan(user, planName);
-            return new ResponseEntity<>(plan, HttpStatus.OK);
+            return new ResponseEntity<>(plan, HttpStatus.CREATED);
         } catch (NoSuchPlanException | UserNotFoundException e) {
             return new ResponseEntity<>(plan, HttpStatus.NOT_FOUND);
         }
@@ -51,7 +51,7 @@ public class PlanController {
         try{
             return new ResponseEntity<>(pageService.getPlanByName(planName), HttpStatus.OK);
         } catch (NoSuchPlanException | IOException | PlanMapperException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -61,7 +61,7 @@ public class PlanController {
         try {
             return new ResponseEntity<>(pageService.getAllPlans(), HttpStatus.OK);
         } catch (IOException | PlanMapperException e) {
-            return new ResponseEntity<>(new HashSet<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new HashSet<>(), HttpStatus.NOT_FOUND);
         }
     }
 

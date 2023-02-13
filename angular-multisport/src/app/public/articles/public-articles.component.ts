@@ -31,7 +31,11 @@ export class PublicArticlesComponent implements OnInit{
           this.allArticles.push(article);
         })
 
-      })
+      },
+      error => {
+        this.router.navigateByUrl(`multisport/not-found`)
+      }
+    )
   
 
   }

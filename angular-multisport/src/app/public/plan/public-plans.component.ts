@@ -26,6 +26,9 @@ export class PublicPlansComponent implements OnInit{
         data.forEach(plan => {
           this.plans.push(plan)
         })
+      }, 
+      error => {
+        this.route.navigateByUrl(`multisport/not-found`)
       }
     )
     

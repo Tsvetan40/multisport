@@ -89,8 +89,7 @@ public class UserService {
     }
 
     private Optional<UserDto> changeStatusUser(Long id, Status status) {
-        User user = userRepository.findUserById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with id " + id + "not found"));
+        User user = getUserById(id);
 
         user.setStatus(status);
         userRepository.save(user);

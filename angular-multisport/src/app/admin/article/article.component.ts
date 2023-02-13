@@ -58,7 +58,7 @@ export class ArticleComponent {
       (error) => {
         if (error['status'] == 400) {
           this.errorMessage = 'Incorect article information'
-        } else if (error['status'] == 401) {
+        } else if (error['status'] == 403) {
           this.router.navigate(['/multisport'])
         } else if (error['status'] == 500) {
           this.errorMessage = 'Internal server error'

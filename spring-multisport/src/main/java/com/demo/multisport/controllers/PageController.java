@@ -43,7 +43,7 @@ public class PageController {
         } catch (NoSuchArticleException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
         } catch (IllegalStateException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -53,7 +53,7 @@ public class PageController {
         try {
             return new ResponseEntity<>(pageService.getAllArticlesTitlesAndImages(), HttpStatus.OK);
         } catch (IllegalStateException e) {
-            return new ResponseEntity<>(List.of(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(List.of(), HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -63,12 +63,12 @@ public class PageController {
         try {
             Optional<CenterDto> centerDto = pageService.getCenterDtoById(id);
             if (!centerDto.get().getCenterType().equals(SPORT_CENTER_TYPE)) {
-                return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
             }
 
             return new ResponseEntity<>(centerDto, HttpStatus.OK);
         } catch (CenterNotFoundException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
         }
     }
 
@@ -77,12 +77,12 @@ public class PageController {
         try {
             Optional<CenterDto> centerDto = pageService.getCenterDtoById(id);
             if (!centerDto.get().getCenterType().equals(RELAX_CENTER_TYPE)) {
-                return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
             }
 
            return new ResponseEntity<>(centerDto, HttpStatus.OK);
         } catch (CenterNotFoundException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
 
         }
  }

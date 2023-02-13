@@ -33,7 +33,6 @@ export class PlanComponent {
     return this.patternService.displayErrorCenterAddress(this.addressCenter, this.planForm)
   }
 
-  //to to not any but HtmlInputElement
   addCenter(): void {
     this.centersAddresses.push(this.addressCenter)
     this.addressCenter = ''

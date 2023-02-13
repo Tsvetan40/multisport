@@ -19,7 +19,7 @@ export class SingleSportCenterComponent implements OnInit{
   rating: number = 5
   comments: Comment[] = []
 
-  constructor(private route: ActivatedRoute, private publicService: PublicService) {  }
+  constructor(private route: ActivatedRoute, private publicService: PublicService, private router: Router) {  }
 
   private splitDescriptionResponse(description: string): string[] {
     return description.split('\n')
@@ -42,7 +42,10 @@ export class SingleSportCenterComponent implements OnInit{
             })
           }
         )
-      } 
+      },
+       error => {
+        this.router.navigateByUrl(`multisport/not-found`)
+      }
     )
   }
 

@@ -16,6 +16,7 @@ import { ArticleInfoComponent } from './public/articles/article-info/article-inf
 import { SingleSportCenterComponent } from './public/centers/sport/single-sport-center/single-sport-center.component';
 import { SingleRelaxCenterComponent } from './public/centers/relax/single-relax-center/single-relax-center.component';
 import { CommentsComponent } from './public/comments/comments.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CommentsComponent } from './public/comments/comments.component';
     SingleSportCenterComponent,
     SingleRelaxCenterComponent,
     CommentsComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

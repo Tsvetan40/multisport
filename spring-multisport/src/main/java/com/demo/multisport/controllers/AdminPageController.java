@@ -69,7 +69,7 @@ public class AdminPageController {
                                                             HttpSession session) {
 
         if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
         }
 
         if (title.length() > 50 || title.length() < 4) {
@@ -110,7 +110,7 @@ public class AdminPageController {
 
         try {
             adminService.addCenter(centerDto);
-            return new ResponseEntity<>(Optional.of(centerDto), HttpStatus.OK);
+            return new ResponseEntity<>(Optional.of(centerDto), HttpStatus.CREATED);
         } catch (CenterDuplicateException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         }

@@ -53,7 +53,7 @@ public class AdminController {
         try {
             return new ResponseEntity<>(Optional.of(this.adminService.getUserById(id)), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -61,8 +61,8 @@ public class AdminController {
     public ResponseEntity<Optional<UserDto>> blockUser(@PathVariable("id") Long id) {
         try {
             return new ResponseEntity<>(adminService.blockUser(id), HttpStatus.OK);
-        } catch (PlanMapperException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (PlanMapperException | UserNotFoundException e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -70,8 +70,8 @@ public class AdminController {
     public ResponseEntity<Optional<UserDto>> restoreUserRights(@PathVariable("id") Long id) {
         try {
             return new ResponseEntity<>(adminService.restoreUser(id), HttpStatus.OK);
-        } catch (PlanMapperException e) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (PlanMapperException | UserNotFoundException e) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         }
 
     }

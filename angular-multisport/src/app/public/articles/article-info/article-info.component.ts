@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'src/app/models/page/Article';
 import { Comment } from 'src/app/models/page/Comment';
 import { PublicService } from 'src/app/services/public.service';
@@ -15,7 +15,7 @@ export class ArticleInfoComponent implements OnInit{
   paragraphs: string[]
   article: Article
 
-  constructor(private publicService: PublicService, private route: ActivatedRoute) {
+  constructor(private publicService: PublicService, private route: ActivatedRoute, private router: Router) {
     this.article = new Article()
     this.title = ''
     this.paragraphs = []
@@ -42,6 +42,8 @@ export class ArticleInfoComponent implements OnInit{
       error => {
         if (error['status'] == 403) {
           alert("You must be logged in to post a comment")
+        } else if (error['status'] == 404) {
+          this.router.navigateByUrl(`multisport/not-found`)
         } else {
           alert("Not able to add comment")
         }

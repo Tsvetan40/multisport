@@ -64,15 +64,23 @@ export class AdminSingleUserComponent implements OnInit{
               this.comments.push(comment)
             })
           }
-        )})
+        )
+      }, 
+      error => {
+        //to do not found page
+      }       
+    )
 
-  }
+ }
 
   blockUser() {
 
     this.adminService.blockUser(this.id).subscribe(
       data => {
         data['status'] == Status.BLOCKED ? this.status = Status.BLOCKED : this.status = Status.ACTIVE
+      },
+      error => {
+        alert('cannot change status of user')
       }
     )
   }
@@ -81,6 +89,9 @@ export class AdminSingleUserComponent implements OnInit{
     this.adminService.restoreUserRights(this.id).subscribe(
       data => {
         data['status'] == Status.BLOCKED ? this.status = Status.BLOCKED : this.status = Status.ACTIVE
+      },
+      error => {
+        alert('cannot change status of user')
       }
     )
   }
