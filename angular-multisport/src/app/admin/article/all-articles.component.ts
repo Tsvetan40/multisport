@@ -18,7 +18,6 @@ export class AllArticlesComponent implements OnInit{
   ngOnInit(): void {
     this.adminService.getAllArticlesTitle().subscribe(
       (data) => {
-        debugger
         data.forEach(article => {
           this.articles.push(article)
         })
@@ -26,10 +25,7 @@ export class AllArticlesComponent implements OnInit{
       (error) => {
         if (error['status'] == 403) {
           this.router.navigate(['/multisport'])
-        } else {
-
-        }
-
+        } 
       }
     )
   }
@@ -39,13 +35,12 @@ export class AllArticlesComponent implements OnInit{
   
     this.adminService.deleteArticleByTitile(title).subscribe(
        (data) => {
-        debugger
+        
         this.articles.splice(i, 1)
         this.message = 'Article deleted successfylly!'
         this.isDeleted = 1
       }, 
       (error) => {
-        debugger
         this.isDeleted = 2
         if (error['status'] == 403) {
           this.router.navigate(['/multisport'])

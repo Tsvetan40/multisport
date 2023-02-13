@@ -24,11 +24,9 @@ export class PlanInfoComponent implements OnInit{
       this.publicService.getSinglePlan(this.URLPlanName).subscribe(
   
         (data) => {
-          debugger
           this.plan = data
         },
         error => {
-          debugger
           this.router.navigate([`multisport/not-found`])
         }
       )

@@ -15,7 +15,6 @@ export class AdminComponent implements OnInit{
   
   ngOnInit(): void {
     this.user = this.adminService.getUser()
-    debugger
   }
 
 }
