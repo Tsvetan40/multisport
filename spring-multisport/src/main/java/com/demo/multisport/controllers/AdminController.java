@@ -35,9 +35,8 @@ public class AdminController {
 
         log.info(session.getId());
         log.info("manage users= " + user);
-
-         //to do email part
-        if (user == null || !user.getEmail().contains("@multisport.com")) {
+        log.info("ROLE=" + user.getRole().getRole());
+        if (user == null || !user.getRole().getRole().equals("ADMIN")) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
         }
 

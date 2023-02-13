@@ -87,7 +87,7 @@ public class AuthenticationController {
 
     @PostMapping("")
     public ResponseEntity<Optional<UserDto>> authenticationNavigation(HttpSession session) {
-        log.info("Hit check if has session");
+        log.info("Check has session");
         if (session.getAttribute("user") != null) {
             return new ResponseEntity<>(Optional.of((UserDto)session.getAttribute("user")), HttpStatus.OK);
         }

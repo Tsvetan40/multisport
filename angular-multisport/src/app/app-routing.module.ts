@@ -30,8 +30,7 @@ const routes: Routes = [
       { path: "relax-centers", component: PublicRelaxCentersComponent },
       { path: "relax-centers/:id", component: SingleRelaxCenterComponent },
       { path: "plans", component: PublicPlansComponent },
-      { path: "plans/:name", component: PlanInfoComponent },
-      { path: "**", pathMatch: 'full', component: NotFoundComponent }
+      { path: "plans/:name", component: PlanInfoComponent }
   ] },
   { path: "multisport/admin", component: AdminComponent , canActivate: [AdminGuard], canActivateChild: [AdminGuard], children : [
     { path: "articles", component: ArticleComponent },
@@ -39,8 +38,8 @@ const routes: Routes = [
     { path: "users/:id", component: AdminSingleUserComponent },
     { path: "plans", component: PlanComponent },
     { path: "centers", component: CentersComponent },
-    { path: "**", pathMatch: 'full', component: NotFoundComponent }
-  ]}
+  ]},
+  { path: "**", component: NotFoundComponent }
 ];
 
 @NgModule({
