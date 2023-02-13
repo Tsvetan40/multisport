@@ -53,7 +53,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/newuser")
-    public ResponseEntity<Optional<UserDto>> newUserRegistration(@RequestBody @Valid UserDto userDto, BindingResult error,
+    public ResponseEntity<Optional<UserDto>> userRegistration(@RequestBody @Valid UserDto userDto, BindingResult error,
                                                               HttpSession session) {
         if (error.hasErrors()) {
             Optional<UserDto> emptyUser = Optional.empty();
@@ -86,7 +86,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Optional<UserDto>> authentication(HttpSession session) {
+    public ResponseEntity<Optional<UserDto>> authenticationNavigation(HttpSession session) {
         log.info("Hit check if has session");
         if (session.getAttribute("user") != null) {
             return new ResponseEntity<>(Optional.of((UserDto)session.getAttribute("user")), HttpStatus.OK);

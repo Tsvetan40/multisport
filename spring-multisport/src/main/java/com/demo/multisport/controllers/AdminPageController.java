@@ -44,7 +44,7 @@ public class AdminPageController {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<List<ArticleDto>> getArticlesAdmin(HttpSession session) {
+    public ResponseEntity<List<ArticleDto>> getAllArticles(HttpSession session) {
         UserDto admin = (UserDto) session.getAttribute("user");
 
         log.info("Display all articles admin");

@@ -45,7 +45,7 @@ public class AdminController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<Optional<User>> allUsers(@PathVariable("id") Long id, HttpSession session) {
+    public ResponseEntity<Optional<User>> adminUser(@PathVariable("id") Long id, HttpSession session) {
         if (session.getAttribute("user") == null) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
         }

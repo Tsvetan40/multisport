@@ -24,7 +24,7 @@ export class PublicService {
   }
 
   public getSingleArticle(title: string): Observable<Article> {
-    return this.http.get<Article>(`${this.url}/articles/${title}`, { withCredentials: true })
+    return this.http.get<Article>(`${this.url}/news/${title}`, { withCredentials: true })
   }
 
   public getSinglePlan(name: string): Observable<Plan> {
@@ -36,7 +36,7 @@ export class PublicService {
    }
 
   public getAllArticle(): Observable<Article[]> {
-    return this.http.get<Article[]>(`${this.url}/articles`, { withCredentials: true })
+    return this.http.get<Article[]>(`${this.url}/news`, { withCredentials: true })
   }
 
   public getAllSportCenters(): Observable<SportCenter[]> {

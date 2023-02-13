@@ -34,7 +34,7 @@ public class PageController {
     }
 
 
-    @GetMapping("/articles/{title}")
+    @GetMapping("/news/{title}")
     public ResponseEntity<Optional<ArticleDto>> getSpecificArticle(@PathVariable(value = "title", required = true) String title) {
 
         try {
@@ -48,7 +48,7 @@ public class PageController {
 
     }
 
-    @GetMapping("/articles")
+    @GetMapping("/news")
     public ResponseEntity<List<ArticleDto>> getAllArticlesTitles() {
         try {
             return new ResponseEntity<>(pageService.getAllArticlesTitlesAndImages(), HttpStatus.OK);
