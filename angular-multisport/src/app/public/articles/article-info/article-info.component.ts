@@ -28,15 +28,17 @@ export class ArticleInfoComponent implements OnInit{
 
     this.publicService.getSingleArticle(this.title).subscribe(
       data => {
-        debugger
         this.article
           .withContent(data['content'])
           .withTitle(data['title'])
           .withPictureBase64(data['pictureBase64'])
           .withPublishedAt(new Date(data['publishedAt']))
-          .withComments(data['comments'].sort((a, b ) => {
-            return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
+          if (data.comments != null) {
+            this.article.withComments(data['comments'].sort((a, b ) => {
+              return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
           }))
+          }
+          
           this.initParagraphs(this.article.content)
       }, 
       error => {

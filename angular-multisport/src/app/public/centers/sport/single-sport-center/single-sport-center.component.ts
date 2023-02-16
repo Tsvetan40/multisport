@@ -37,9 +37,11 @@ export class SingleSportCenterComponent implements OnInit{
             this.description = this.splitDescriptionResponse(center['description']) 
             this.pictures = center['pictures']
             this.rating = center['rating']
-            this.comments = center['comments'].sort((a,b ) => {
-              return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
-            })
+            if (center.comments != null) {
+              this.comments = center['comments'].sort((a,b ) => {
+                return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
+              })  
+            }
           },
           error => {
             this.router.navigateByUrl(`multisport/not-found`)
