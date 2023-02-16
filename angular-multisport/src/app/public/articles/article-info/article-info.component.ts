@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'src/app/models/page/Article';
-import { Comment } from 'src/app/models/page/Comment';
 import { PublicService } from 'src/app/services/public.service';
 
 @Component({
@@ -29,6 +28,7 @@ export class ArticleInfoComponent implements OnInit{
 
     this.publicService.getSingleArticle(this.title).subscribe(
       data => {
+        debugger
         this.article
           .withContent(data['content'])
           .withTitle(data['title'])

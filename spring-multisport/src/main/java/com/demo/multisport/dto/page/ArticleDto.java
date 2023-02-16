@@ -1,5 +1,6 @@
 package com.demo.multisport.dto.page;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -27,6 +28,7 @@ public class ArticleDto {
 
     @NonNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime publishedAt;
 
     @JsonProperty(required = false)

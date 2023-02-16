@@ -67,8 +67,9 @@ public class UserMapper {
                 .age(userDto.getAge())
                 .status(userDto.getStatus())
                 .role(userDto.getRole())
-                .plan(planRepository.getPlanByName(userDto.getPlan().getName())
-                        .orElseThrow(() -> new NoSuchPlanException("Cannot map plan, no such plan name")))
+                .plan(userDto.getPlan() != null ? planRepository.getPlanByName(userDto.getPlan().getName())
+                        .orElseThrow(() -> new NoSuchPlanException("Cannot map plan, no such plan name"))
+                        : null)
                 .comments(userDto.getComments() != null ?
                                                         userDto.getComments()
                                                         .stream()

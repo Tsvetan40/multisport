@@ -16,8 +16,7 @@ export class CommentsComponent {
   }
 
   public dateToString(comment: Comment) {
-    console.log(comment.publishedAt)
-    console.log(typeof (comment.publishedAt))
+    
     const date = new Date(comment.publishedAt);
     return date.toDateString()
   }

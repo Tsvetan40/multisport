@@ -28,10 +28,12 @@ public class PlanAdminMapperImpl implements PlanMapper {
                 .name(planDto.getName())
                 .price(planDto.getPrice())
                 .pathFile(filePath)
-                .subscribedUsers(planDto.getUsers()
+                .subscribedUsers(planDto.getUsers() != null ?
+                        planDto.getUsers()
                         .stream()
                         .map(userMapper::userDtoToUser)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                        : null)
                 .centers(planDto
                         .getCentersAddresses()
                         .stream()
