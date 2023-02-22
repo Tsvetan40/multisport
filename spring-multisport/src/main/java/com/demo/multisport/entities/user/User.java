@@ -43,14 +43,10 @@ public class User implements Serializable {
     private String email;
 
     @NotBlank
-    @Size(min = 10, max = 26)
-    @Column(columnDefinition = "CHAR(26) NOT NULL")
+    @Size(min = 10, max = 60)
+    @Column(columnDefinition = "CHAR(60) NOT NULL")
     private String password;
-
-    @Size(min = 10, max = 10)
-    @Column(columnDefinition = "CHAR(10) NOT NULL")
-    private String salt;
-
+    
     @Positive
     private int age;
 

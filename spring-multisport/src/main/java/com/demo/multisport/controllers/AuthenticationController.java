@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
@@ -47,7 +48,7 @@ public class AuthenticationController {
             session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
 
             return new ResponseEntity<>(Optional.of(user), HttpStatus.CREATED);
-        } catch (UserNotFoundException | PlanMapperException e) {
+        } catch (UserNotFoundException | PlanMapperException | UsernameNotFoundException e) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.UNAUTHORIZED);
         }
     }
