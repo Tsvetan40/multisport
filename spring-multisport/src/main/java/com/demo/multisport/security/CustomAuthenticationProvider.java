@@ -34,8 +34,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Username or password don't match");
         }
 
-        System.out.println(securityUser.getPassword());
-
         return new UsernamePasswordAuthenticationToken(username,
                 securityUser.getPassword(),
                 securityUser.getAuthorities());
