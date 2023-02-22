@@ -40,12 +40,8 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public UserDto loginUser(String email, String password) {
+    public UserDto loginUser(String email) {
         SecurityUser securityUser = jpaUserService.loadUserByUsername(email);
-
-        if (!bCryptPasswordEncoder.matches(password, securityUser.getPassword())) {
-            throw new UserNotFoundException(String.format("User with email %s and password %s not found", email, password));
-        }
 
         User loggedUser = securityUser.getUser();
         return userMapper.userToUserDto(loggedUser);

@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -31,17 +32,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Optional<UserDto>> login(@RequestBody @Valid LoggedUserDto loggedUser,
-                                                BindingResult bindingResult,
-                                                HttpSession session) {
-        if (bindingResult.hasErrors()) {
-            Optional<UserDto> emptyUser = Optional.empty();
-            return new ResponseEntity<>(emptyUser, HttpStatus.OK);
-        }
-        log.info("user= " + session.getAttribute("user"));
+    public ResponseEntity<Optional<UserDto>> login(Authentication authentication,
+                                                   HttpSession session) {
 
         try {
-            UserDto user = userService.loginUser(loggedUser.getEmail(), loggedUser.getPassword());
+            UserDto user = userService.loginUser(authentication.getName());
             session.setAttribute("user", user);
 
             log.info("Logged info successfully");
