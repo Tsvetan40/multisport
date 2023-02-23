@@ -94,4 +94,10 @@ public class UserService {
     public Optional<UserDto> restoreUserRights(Long id) {
         return changeStatusUser(id, Status.ACTIVE);
     }
+
+    public UserDto getUserByEmail(String email) {
+        User user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User with email " + email + " does not exists"));
+        return userMapper.userToUserDto(user);
+    }
 }

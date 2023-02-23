@@ -5,15 +5,14 @@ import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.center.ICenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.page.CommentDto;
-import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.services.page.PageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpSession;
 import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -106,14 +105,9 @@ public class PageController {
     @PostMapping("news/{title}")
     public ResponseEntity<CommentDto> addCommentArticle(@PathVariable("title") String title,
                                                         @RequestBody CommentDto comment,
-                                                        HttpSession session) {
+                                                        Authentication authentication) {
 
-        UserDto user = (UserDto) session.getAttribute("user");
-        if (user == null) {
-            return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
-        }
-
-        addInfoCommentDto(comment, user.getEmail());
+        addInfoCommentDto(comment, authentication.getName());
         try {
             return new ResponseEntity<>(pageService.addComment(comment), HttpStatus.CREATED);
         } catch (InvalidParameterException e) {
@@ -125,13 +119,9 @@ public class PageController {
     @PostMapping("relax-centers/{id}")
     public ResponseEntity<CommentDto> addCommentRelaxCenter(@PathVariable("id") Long id,
                                                             @RequestBody CommentDto comment,
-                                                            HttpSession session) {
-        UserDto user = (UserDto) session.getAttribute("user");
-        if (user == null) {
-            return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
-        }
+                                                            Authentication authentication) {
 
-        addInfoCommentDto(comment, user.getEmail());
+        addInfoCommentDto(comment, authentication.getName());
 
         try {
             return new ResponseEntity<>(pageService.addComment(comment), HttpStatus.CREATED);
@@ -143,14 +133,9 @@ public class PageController {
     @PostMapping("sport-centers/{id}")
     public ResponseEntity<CommentDto> addCommentSportCenter(@PathVariable("id") Long id,
                                                             @RequestBody CommentDto comment,
-                                                            HttpSession session) {
-        UserDto user = (UserDto) session.getAttribute("user");
-        if (user == null) {
-            return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
-        }
+                                                            Authentication authentication) {
 
-        addInfoCommentDto(comment, user.getEmail());
-
+        addInfoCommentDto(comment, authentication.getName());
         try {
             return new ResponseEntity<>(pageService.addComment(comment), HttpStatus.CREATED);
         } catch (InvalidParameterException e) {

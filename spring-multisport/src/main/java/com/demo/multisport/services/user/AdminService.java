@@ -80,6 +80,10 @@ public class AdminService {
         return userService.getUserById(id);
     }
 
+    public UserDto getUserByEmail(String email) {
+        return userService.getUserByEmail(email);
+    }
+
     public Optional<UserDto> blockUser(Long id) {
       return userService.blockUser(id);
     }

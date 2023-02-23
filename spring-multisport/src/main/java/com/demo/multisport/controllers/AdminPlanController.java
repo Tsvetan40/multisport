@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
@@ -40,11 +39,8 @@ public class AdminPlanController {
     public ResponseEntity<Optional<PlanDto>> addPlan(@RequestPart String name,
                                                      @RequestPart String price,
                                                      @RequestPart MultipartFile file,
-                                                     @RequestPart String centersAddresses,
-                                                     HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
-        }
+                                                     @RequestPart String centersAddresses
+                                                     ) {
 
         PlanDto planDto;
         try {

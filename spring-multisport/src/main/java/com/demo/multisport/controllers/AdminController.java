@@ -11,8 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -30,24 +30,25 @@ public class AdminController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Optional<UserDto>> manageUsersAdmin(HttpSession session) {
-        UserDto user = (UserDto) session.getAttribute("user");
+    public ResponseEntity<Optional<UserDto>> manageUsersAdmin(Authentication authentication) {
 
-        log.info(session.getId());
-        log.info("manage users= " + user);
-        log.info("ROLE=" + user.getRole().getRole());
-        if (user == null || !user.getRole().getRole().equals("ADMIN")) {
+        if (authentication == null) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(Optional.of(user), HttpStatus.OK);
+        boolean isAdmin = authentication.getAuthorities()
+                .stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
+
+        if (isAdmin) {
+            return new ResponseEntity<>(Optional.of(adminService.getUserByEmail(authentication.getName())), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<Optional<User>> adminUser(@PathVariable("id") Long id, HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
-        }
+    public ResponseEntity<Optional<User>> adminUser(@PathVariable("id") Long id) {
 
         try {
             return new ResponseEntity<>(Optional.of(this.adminService.getUserById(id)), HttpStatus.OK);
@@ -76,10 +77,7 @@ public class AdminController {
     }
 
     @PostMapping("/users/newadmin")
-    public ResponseEntity<Optional<UserDto>> newAdmin(@RequestBody @Valid UserDto user, HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
-        }
+    public ResponseEntity<Optional<UserDto>> newAdmin(@RequestBody @Valid UserDto user) {
 
         try {
             adminService.addAdmin(user);
