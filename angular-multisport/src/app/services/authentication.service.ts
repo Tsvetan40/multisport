@@ -17,9 +17,14 @@ export class AuthenticationService {
 
   public login(user: LoggedUser): Observable<User> {
     
-    const logedUserJSON = {'email': user.email, 'password': user.password }
+    const credetentials = user.email + ':' + user.password;
 
-    return this.http.post<User>(`${this.url}/login`, logedUserJSON, { withCredentials: true });
+    const authHeader = new HttpHeaders({
+      'Authorization': 'Basic ' + window.btoa(credetentials)
+    })
+
+    const options = { headers: authHeader, withCredentials: true }
+    return this.http.post<User>(`${this.url}/login`, { }, options);
   }
 
   public registartion(user: RegisteredUser): Observable<RegisteredUser> {
