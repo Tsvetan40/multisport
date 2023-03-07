@@ -27,18 +27,12 @@ export class AuthenticationService {
     this.email = user.email
     this.password = user.password
 
-    const credetentials = this.email + ':' + this.password
-
-    const authHeader = new HttpHeaders({
-      'Authorization': 'Basic ' + window.btoa(credetentials)
-    })
-
-    const options = { headers: authHeader, withCredentials: true }
-    return this.http.post<User>(`${this.url}/login`, { }, options);
+    return this.http.post<User>(`${this.url}/login`, { }, this.createOptions() )
   }
 
   public registartion(user: RegisteredUser): Observable<RegisteredUser> {
-    const regUserJSON = {'firstName': user.firstName,
+    const regUserJSON = {
+      'firstName': user.firstName,
       'secondName': user.secondName,
       'age': user.age,
       'email': user.email,
@@ -49,8 +43,8 @@ export class AuthenticationService {
 
     this.email = user.email
     this.password = user.password
-
-    return this.http.post<RegisteredUser>(`${this.url}/newuser`, regUserJSON, { withCredentials: true })
+    
+    return this.http.post<RegisteredUser>(`${this.url}/newuser`, regUserJSON, this.createOptions())
   }
 
   public logout() {
@@ -65,5 +59,28 @@ export class AuthenticationService {
 
   public checkCredetentials(): boolean {
     return this.isAdmin
+  }
+
+  public getEmail(): string {
+    return this.email;
+  }
+
+  public getPassword(): string {
+    return this.password;
+  }
+
+  private basicAuthHeader(): HttpHeaders {
+    const credetentials = this.email + ':' + this.password
+
+    const authHeader = new HttpHeaders({
+      'Authorization': 'Basic ' + window.btoa(credetentials)
+    })
+    return authHeader;
+  }
+
+  public createOptions(): Object {
+    const authHeader = this.basicAuthHeader()
+    const options = { headers: authHeader, withCredentials: true }
+    return options
   }
 }
