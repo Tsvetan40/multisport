@@ -75,7 +75,7 @@ export class NavigationComponent implements OnInit{
 
   logout(): void {
     this.isAdmin = false
-    this.authService.setIsAdmin(false)
+    this.authService.logout()
     this.router.navigateByUrl('/multisport')
   }
 

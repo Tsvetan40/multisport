@@ -24,7 +24,6 @@ export class CentersComponent {
 
   addPictureList(picture: HTMLInputElement) {
     if (!picture.value) {
-      console.log('display error message')
       return
     }
 

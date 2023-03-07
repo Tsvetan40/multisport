@@ -17,8 +17,8 @@ export class AuthenticationService {
   private isAdmin: boolean 
 
   constructor(private http: HttpClient) { 
-    this.email = ''
-    this.password = ''
+    this.email = 'anonymous'
+    this.password = 'anonymous'
     this.isAdmin = false
   }
 
@@ -48,8 +48,8 @@ export class AuthenticationService {
   }
 
   public logout() {
-    this.email = ''
-    this.password = ''
+    this.email = 'anonymous'
+    this.password = 'anonymous'
     this.isAdmin = false
   }
 
@@ -73,7 +73,8 @@ export class AuthenticationService {
     const credetentials = this.email + ':' + this.password
 
     const authHeader = new HttpHeaders({
-      'Authorization': 'Basic ' + window.btoa(credetentials)
+      'Authorization': 'Basic ' + window.btoa(credetentials),
+      'X-Requested-With': 'XMLHttpRequest'
     })
     return authHeader;
   }
