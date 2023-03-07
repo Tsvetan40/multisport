@@ -12,12 +12,22 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class AuthenticationService {
   readonly url: string = "http://localhost:8080/multisport"
-  
-  constructor(private http: HttpClient) { }
+  private email: string
+  private password: string
+  private isAdmin: boolean 
+
+  constructor(private http: HttpClient) { 
+    this.email = ''
+    this.password = ''
+    this.isAdmin = false
+  }
 
   public login(user: LoggedUser): Observable<User> {
     
-    const credetentials = user.email + ':' + user.password;
+    this.email = user.email
+    this.password = user.password
+
+    const credetentials = this.email + ':' + this.password
 
     const authHeader = new HttpHeaders({
       'Authorization': 'Basic ' + window.btoa(credetentials)
@@ -37,14 +47,23 @@ export class AuthenticationService {
       'role': user.role 
     }
 
+    this.email = user.email
+    this.password = user.password
+
     return this.http.post<RegisteredUser>(`${this.url}/newuser`, regUserJSON, { withCredentials: true })
   }
 
-  public logout(): Observable<RegisteredUser> {
-    return this.http.post<RegisteredUser>(`${this.url}/logout`, {}, { withCredentials:true })
+  public logout() {
+    this.email = ''
+    this.password = ''
+    this.isAdmin = false
   }
 
-  public checkSession(): Observable<User> {
-    return this.http.post<User>(this.url, {}, { withCredentials: true })
+  public setIsAdmin(isAdmin: boolean) {
+    this.isAdmin = isAdmin
+  }
+
+  public checkCredetentials(): boolean {
+    return this.isAdmin
   }
 }

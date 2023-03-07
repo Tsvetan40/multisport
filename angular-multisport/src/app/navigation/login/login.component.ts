@@ -36,9 +36,11 @@ export class LoginComponent {
     this.loginService.login(loggedUser).subscribe(
       data => {
         if (data['role'] == Role.ADMIN) {
-          this.isAdminEventEmitter.emit(true)
+          this.loginService.setIsAdmin(true)
+          this.isAdminEventEmitter.emit(this.loginService.checkCredetentials())
         } else {
-          this.isAdminEventEmitter.emit(false)
+          this.loginService.setIsAdmin(false)
+          this.isAdminEventEmitter.emit(this.loginService.checkCredetentials())
         }
         this.hasLoginError = false
         this.close()
