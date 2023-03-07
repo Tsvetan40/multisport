@@ -1,4 +1,5 @@
 import { Component, HostListener, Input, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { Role } from '../models/user/Role';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -16,24 +17,10 @@ export class NavigationComponent implements OnInit{
   public popupBtn: string = ''
   private readonly phoneWidth: number = 400
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
   ngOnInit(): void {
-    
-
-    this.authService.checkSession().subscribe(
-
-      (data) => {
-        if (data == null) {
-          this.isAdmin = false
-        } else if (data['role'] == Role.ADMIN){
-          this.isAdmin = true
-        } else {
-          this.isAdmin = false
-        }
-      }
-    )
-
+    this.isAdmin =  this.authService.checkCredetentials()
     this.screenWidth = window.innerWidth
    
     if (this.screenWidth > this.phoneWidth) {
@@ -87,8 +74,9 @@ export class NavigationComponent implements OnInit{
   }
 
   logout(): void {
-    this.authService.logout().subscribe()
     this.isAdmin = false
+    this.authService.logout()
+    this.router.navigateByUrl('/multisport')
   }
 
 }

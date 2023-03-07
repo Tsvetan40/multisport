@@ -52,9 +52,11 @@ export class RegistrationComponent {
     this.authService.registartion(user).subscribe(
       data => {
         if (data['role'] == Role.ADMIN) {
-          this.isAdminEventEmitter.emit(true)
+          this.authService.setIsAdmin(true)
+          this.isAdminEventEmitter.emit(this.authService.checkCredetentials())
         } else {
-          this.isAdminEventEmitter.emit(false)
+          this.authService.setIsAdmin(false)
+          this.isAdminEventEmitter.emit(this.authService.checkCredetentials())
         }
 
         this.hasAuthenticationError = false

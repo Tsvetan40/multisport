@@ -61,20 +61,11 @@ public class AuthenticationController {
 
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<Optional<UserDto>> logout() {
-        return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
-    }
-
     @PostMapping("")
     public ResponseEntity<Optional<UserDto>> authorizationNavigation() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        boolean isAdmin = auth.getAuthorities()
-                .stream()
-                .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
-
-        if (isAdmin) {
+        if (userService.checkAdminCredentials(auth)) {
             return new ResponseEntity<>(Optional.of(userService.getUserByEmail(auth.getName())), HttpStatus.OK);
         }
 

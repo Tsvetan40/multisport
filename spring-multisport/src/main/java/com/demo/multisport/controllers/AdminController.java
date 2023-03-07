@@ -36,11 +36,7 @@ public class AdminController {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
         }
 
-        boolean isAdmin = authentication.getAuthorities()
-                .stream()
-                .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
-
-        if (isAdmin) {
+        if (adminService.checkAdminCredentials(authentication)) {
             return new ResponseEntity<>(Optional.of(adminService.getUserByEmail(authentication.getName())), HttpStatus.OK);
         }
 

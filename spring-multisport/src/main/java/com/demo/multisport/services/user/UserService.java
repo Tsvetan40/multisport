@@ -13,6 +13,7 @@ import com.demo.multisport.mapper.impl.UserMapper;
 import com.demo.multisport.security.JpaUserService;
 import com.demo.multisport.security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
@@ -99,5 +100,11 @@ public class UserService {
         User user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with email " + email + " does not exists"));
         return userMapper.userToUserDto(user);
+    }
+
+    public boolean checkAdminCredentials(Authentication authentication) {
+        return authentication.getAuthorities()
+                .stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
     }
 }

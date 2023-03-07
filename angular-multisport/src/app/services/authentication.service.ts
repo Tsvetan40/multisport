@@ -12,18 +12,27 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class AuthenticationService {
   readonly url: string = "http://localhost:8080/multisport"
-  
-  constructor(private http: HttpClient) { }
+  private email: string
+  private password: string
+  private isAdmin: boolean 
+
+  constructor(private http: HttpClient) { 
+    this.email = 'anonymous'
+    this.password = 'anonymous'
+    this.isAdmin = false
+  }
 
   public login(user: LoggedUser): Observable<User> {
     
-    const logedUserJSON = {'email': user.email, 'password': user.password }
+    this.email = user.email
+    this.password = user.password
 
-    return this.http.post<User>(`${this.url}/login`, logedUserJSON, { withCredentials: true });
+    return this.http.post<User>(`${this.url}/login`, { }, this.createOptions() )
   }
 
   public registartion(user: RegisteredUser): Observable<RegisteredUser> {
-    const regUserJSON = {'firstName': user.firstName,
+    const regUserJSON = {
+      'firstName': user.firstName,
       'secondName': user.secondName,
       'age': user.age,
       'email': user.email,
@@ -32,14 +41,47 @@ export class AuthenticationService {
       'role': user.role 
     }
 
-    return this.http.post<RegisteredUser>(`${this.url}/newuser`, regUserJSON, { withCredentials: true })
+    this.email = user.email
+    this.password = user.password
+    
+    return this.http.post<RegisteredUser>(`${this.url}/newuser`, regUserJSON, this.createOptions())
   }
 
-  public logout(): Observable<RegisteredUser> {
-    return this.http.post<RegisteredUser>(`${this.url}/logout`, {}, { withCredentials:true })
+  public logout() {
+    this.email = 'anonymous'
+    this.password = 'anonymous'
+    this.isAdmin = false
   }
 
-  public checkSession(): Observable<User> {
-    return this.http.post<User>(this.url, {}, { withCredentials: true })
+  public setIsAdmin(isAdmin: boolean) {
+    this.isAdmin = isAdmin
+  }
+
+  public checkCredetentials(): boolean {
+    return this.isAdmin
+  }
+
+  public getEmail(): string {
+    return this.email;
+  }
+
+  public getPassword(): string {
+    return this.password;
+  }
+
+  private basicAuthHeader(): HttpHeaders {
+    const credetentials = this.email + ':' + this.password
+
+    const authHeader = new HttpHeaders({
+      'Authorization': 'Basic ' + window.btoa(credetentials),
+      'X-Requested-With': 'XMLHttpRequest'
+    })
+    return authHeader;
+  }
+
+  public createOptions(): Object {
+    const authHeader = this.basicAuthHeader()
+    const options = { headers: authHeader, withCredentials: true }
+    return options
   }
 }
