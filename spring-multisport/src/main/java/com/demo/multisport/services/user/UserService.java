@@ -107,4 +107,10 @@ public class UserService {
                 .stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
     }
+
+    public boolean isUserBlocked(String email) {
+        String status = userRepository.getUserStatusByEmail(email);
+
+        return status.equals("BLOCKED");
+    }
 }

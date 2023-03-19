@@ -72,9 +72,9 @@ export class ArticleInfoComponent implements OnInit{
         }, 
         error => {
           if (error['status'] == 403) {
-            alert("You must be logged in to add a comemnt")
+            alert("You are either blocked or not logged")
           } else {
-            alert('can not add a comment')
+            alert('cannot add a comment')
           }
         }
       )

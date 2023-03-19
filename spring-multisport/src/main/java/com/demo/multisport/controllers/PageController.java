@@ -8,6 +8,7 @@ import com.demo.multisport.dto.page.CommentDto;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.NoSuchArticleException;
 import com.demo.multisport.services.page.PageServiceImpl;
+import com.demo.multisport.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +24,15 @@ import java.util.Set;
 @RequestMapping("/multisport")
 public class PageController {
 
+    private final UserService userService;
     private final PageServiceImpl pageService;
     private final String SPORT_CENTER_TYPE = "SportCenter";
     private final String RELAX_CENTER_TYPE = "RelaxCenter";
 
     @Autowired
-    public PageController(PageServiceImpl pageService) {
+    public PageController(PageServiceImpl pageService, UserService userService) {
         this.pageService = pageService;
+        this.userService = userService;
     }
 
 
@@ -106,6 +109,9 @@ public class PageController {
     public ResponseEntity<CommentDto> addCommentArticle(@PathVariable("title") String title,
                                                         @RequestBody CommentDto comment,
                                                         Authentication authentication) {
+        if (userService.isUserBlocked(authentication.getName())) {
+            return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
+        }
 
         addInfoCommentDto(comment, authentication.getName());
         try {
@@ -120,6 +126,9 @@ public class PageController {
     public ResponseEntity<CommentDto> addCommentRelaxCenter(@PathVariable("id") Long id,
                                                             @RequestBody CommentDto comment,
                                                             Authentication authentication) {
+        if (userService.isUserBlocked(authentication.getName())) {
+            return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
+        }
 
         addInfoCommentDto(comment, authentication.getName());
 
@@ -134,6 +143,9 @@ public class PageController {
     public ResponseEntity<CommentDto> addCommentSportCenter(@PathVariable("id") Long id,
                                                             @RequestBody CommentDto comment,
                                                             Authentication authentication) {
+        if (userService.isUserBlocked(authentication.getName())) {
+            return new ResponseEntity<>(comment, HttpStatus.FORBIDDEN);
+        }
 
         addInfoCommentDto(comment, authentication.getName());
         try {

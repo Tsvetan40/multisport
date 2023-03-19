@@ -68,7 +68,7 @@ export class SingleRelaxCenterComponent implements OnInit{
         }, 
         error => {
           if (error['status'] == 403) {
-            alert("You must be logged in to post a comment")
+            alert("You are either blocked or not logged")
           } else {
             alert("Not able to add comment")
           }

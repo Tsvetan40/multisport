@@ -44,7 +44,7 @@ export class AuthenticationService {
     this.email = user.email
     this.password = user.password
     
-    return this.http.post<RegisteredUser>(`${this.url}/newuser`, regUserJSON, this.createOptions())
+    return this.http.post<RegisteredUser>(`${this.url}/newuser`, regUserJSON)
   }
 
   public logout() {
