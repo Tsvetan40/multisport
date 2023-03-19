@@ -10,9 +10,11 @@ import com.demo.multisport.exceptions.plan.NoSuchPlanException;
 import com.demo.multisport.exceptions.user.UserDuplicateException;
 import com.demo.multisport.exceptions.user.UserNotFoundException;
 import com.demo.multisport.mapper.impl.UserMapper;
-import com.demo.multisport.services.impl.PasswordHashService;
-import com.demo.multisport.services.impl.SaltGeneratorService;
+import com.demo.multisport.security.JpaUserService;
+import com.demo.multisport.security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -21,39 +23,29 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final SaltGeneratorService saltService;
-    private final PasswordHashService hashService;
     private final UserMapper userMapper;
     private final PlanRepository planRepository;
+    private final JpaUserService jpaUserService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository,
-                       SaltGeneratorService saltService,
-                       PasswordHashService hashService,
                        UserMapper userMapper,
-                       PlanRepository planRepository) {
+                       PlanRepository planRepository,
+                       JpaUserService jpaUserService,
+                       BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
-        this.saltService = saltService;
-        this.hashService = hashService;
         this.userMapper = userMapper;
         this.planRepository = planRepository;
+        this.jpaUserService = jpaUserService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public UserDto loginUser(String email, String password) {
+    public UserDto loginUser(String email) {
+        SecurityUser securityUser = jpaUserService.loadUserByUsername(email);
 
-        if (!hasUser(email)) {
-            throw new UserNotFoundException(String.format("User with email %s and password %s not found", email, password));
-        }
-
-        String salt = userRepository.getSaltByEmail(email);
-        Optional<User> loggedUser = userRepository.findUserByEmailAndPassword(email, hashService.hash(password, salt));
-
-        if (loggedUser.isEmpty()) {
-            throw new UserNotFoundException(String.format("User with email %s and password %s not found", email, password));
-        }
-
-        return userMapper.userToUserDto(loggedUser.get());
-
+        User loggedUser = securityUser.getUser();
+        return userMapper.userToUserDto(loggedUser);
     }
 
     public User registerUser(UserDto userDto) {
@@ -62,8 +54,7 @@ public class UserService {
         }
 
         User user = userMapper.userDtoToUser(userDto);
-        user.setSalt(saltService.generate());
-        user.setPassword(hashService.hash(user.getPassword(), user.getSalt()));
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
 
         return userRepository.save(user);
     }
@@ -103,5 +94,23 @@ public class UserService {
 
     public Optional<UserDto> restoreUserRights(Long id) {
         return changeStatusUser(id, Status.ACTIVE);
+    }
+
+    public UserDto getUserByEmail(String email) {
+        User user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User with email " + email + " does not exists"));
+        return userMapper.userToUserDto(user);
+    }
+
+    public boolean checkAdminCredentials(Authentication authentication) {
+        return authentication.getAuthorities()
+                .stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
+    }
+
+    public boolean isUserBlocked(String email) {
+        String status = userRepository.getUserStatusByEmail(email);
+
+        return status.equals("BLOCKED");
     }
 }

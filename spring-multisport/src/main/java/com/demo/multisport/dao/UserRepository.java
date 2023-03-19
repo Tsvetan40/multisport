@@ -12,13 +12,11 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findUserById(Long id);
 
-    Optional<User> findUserByEmailAndPassword(String email, String password);
-
-    @Query(nativeQuery = true,
-        value = "SELECT salt FROM users WHERE email =:email")
-    String getSaltByEmail(@Param("email") String email);
-
     long countUserByEmail(String email);
 
     Optional<User> findUserByEmail(String email);
+
+    @Query(nativeQuery = true,
+           value = "SELECT status FROM users WHERE email=:email")
+    String getUserStatusByEmail(@Param("email") String email);
 }

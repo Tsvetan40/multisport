@@ -10,8 +10,8 @@ import com.demo.multisport.services.page.PageServiceImpl;
 import com.demo.multisport.services.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
@@ -31,12 +31,9 @@ public class PlanController {
     @PostMapping("/plans/{name}")
     public ResponseEntity<PlanDto> enrollPlan(@PathVariable("name") String planName,
                                               @RequestBody PlanDto plan,
-                                              HttpSession session) {
-        UserDto user = (UserDto) session.getAttribute("user");
-        if (user == null) {
-            return new ResponseEntity<>(plan, HttpStatus.FORBIDDEN);
-        }
+                                              Authentication authentication) {
 
+        UserDto user =  userService.getUserByEmail(authentication.getName());
         try {
             userService.enrollPlan(user, planName);
             return new ResponseEntity<>(plan, HttpStatus.CREATED);

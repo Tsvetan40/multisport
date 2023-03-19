@@ -3,7 +3,6 @@ package com.demo.multisport.controllers;
 
 import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
-import com.demo.multisport.dto.user.UserDto;
 import com.demo.multisport.exceptions.CenterDuplicateException;
 import com.demo.multisport.exceptions.CenterNotFoundException;
 import com.demo.multisport.exceptions.article.ArticleDuplicateException;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -30,11 +28,8 @@ public class AdminPageController {
     private final AdminService adminService;
 
     @DeleteMapping("/articles")
-    public ResponseEntity<HttpStatus> deleteArticle(@RequestParam(required = true, name = "title") String title,
-                                                              HttpSession session) {
-        if (session.getAttribute("user") == null) {
-               return ResponseEntity.status(403).build();
-        }
+    public ResponseEntity<HttpStatus> deleteArticle(@RequestParam(required = true, name = "title") String title) {
+
         try {
             adminService.deleteArticle(title);
             return ResponseEntity.ok().build();
@@ -44,15 +39,7 @@ public class AdminPageController {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<List<ArticleDto>> getAllArticles(HttpSession session) {
-        UserDto admin = (UserDto) session.getAttribute("user");
-
-        log.info("Display all articles admin");
-        log.info("user= " + admin);
-
-        if (admin == null) {
-            return new ResponseEntity<>(List.of(), HttpStatus.FORBIDDEN);
-        }
+    public ResponseEntity<List<ArticleDto>> getAllArticles() {
 
         try {
             return new ResponseEntity<>(adminService.getAllArticlesTitlesAndImages(), HttpStatus.OK);
@@ -65,12 +52,7 @@ public class AdminPageController {
     @PostMapping("/articles/newarticle")
     public ResponseEntity<Optional<ArticleDto>> postArticle(@RequestPart String title,
                                                             @RequestPart String content,
-                                                            @RequestPart MultipartFile picture,
-                                                            HttpSession session) {
-
-        if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
-        }
+                                                            @RequestPart MultipartFile picture) {
 
         if (title.length() > 50 || title.length() < 4) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
@@ -88,9 +70,7 @@ public class AdminPageController {
     }
 
     @DeleteMapping("/centers")
-    public ResponseEntity<String> deleteCenter(@RequestParam(name = "address", required = true) String address,
-                                               HttpSession session) {
-        //to do authorization
+    public ResponseEntity<String> deleteCenter(@RequestParam(name = "address", required = true) String address) {
 
         try {
             adminService.deleteCenter(address);
@@ -102,11 +82,7 @@ public class AdminPageController {
     }
 
     @PostMapping("/centers/newcenter")
-    public ResponseEntity<Optional<CenterDto>> addCenter(@RequestBody @Valid CenterDto centerDto, HttpSession session) {
-
-        if (session.getAttribute("user") == null) {
-            return new ResponseEntity<>(Optional.empty(), HttpStatus.FORBIDDEN);
-        }
+    public ResponseEntity<Optional<CenterDto>> addCenter(@RequestBody @Valid CenterDto centerDto) {
 
         try {
             adminService.addCenter(centerDto);

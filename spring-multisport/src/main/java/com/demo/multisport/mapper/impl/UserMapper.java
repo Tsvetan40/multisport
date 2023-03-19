@@ -41,7 +41,9 @@ public class UserMapper {
                             .stream()
                             .map(commentMapper::commentToCommentDto)
                             .collect(Collectors.toList()))
-                    .plan(PlanDto
+                    .plan(user.getPlan() == null ?
+                            null :
+                            PlanDto
                             .builder()
                             .name(planUser.getName())
                             .price(planUser.getPrice())

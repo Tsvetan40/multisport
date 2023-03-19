@@ -12,15 +12,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConf implements WebMvcConfigurer {
 
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedOrigins("http://localhost:4200")
-                .allowedHeaders(CorsConfiguration.ALL)
-                .allowCredentials(true)
-                .exposedHeaders("Origin", "Content-TypeCenter", "Accept", "Authorization",
-                        "Access-Control-Allow-Origin", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials");
-
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedMethods("GET", "POST", "PUT", "DELETE")
+//                .allowedOrigins("http://localhost:4200")
+//                .allowedHeaders(CorsConfiguration.ALL)
+//                .allowCredentials(true)
+//                .exposedHeaders("Origin", "Content-TypeCenter", "Accept", "Authorization",
+//                        "Access-Control-Allow-Origin", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials");
+//
+//    }
 }

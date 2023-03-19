@@ -12,6 +12,7 @@ import com.demo.multisport.services.page.AdminPageServiceImpl;
 import com.demo.multisport.services.plan.PlanService;
 import com.demo.multisport.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -78,6 +79,14 @@ public class AdminService {
 
     public User getUserById(Long id) {
         return userService.getUserById(id);
+    }
+
+    public boolean checkAdminCredentials(Authentication authentication) {
+        return userService.checkAdminCredentials(authentication);
+    }
+
+    public UserDto getUserByEmail(String email) {
+        return userService.getUserByEmail(email);
     }
 
     public Optional<UserDto> blockUser(Long id) {

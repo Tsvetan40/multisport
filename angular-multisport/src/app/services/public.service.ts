@@ -6,6 +6,7 @@ import { SportCenter } from '../models/centers/SportCenter';
 import { Article } from '../models/page/Article';
 import { Comment } from '../models/page/Comment';
 import { Plan } from '../models/Plan';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class PublicService {
 
   private readonly url: string = "http://localhost:8080/multisport"
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
+
   public getSingleRelaxCenter(id: number): Observable<RelaxCenter> {
     return this.http.get<RelaxCenter>(`${this.url}/relax-centers/${id}`, { withCredentials: true })
   }
@@ -48,18 +50,18 @@ export class PublicService {
   }
 
   public addCommentArticle(comment: any, title: string): Observable<Comment> {
-    return this.http.post<Comment>(`${this.url}/news/${title}`, comment, { withCredentials: true })
+    return this.http.post<Comment>(`${this.url}/news/${title}`, comment, this.authService.createOptions())
   }
 
   public addCommentRelaxCenter(comment: any, id: number): Observable<Comment> {
-    return this.http.post<Comment>(`${this.url}/relax-centers/${id}`, comment, { withCredentials: true })
+    return this.http.post<Comment>(`${this.url}/relax-centers/${id}`, comment, this.authService.createOptions())
   }
 
   public addCommentSportCenter(comment: any, id: number): Observable<Comment> {
-    return this.http.post<Comment>(`${this.url}/sport-centers/${id}`, comment, { withCredentials: true })
+    return this.http.post<Comment>(`${this.url}/sport-centers/${id}`, comment, this.authService.createOptions())
   }
 
   public subscribeToPlan(plan: Plan): Observable<Plan> {
-    return this.http.post<Plan>(`${this.url}/plans/${plan.name}`, plan, { withCredentials: true })
+    return this.http.post<Plan>(`${this.url}/plans/${plan.name}`, plan, this.authService.createOptions())
   }
 }
