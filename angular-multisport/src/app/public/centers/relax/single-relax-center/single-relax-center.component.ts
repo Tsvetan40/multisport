@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CenterType } from 'src/app/models/centers/typecenter/CenterType';
 import { Comment } from 'src/app/models/page/Comment';
 import { PublicService } from 'src/app/services/public.service';
+import { faStar as regularStar} from '@fortawesome/free-regular-svg-icons';
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-single-relax-center',
@@ -19,7 +20,9 @@ export class SingleRelaxCenterComponent implements OnInit{
   rating: number = 5
   services: string[] = []
   comments: Comment[] = []
-
+  sStar = solidStar
+  rStar = regularStar
+  
   constructor(private route: ActivatedRoute, private publicService: PublicService, private router: Router) {  }
 
   private splitDescriptionResponse(description: string): string[] {

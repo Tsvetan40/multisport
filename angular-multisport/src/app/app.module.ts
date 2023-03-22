@@ -17,6 +17,7 @@ import { SingleSportCenterComponent } from './public/centers/sport/single-sport-
 import { SingleRelaxCenterComponent } from './public/centers/relax/single-relax-center/single-relax-center.component';
 import { CommentsComponent } from './public/comments/comments.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AppRoutingModule,
     HttpClientModule,
     NavigationModule,
-    AdminModule
+    AdminModule,
+    FontAwesomeModule
   ],
   providers: [PublicService],
   bootstrap: [AppComponent]
