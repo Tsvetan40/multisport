@@ -32,7 +32,6 @@ export class RatingComponent {
   }
 
   click(i: number) {
-   console.log('clicked')
     this.currClickNumber = i    
     this.isClicked = true
 
@@ -52,14 +51,12 @@ export class RatingComponent {
     }
 
     cssStyleApply()
-    
-    console.log(this.currClickNumber, this.centerId)
 
-    this.publicService.rate(this.currClickNumber, this.centerId).subscribe(
+    this.publicService.rate(this.currClickNumber + 1, this.centerId).subscribe(
       data => {
         this.rating = data
       }, error => {
-        if (error['status'] == 403) {
+        if (error['status'] == 403 || error['status'] == 401) {
           alert("You must be logged in to rate")
         } else {
           alert("Rating the center cannot be done")

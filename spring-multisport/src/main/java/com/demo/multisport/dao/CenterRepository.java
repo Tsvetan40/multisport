@@ -32,6 +32,6 @@ public interface CenterRepository extends JpaRepository<Center, Long> {
     Optional<Center> getCenterByAddress(String center);
 
     @Query(nativeQuery = true,
-           value = "SELECT rating_id FROM centers WHERE id=:id;")
+           value = "SELECT rating_id FROM centers WHERE id=:id")
     Optional<Long> getCenterRatingId(@Param("id") Long id);
 }
