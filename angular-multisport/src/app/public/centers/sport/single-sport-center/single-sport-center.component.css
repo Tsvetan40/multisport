@@ -129,3 +129,8 @@ ul {
 .comments {
     padding: 10px 50px;
 }
+
+#container-rating {
+    display: flex;
+    flex-direction: column;
+}

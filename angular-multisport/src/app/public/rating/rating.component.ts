@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faStar as regularStar} from '@fortawesome/free-regular-svg-icons';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { Star } from './star';
@@ -14,6 +14,7 @@ export class RatingComponent {
   currClickNumber: number = 0
   applyCssStyle: boolean = false
   starContainer: Array<Star> = []
+  @Input() rating: number = 0;
   
   constructor() {
     for(let i = 0; i < this.starRatingLength; ++i) {
@@ -21,10 +22,8 @@ export class RatingComponent {
     }
   }
 
-  
-
-
   click(i: number) {
+   console.log('clicked')
     this.currClickNumber = i    
     this.isClicked = true
 
