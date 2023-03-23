@@ -149,3 +149,8 @@ ul {
     gap: 10px;
     font-size: 1.2rem;
 }
+
+#container-rating {
+    display: flex;
+    flex-direction: column;
+}

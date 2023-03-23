@@ -18,6 +18,7 @@ import { SingleRelaxCenterComponent } from './public/centers/relax/single-relax-
 import { CommentsComponent } from './public/comments/comments.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RatingComponent } from './public/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SingleRelaxCenterComponent,
     CommentsComponent,
     NotFoundComponent,
+    RatingComponent,
   ],
   imports: [
     BrowserModule,

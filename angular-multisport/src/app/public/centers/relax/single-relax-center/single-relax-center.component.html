@@ -50,13 +50,8 @@
     </section>
 
     <section class="section rating">
-        <div class="container">
-            <p>
-                <fa-icon [icon]="rStar"></fa-icon>
-                <fa-icon [icon]="sStar"></fa-icon>
-            </p>
-            <span>Rating: </span>
-            <span>{{this.rating}}</span>
+        <div class="container" id="container-rating">
+            <app-rating></app-rating>        
         </div>
     </section>
 </main>

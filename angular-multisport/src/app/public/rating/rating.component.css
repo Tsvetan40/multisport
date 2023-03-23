@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.rating-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.icon-wrapper {
+    display: flex;
+}
+
+
+.unrated {
+    color: #f0e130;
+    cursor: pointer;
+}
+
+span {
+    padding-left: 10px;
+}
+
+.unrated:hover {
+    font-size: 32px;
+    transition: 0.3s;
+}
+
+.unrated:not(:hover) {
+    transition: 0.3s;
+}
+
+
+
+.rated {
+    color: #f0e130;
+    font-size: 23px;
+    transition: font-size 1s;
+}
+
+.clicked {
+    color: #f0e130;
+    font-size: 35px;
+    transition: font-size 1s;
+}

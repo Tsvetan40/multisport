@@ -1,0 +1,18 @@
+<div class="rating-wrapper">
+    <div class="icon-wrapper">
+        <div class="icon-container" *ngFor="let star of starContainer; index as i">
+
+            <p *ngIf="!shouldChange(i)">
+                <fa-icon [icon]="star._regularStar" class="unrated" (click)="click(i)"></fa-icon>    
+            </p>
+            <p *ngIf="shouldChange(i)">
+                <fa-icon [icon]="star._solidStar" class="base-rated"
+                [ngClass]="this.applyCssStyle ? 'clicked' : 'rated' "
+                >
+                </fa-icon>    
+            </p>
+
+        </div>
+        <span>Rating: 5</span>
+    </div>
+</div>
