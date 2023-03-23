@@ -15,4 +15,8 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
     @Query(nativeQuery = true,
             value = "SELECT * FROM centers c INNER JOIN ratings r on c.address=:address")
     Optional<Center> getCenter(@Param("address") String address);
+
+    @Query(nativeQuery = true,
+           value = "SELECT rate FROM ratings where id=:id")
+    Optional<Double> getRateOfRating(@Param("id") long id);
 }

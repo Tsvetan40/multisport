@@ -13,6 +13,7 @@ import javax.validation.constraints.Min;
 @RequiredArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_ABSENT)
 @Getter
+@Setter
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

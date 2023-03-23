@@ -5,6 +5,7 @@ import com.demo.multisport.dto.center.CenterDto;
 import com.demo.multisport.dto.center.ICenterDto;
 import com.demo.multisport.dto.page.ArticleDto;
 import com.demo.multisport.dto.page.CommentDto;
+import com.demo.multisport.services.RatingService;
 import com.demo.multisport.services.article.ArticleServiceImpl;
 import com.demo.multisport.services.center.CenterService;
 import com.demo.multisport.services.comment.CommentService;
@@ -22,6 +23,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class PageServiceImpl implements PageService {
 
+    private final RatingService ratingService;
     private final ArticleServiceImpl articleService;
     private final CenterService centerService;
     private final PlanService planService;
@@ -62,5 +64,9 @@ public class PageServiceImpl implements PageService {
 
     public CommentDto addComment(CommentDto commentDto) {
         return commentService.addComment(commentDto);
+    }
+
+    public double rate(int rating, long centerId) {
+        return ratingService.rate(rating, centerId);
     }
 }

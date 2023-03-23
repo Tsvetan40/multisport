@@ -154,4 +154,20 @@ public class PageController {
             return new ResponseEntity<>(comment, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("rating/{id}")
+    public ResponseEntity<Double> rateCenter(@PathVariable("id") Long centerId,
+                                             @RequestBody Integer rating) {
+        if (rating == null || rating < 1 || rating > 5) {
+            return new ResponseEntity<Double>((double)rating, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            double newRating = pageService.rate(rating, centerId);
+            return new ResponseEntity<Double>(newRating, HttpStatus.OK);
+        } catch (InvalidParameterException | CenterNotFoundException e) {
+            return new ResponseEntity<Double>((double)rating, HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }

@@ -64,4 +64,8 @@ export class PublicService {
   public subscribeToPlan(plan: Plan): Observable<Plan> {
     return this.http.post<Plan>(`${this.url}/plans/${plan.name}`, plan, this.authService.createOptions())
   }
+
+  public rate(rating: number, centerId: number): Observable<number> {
+    return this.http.post<number>(`${this.url}/rating/${centerId}`,  rating, this.authService.createOptions())
+  }
 }
